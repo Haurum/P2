@@ -25,3 +25,19 @@ Mobil-appen vil have en simpel brugergrænseflade hvor brugeren vil have mulighe
 Inden løbet skal træneren eller arrangøren, kunne uploade den bane som personen har lavet, til serveren. Banerne kan vælges fra appen på mobilen, af de forskellige løbere. Efter løbet skal brugerne som sagt kunne uploade sine resultater til websitet/serveren fra mobil appen, under og efter et endt løb. Disse resultater skal så kunne sammenlignes med de andre løbere, der har løbet den samme bane. Ud over at sammenligne statistik over løberens rute, som beskrevet ovenfor, skal den også kunne vise grafisk den rute som løberen har løbet. Derudover skal der være en replay funktion, så de vejvalg som løberen tager, kan ses. Så kan der indsættes flere løbere på den grafiske visning, så flere løberes vejvalg kan sammenlignes.
 
 \section{Gruppens løsningsforslag}
+\subsection {Løsningsstrategi}
+Løsningsstrategi til statusseminariet.
+\begin{itemize}
+\item Først vil gruppen undersøge om det er muligt, med gruppens kompetencer i C\#, at kunne dynamisk importere, vise og bruge o-løbskort til løsningen.
+\begin{itemize}
+\item Hvis overstående ikke er muligt, vil gruppen forsøge at simulere importen af o-løbskortet, og derved kun arbejde ud fra et kort.
+\end{itemize}
+\item Hvis et af overstående lykkes, vil gruppen efterfølgende lave forskellige former for grafisk analyse, i form af en replay funktion på kortet. Først med kun en løber, og derefter to til flere løbere, for at kunne sammenligne løberne med hinanden.
+\item Hvis de overstående fejler, vil gruppen fokusere på detaljerede tekstbaseret analyse, i form af tider, afstande, hastighed osv. som alle skal kunne sammenlignes mellem andre løbere.
+\item Hvis alt andet virker for svært eller uinteressant, har gruppen tænkt på at udarbejde en analyse af nøjagtigheden i mobiltelefonens GPS.
+\end{itemize}
+Gruppen har valgt at simulere mobil GPS dataene, frem for at bruge tid på at lave en mobilapplikation. I tilfælde af at gruppen skal lave analyse af nøjagtigheden i mobiltelefonens GPS, vil mobil GPS dataene ikke blive simuleret. 
+ 
+Hvis der er tid til overs, vil gruppen bruge muligheden til at implementere virtuelle poster eller delvist virtuelle poster. Med virtuelle poster menes at, at vi med GPS enheden konkludere om løberen har besøgt en bestemt post, og på en eller anden måde giver signal til løberen om dette. Med delvist virtuelle poster menes at, der vil blive sat en fysisk skærm ud på banen for at markere posten som sædvanligt, resten vil fungere som den virtuelle post.
+
+
