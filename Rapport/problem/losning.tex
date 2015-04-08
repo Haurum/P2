@@ -1,7 +1,9 @@
 \chapter{Kravspecifikationer}
 
 \section{Optimale løsningsforslag}
-Den ideelle løsning vil bestå af to dele, en mobiltelefon med GPS og en website/server som kan vise dataene sendt fra mobilen
+Den ideelle løsning vil bestå af to dele, en mobiltelefon med GPS og en webservice som kan vise dataene sendt fra mobilen
+
+Gruppen udarbejdede en række krav, som så blev sendt til Jens Børsting. Jens læste disse krav og funktioner igennem, kom med rettelser og tilføjelser, og på denne måde blev projektets krav og funktioner udarbejdet. 
 
 Mobilen skal kunne:
 \begin{itemize}
@@ -10,22 +12,22 @@ Mobilen skal kunne:
 	\item Mobilen må ikke hjælpe løberen undervejs i løbet, med at vise positionen på ruten.
 \end{itemize}
 
-Websitet/serveren skal kunne:
+Webservicen skal kunne:
 \begin{itemize}
 	\item Opsætte baner inden løbet.
+	\item Være kompatibelt med GPS-ure.
 	\item Vise løbernes position på kortet.
 	\item Vise diverse statistik og data for løberens tur på banen. Dette vil være tider, afstande og hastigheder, samt en grafisk visning af den rute løberen har løbet.
 	\item Sammenligne to løberes tur på samme rute, eller sammenligne med banens gennemsnit i forhold til statistik/rådata.
 	\item Vise et grafisk replay af den rute løberen har løbet, med mulighed for at afspille flere løbere samtidig og dermed sammenligne vejvalg.
-	\item Være kompatibelt med GPS-ure.
 \end{itemize} 
 
 Mobil-appen vil have en simpel brugergrænseflade hvor brugeren vil have mulighed for at vælge den bane vedkommende skal løbe. Herefter vil brugeren have mulighed for at trykke start, hvorefter mobilen kun vil vise hvor lang tid der er brugt indtil videre og en afslut knap. Under løbet sender mobilen løbende data om GPS position og tiden siden start. Når turen er løbet færdig trykker brugere på afslut og appen vil sende de sidste data og vise nogle resultater. Dette kan eksempelvis være tid i alt, højeste hastighed, gennemsnitshastighed, men også data om løberen sammenlignet med andre på samme bane. Dette kan f. eks. være hvor mange sekunder efter den hurtigste vedkommende har brugt på de enkelte stræk.
 
-Inden løbet skal træneren eller arrangøren, kunne uploade den bane som personen har lavet, til serveren. Banerne kan vælges fra appen på mobilen, af de forskellige løbere. Efter løbet skal brugerne som sagt kunne uploade sine resultater til websitet/serveren fra mobil appen, under og efter et endt løb. Disse resultater skal så kunne sammenlignes med de andre løbere, der har løbet den samme bane. Ud over at sammenligne statistik over løberens rute, som beskrevet ovenfor, skal den også kunne vise grafisk den rute som løberen har løbet. Derudover skal der være en replay funktion, så de vejvalg som løberen tager, kan ses. Så kan der indsættes flere løbere på den grafiske visning, så flere løberes vejvalg kan sammenlignes.
+Inden løbet skal træneren eller arrangøren, kunne uploade den bane som personen har lavet, til serveren. Banerne kan vælges fra appen på mobilen, af de forskellige løbere. Efter løbet skal brugerne som sagt kunne uploade sine resultater til webservicen fra mobil appen, under og efter et endt løb. Disse resultater skal så kunne sammenlignes med de andre løbere, der har løbet den samme bane. Ud over at sammenligne statistik over løberens rute, som beskrevet ovenfor, skal den også kunne vise grafisk den rute som løberen har løbet. Derudover skal der være en replay funktion, så de vejvalg som løberen tager, kan ses. Så kan der indsættes flere løbere på den grafiske visning, så flere løberes vejvalg kan sammenlignes.
 
 \subsection{Krav til optimalløsning}
-Ud fra overstående har gruppen opstillet noglle krav til den optimaleløsning. Som udgangspunkt har gruppen gået ud fra at kravene skal være testbare. 
+Ud fra overstående har gruppen, i samarbejde med Jens Børsting, opstillet nogle krav til den optimaleløsning. Som udgangspunkt har gruppen gået ud fra at kravene skal være testbare. 
 
 \begin{itemize}
 \item Appen tilknyttet løsningen skal kunne køre på android smartphones og apple iphones.
@@ -33,7 +35,7 @@ Ud fra overstående har gruppen opstillet noglle krav til den optimaleløsning. 
 \item Samme loginsystem for både app og webservice.
 \item Webservicen skal kunne oprette og gemme baner i form af o-løbskort med integnede poster.
 \item Webservicen skal grafisk kunne vise en eller flere GPS ruter uploaded fra appen ovenpå den tilknyttede bane (Kort)
-\item webservicen skal have følgende replay funktionaliteter:
+\item Webservicen skal have følgende replay funktionaliteter:
 \begin{itemize}
 \item Det skal være muligt at til/fravælge løbere til den viste bane, evt. mulighed for at tilpasse halelængde og farve
 \item Zoom funktion på kortet. (senere måske rotationsfunktion så kortet kan roteres og få strækretningen op på kortet.)
@@ -55,7 +57,7 @@ Ud fra overstående har gruppen opstillet noglle krav til den optimaleløsning. 
 \item Den enkelte løbers top fart på strækket
 \item Evt grafisk sammenligning mellem to løbere ved at tegne streger mellem de to løberes placering på samme tid efter udgangspunktet.
 \end{itemize}
-\item Appen skal kunne optage gps-data under løb og ved løbets afslutning sende disse til webserveren.
+\item Appen skal kunne optage gps-data under løb og ved løbets afslutning sende disse til webservicen.
 \item Appen skal kunne tilknytte sig en bane, oprettet på webservicen.
 \item Appen skal kunne sortere banerne ud fra klub.
 \item Appen må kun vise tid brugt hidtil og en afslutningsknap på skærmen under løbet.
@@ -72,13 +74,13 @@ Gruppen har gjort sig nogle tanker om hvordan den opmitaleløsning skal se ud og
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_1}}
-  \caption{Almindelig skærmpost}
+  \caption{Login system}
   \label{fig:test1}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_2}}
-  \caption{Elektronisk post}
+  \caption{Mainmenu}
   \label{fig:test2}
 \end{minipage}
 \end{figure}
@@ -92,13 +94,13 @@ Hvis det lykkes at logge ind på appen, vil det næste der ses være figur 4.2, 
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_3}}
-  \caption{Almindelig skærmpost}
+  \caption{Menupunktet - Nyt løb}
   \label{fig:test1}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_4}}
-  \caption{Elektronisk post}
+  \caption{Informationer af valgte bane}
   \label{fig:test2}
 \end{minipage}
 \end{figure}
@@ -109,13 +111,13 @@ Hvis menu punktet ”Nyt løb” vælges, bliver brugeren ført videre til figur
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_5}}
-  \caption{Almindelig skærmpost}
+  \caption{Appen underløbet}
   \label{fig:test1}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_6}}
-  \caption{Elektronisk post}
+  \caption{Appen ved afsluttet løb}
   \label{fig:test2}
 \end{minipage}
 \end{figure}
@@ -126,13 +128,13 @@ Trykkes der på en af banerne, eksempelvis bane 4.4, føres brugeren ind på sid
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_7}}
-  \caption{Almindelig skærmpost}
+  \caption{Menupunktet - Indstillinger}
   \label{fig:test1}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_8}}
-  \caption{Elektronisk post}
+  \caption{Menupunktet Mine løb}
   \label{fig:test2}
 \end{minipage}
 \end{figure}
@@ -148,13 +150,13 @@ Hvis menupunktet ”Mine løb” vælges i figur 4.2, kan brugeren se en liste o
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_9}}
-  \caption{Almindelig skærmpost}
+  \caption{Find andre baner søge funktion}
   \label{fig:test1}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \fbox{\includegraphics[width=.5\linewidth]{billeder/Mobilversion_10}}
-  \caption{Elektronisk post}
+  \caption{Evaluering- og sammenligningsværktøj}
   \label{fig:test2}
 \end{minipage}
 \end{figure}
@@ -165,15 +167,71 @@ Andet menupunkt i toppen, indeholder forskellige informationer om løberne. Dett
 
 Nederst på siden ses en knap ”Løbere”. Trykkes der på denne knap, skal et nyt vindue poppe op, hvor der skal være en liste over hvilke løbere der er med, og hvilken farve de har på kortet.
 \subsubsection{Webservice}
-Interfaceet på webservicen ligner meget interfacet på appen fra figur 4.10. 
+Interfacet på webservicen ligner meget interfacet på appen fra figur 4.10. I toppen af figur 4.11 ser vi en hjemmeside title og menupunkter, som dog ikke krævere en større præsentation, da dette ikek vil indgå i det færdige produkt. I venstre side ses en anden menu, hvor første punkt er kortet som ses på billedet, andet punkt er en detaljeret statistik over løberne og sidste punkt er hjælpefunktion.
 \begin{figure}[h]
     \centering
-    \fbox{\includegraphics[width=1.0\textwidth]{billeder/Website_udkast_1}}
+    \fbox{\includegraphics[width=.9\textwidth]{billeder/Website_udkast_1}}
     \caption{Interface til webservice}
 \end{figure}
 
+På figur 4.11 ses funktionen "Kort". Kort funktionen viser et orienteringskort, hvor løbernes rute kan genspilles. Øverst i venstrehjørne sidder et lille kort, der fungere som et oversigtskort. Oversigtskortet skal gøre det lettere at navigere rundt, da brugeren kan have en lettere forståelse af hvor de befinder sig på det store kort. Nede i højre hjørne findes en til og fravælgeses funktionen af de løbere, der er blevet tilvalgt til sammenligningen.
+
+I bunden af figur 4.11 ses en mediaplayer. På denne findes der seks forskellige funktioner, hvor de her under vil blive beskrevet fra venstre mod højre: 
+\begin{itemize}
+\item Play/pause knap. Bruges som man kender det fra andre mediaplayere, til at starte og pause i sin afspilning.
+\item Valg post funktion. Her kan der vælges mellem forskellige poster, hvorfra brugeren ønsker at se løberne løbe fra. Dette gør at løberne kan ses begynde fra samme post samtidigt, for bedre at kunne sammeligne deres vejvalg på deres stræk mellem posterne.
+\item Forrige post. Sætter alle løbere til at løbe fra forrige post.
+\item Næste post. Sætter alle løbere til at løbe fra næste post.
+\item Refresh funktion. Fjerner alle indstillinger der er blevet tilføjet, og afspiller løbet som normalt.
+\item Afspilningshastighed. Her kan afspilningshastigheden ændres.
+\end{itemize}
+Lige over mediaplayeren ses kan der ses hvor langt, brugeren er inde i genafspilningen af løbet. Den runde sorte plet, angiver hvor brugeren er nået til, hvor brugeren så også valgfrit kan springe rundt i genafspilningen.
+
 \begin{figure}[h]
     \centering
-    \fbox{\includegraphics[width=1.0\textwidth]{billeder/Website_udkast_2}}
+    \fbox{\includegraphics[width=.9\textwidth]{billeder/Website_udkast_2}}
     \caption{Detaljeret sammenligning af løbere}
 \end{figure}
+
+Figur 4.12 viser menu punktet om deltaljeret statistik om løberene. Under denne side kan der ses en række informationer om løberen under genafspilingen af løbet. Dette skal være anden en måde at sammenligne løberne, frem for kun at have den grafiske sammenligning. De ting der er tiltænkt der skal kunne ses er løberens:
+\begin{itemize}
+\item Navn
+\item Position i løbet
+\item Hvor lang en distance de har tilbagelagt på det sidste gennemførte stræk
+\item Tiden for løbet i alt
+\item Tiden på det sidste gennemførte
+\item Tidsforskellen mellem de forskellige placeringer, eksempelvis tidsforskellen mellem nummer et og nummer to i løbet
+\item Gennemsnitshastighed
+\item Tophastighed
+\end{itemize}
+
+Sidste menupunkt i venstre side er hjælpefunktionen. Meningen med denne funktion er, at den kunne hjælpe forvirrede brugere med brugen af programmet, hvis dette skulle blive en nødvendighed.
+
+\section{Reelle løsning}
+Ud fra listen over krav til den optimaleløsning i afsnit 4.1.1, har gruppen som at priortere hvad løsningen skal indeholde. Gruppen har ud fra den resterende tid og gruppens erfaring, valgt at priortere replayfunktionen højest. Selve projektet handler om at kunne sammenligne og evaluere en o-løbs træning, derfor er det vigtigt at kunne se de gode og dårlige beslutninger, en o-løber har taget på hans eller hendes rute. Som udgangspunkt vil der blive arbejdet på at kunne genspille en rute med én løber, derefter at kunne tilføje flere løbere, for at kunne lave ene sammenligning. Derudover har gruppen valgt at priotere den tekstbaserede sammenligning/statistik over løberne lige under replayfunktionen, som ses på figur 4.12. Dette gøres for at kunne give brugeren flere sammenlignings muligheder. Replayfunktionen giver et godt overblik over bl.a. vejvalg, men den teskbaserede sammenligning giver eksempelvis er mere detaljeret i forhold til hastighed, tid og distance.
+
+Gruppen har valgt at lave en realistisk løsning af webservicen, hvor den er realisktisk i form af den tid og erfaring gruppen har tilrådighed. Mobildelen i projektet har gruppen valgt at simulere, hvor der optages nogle GPS signaler på en smartphone og filerne med længde- og breddegrader lægges over på computerne, og arbejdes med derfra.
+
+Nogle af punkterne i afsnit 4.1.1 kan ses nedenfor, hvilke er de punkter som gruppen har valgt at tageudgangspunkt i. Her ses de punkter der skal indgå i den grafiskvisning af løsningen:
+\begin{itemize}
+\item Det skal være muligt at til/fravælge løbere til den viste bane, evt. mulighed for at tilpasse halelængde og farve
+\item Zoom funktion på kortet.
+\item Det skal være muligt at starte og pause afpilningen af GPS dataene.
+\item Det skal være muligt at sætte tempoet til 1, 2, 5, 10 og 20 gange normal hastighed
+\item Scrolling function for at komme hurtigt frem til et bestemt tidspunkt.
+\item Det skal være muligt at vælge én post (punkt som alle passerer) hvor alle viste løbere bliver samlet ved. Der skal kunne defineres/vælges flere poster/punkter
+\end{itemize}
+Den tekstbaserede løsning skal kunne vise følgende:
+\begin{itemize}
+\item Den enkelte løbers navn
+\item Den enkelte løbers placering i løbet efter strækket
+\item Den enkelte løbers stræk længde
+\item Den enkelte løbers tilbagelagte rute
+\item Den enkelte løbers samlede tid efter strækket
+\item Den enkelte løbers tid på strækket
+\item Den enkelte løbers tid i forhold til den hurtigste på strækket
+\item Den enkelte løbers gns. fart på strækket
+\item Den enkelte løbers top fart på strækket
+\end{itemize}
+
+\subsection{Opsumering}
