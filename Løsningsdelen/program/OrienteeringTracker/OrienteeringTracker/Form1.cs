@@ -22,7 +22,7 @@ namespace OrienteeringTracker
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MapButton_Click(object sender, EventArgs e)
         {
 
         }
@@ -38,6 +38,16 @@ namespace OrienteeringTracker
         }
 
         private void pictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DataButton_Click(object sender, EventArgs e)
         {
 
         }
