@@ -1,0 +1,9 @@
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\bin\Debug\GPXReader.exe.config
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\bin\Debug\GPXReader.exe
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\bin\Debug\GPXReader.pdb
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\obj\Debug\GPXReader.csprojResolveAssemblyReference.cache
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\obj\Debug\GPXReader.Form1.resources
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\obj\Debug\GPXReader.Properties.Resources.resources
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\obj\Debug\GPXReader.csproj.GenerateResource.Cache
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\obj\Debug\GPXReader.exe
+c:\users\mark\documents\visual studio 2013\Projects\GPXReader\GPXReader\obj\Debug\GPXReader.pdb
