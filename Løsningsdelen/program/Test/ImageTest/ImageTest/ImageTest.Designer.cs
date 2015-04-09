@@ -30,9 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageTest));
             this.backGround = new System.Windows.Forms.PictureBox();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.backGround)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // backGround
@@ -45,31 +43,19 @@
             this.backGround.TabIndex = 0;
             this.backGround.TabStop = false;
             this.backGround.MouseDown += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseDown);
+            this.backGround.MouseEnter += new System.EventHandler(this.backGround_MouseEnter);
             this.backGround.MouseMove += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseMove);
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.LargeChange = 1;
-            this.trackBar1.Location = new System.Drawing.Point(13, 13);
-            this.trackBar1.Maximum = 12;
-            this.trackBar1.Minimum = 1;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
-            this.trackBar1.TabIndex = 1;
-            this.trackBar1.Value = 10;
-            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            this.backGround.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseWheel);
             // 
             // ImageTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 441);
-            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.backGround);
             this.Name = "ImageTest";
             this.Text = "ImageTest";
             ((System.ComponentModel.ISupportInitialize)(this.backGround)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -78,7 +64,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox backGround;
-        private System.Windows.Forms.TrackBar trackBar1;
 
     }
 }

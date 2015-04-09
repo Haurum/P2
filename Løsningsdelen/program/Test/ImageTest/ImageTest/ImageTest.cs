@@ -39,15 +39,47 @@ namespace ImageTest
             }
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        private void backGround_MouseEnter(object sender, EventArgs e)
         {
-            TrackBar tb = sender as TrackBar;
-            Size newSize = new Size((int)(originalBitmap.Width * (tb.Value * 0.1)), (int)(originalBitmap.Height * (tb.Value * 0.1)));
-            Bitmap bmp = new Bitmap(originalBitmap, newSize);
-            backGround.Image = bmp;
-            
+            if (backGround.Focused == false)
+            {
+                backGround.Focus();
+            }
         }
 
+        private void backGround_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                ZoomIn();
+            }
+            else
+            {
+                ZoomOut();
+            }
+        }
+
+        private void ZoomIn()
+        {
+            if (backGround.Image.Width <= originalBitmap.Width*1.5 && backGround.Image.Height <= originalBitmap.Height*1.5)
+            {
+                Size newSize = new Size((int)(backGround.Image.Width * 1.25), (int)(backGround.Image.Height * 1.25));
+                Bitmap bmp = new Bitmap(originalBitmap, newSize);
+                backGround.Image = bmp;
+            }
+
+        }
+
+        private void ZoomOut()
+        {
+            if (backGround.Image.Width >= originalBitmap.Width / 5 && backGround.Image.Height >= originalBitmap.Height / 5)
+            {
+                Size newSize = new Size((int)(backGround.Image.Width / 1.25), (int)(backGround.Image.Height / 1.25));
+                Bitmap bmp = new Bitmap(originalBitmap, newSize);
+                backGround.Image = bmp;        
+            }
+
+        }
         
     }
 }
