@@ -2,8 +2,8 @@ C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\Imag
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\bin\Debug\ImageTest.exe
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\bin\Debug\ImageTest.pdb
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.csprojResolveAssemblyReference.cache
-C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.ImageTest.resources
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.Properties.Resources.resources
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.csproj.GenerateResource.Cache
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.exe
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.pdb
+C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.ImageTestForm.resources

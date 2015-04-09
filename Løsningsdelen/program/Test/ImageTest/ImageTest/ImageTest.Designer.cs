@@ -1,6 +1,6 @@
 ﻿namespace ImageTest
 {
-    partial class ImageTest
+    partial class ImageTestForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,42 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageTest));
-            this.backGround = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.backGround)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageTestForm));
+            this.background = new System.Windows.Forms.PictureBox();
+            this.LoadGPXButton = new System.Windows.Forms.Button();
+            this.PlayButton = new System.Windows.Forms.Button();
+            this.lineDrawTimer = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.background)).BeginInit();
             this.SuspendLayout();
             // 
-            // backGround
+            // background
             // 
-            this.backGround.Image = ((System.Drawing.Image)(resources.GetObject("backGround.Image")));
-            this.backGround.Location = new System.Drawing.Point(0, 0);
-            this.backGround.Name = "backGround";
-            this.backGround.Size = new System.Drawing.Size(2875, 3256);
-            this.backGround.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.backGround.TabIndex = 0;
-            this.backGround.TabStop = false;
-            this.backGround.MouseDown += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseDown);
-            this.backGround.MouseEnter += new System.EventHandler(this.backGround_MouseEnter);
-            this.backGround.MouseMove += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseMove);
-            this.backGround.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseWheel);
+            this.background.Image = ((System.Drawing.Image)(resources.GetObject("background.Image")));
+            this.background.Location = new System.Drawing.Point(0, 0);
+            this.background.Name = "background";
+            this.background.Size = new System.Drawing.Size(2875, 3256);
+            this.background.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.background.TabIndex = 0;
+            this.background.TabStop = false;
+            this.background.MouseDown += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseDown);
+            this.background.MouseEnter += new System.EventHandler(this.backGround_MouseEnter);
+            this.background.MouseMove += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseMove);
+            this.background.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseWheel);
             // 
-            // ImageTest
+            // LoadGPXButton
+            // 
+            this.LoadGPXButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LoadGPXButton.Location = new System.Drawing.Point(776, 406);
+            this.LoadGPXButton.Name = "LoadGPXButton";
+            this.LoadGPXButton.Size = new System.Drawing.Size(75, 23);
+            this.LoadGPXButton.TabIndex = 1;
+            this.LoadGPXButton.Text = "Load";
+            this.LoadGPXButton.UseVisualStyleBackColor = true;
+            this.LoadGPXButton.Click += new System.EventHandler(this.LoadGPXButton_Click);
+            // 
+            // PlayButton
+            // 
+            this.PlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayButton.Location = new System.Drawing.Point(695, 406);
+            this.PlayButton.Name = "PlayButton";
+            this.PlayButton.Size = new System.Drawing.Size(75, 23);
+            this.PlayButton.TabIndex = 2;
+            this.PlayButton.Text = "Play";
+            this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
+            // 
+            // lineDrawTimer
+            // 
+            this.lineDrawTimer.Interval = 200;
+            this.lineDrawTimer.Tick += new System.EventHandler(this.lineDrawTimer_Tick);
+            // 
+            // ImageTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 441);
-            this.Controls.Add(this.backGround);
-            this.Name = "ImageTest";
+            this.Controls.Add(this.PlayButton);
+            this.Controls.Add(this.LoadGPXButton);
+            this.Controls.Add(this.background);
+            this.Name = "ImageTestForm";
             this.Text = "ImageTest";
-            ((System.ComponentModel.ISupportInitialize)(this.backGround)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.background)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox backGround;
+        private System.Windows.Forms.PictureBox background;
+        private System.Windows.Forms.Button LoadGPXButton;
+        private System.Windows.Forms.Button PlayButton;
+        private System.Windows.Forms.Timer lineDrawTimer;
 
     }
 }
