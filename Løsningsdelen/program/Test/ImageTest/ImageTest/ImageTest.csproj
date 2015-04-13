@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OPoint.cs" />
+    <Compile Include="Gpx.cs" />
+    <Compile Include="GPXReader.cs" />
     <Compile Include="ImageTest.cs">
       <SubType>Form</SubType>
     </Compile>
