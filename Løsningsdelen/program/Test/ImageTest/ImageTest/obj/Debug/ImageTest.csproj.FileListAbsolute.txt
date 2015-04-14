@@ -7,3 +7,6 @@ C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\Imag
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.exe
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.pdb
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.ImageTestForm.resources
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\bin\Debug\ImageTest.exe.config
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.exe
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\Test\ImageTest\ImageTest\obj\Debug\ImageTest.pdb

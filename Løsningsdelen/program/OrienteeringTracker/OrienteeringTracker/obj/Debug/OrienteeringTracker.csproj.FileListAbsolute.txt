@@ -1,2 +1,0 @@
-c:\users\frederik\documents\visual studio 2013\Projects\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
-C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
