@@ -84,7 +84,7 @@ namespace ImageTest
 
         private void backGround_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
                 xPos = e.X;
                 yPos = e.Y;
