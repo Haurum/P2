@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace OrienteeringTracker
 {
-    class Coordinate
+    public class Coordinate
     {
         public Coordinate(float x, float y, DateTime t)
         {

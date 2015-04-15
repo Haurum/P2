@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    class Route
+    public class Route
     {
         public Route()
         {

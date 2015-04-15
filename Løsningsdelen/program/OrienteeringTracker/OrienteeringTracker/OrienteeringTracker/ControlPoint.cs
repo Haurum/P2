@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    class ControlPoint
+    public class ControlPoint
     {
         public int Radius { get; set; }
         public int Number { get; set; }
