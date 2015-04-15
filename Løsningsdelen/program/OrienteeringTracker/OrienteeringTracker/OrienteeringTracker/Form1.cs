@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +73,22 @@ namespace OrienteeringTracker
                 Map1.Focus();
             }
         }
+
+        private void LoadButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            DialogResult dr = fbd.ShowDialog();
+            List<Route> routes = new List<Route>();
+            if(dr == DialogResult.OK)
+            {
+                string[] files = Directory.GetFiles(fbd.SelectedPath);
+
+                foreach (string file in files)
+                {
+                    routes.Add(Helper.ReadGPXData(new FileStream(file, FileMode.Open)));
+                }
+            }
+	    }
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
