@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Map1 = new System.Windows.Forms.PictureBox();
             this.LoadButton = new System.Windows.Forms.Button();
             this.PlayButton = new System.Windows.Forms.Button();
+            this.PlayTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,6 +67,12 @@
             this.PlayButton.TabIndex = 2;
             this.PlayButton.Text = "Play/Pause";
             this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
+            // 
+            // PlayTimer
+            // 
+            this.PlayTimer.Interval = PlayControl.Tempo;
+            this.PlayTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // MainForm
             // 
@@ -86,6 +94,7 @@
         public System.Windows.Forms.PictureBox Map1;
         private System.Windows.Forms.Button LoadButton;
         private System.Windows.Forms.Button PlayButton;
+        private System.Windows.Forms.Timer PlayTimer;
     }
 }
 

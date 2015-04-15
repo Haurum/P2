@@ -16,6 +16,7 @@ namespace OrienteeringTracker
         {
             InitializeComponent();
             OriginalMap = Map1.Image as Bitmap;
+            PlayControl PC = new PlayControl();
         }
 
         #region Varibles
@@ -23,6 +24,7 @@ namespace OrienteeringTracker
         private Bitmap OriginalMap;
         private int MousePosX, MousePosY;
         private float ZoomFactor = 1;
+        private int TailLenght = 30;
 
         #endregion
 
@@ -66,6 +68,16 @@ namespace OrienteeringTracker
             {
                 Map1.Focus();
             }
+        }
+
+        private void PlayButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlayTimer_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }
