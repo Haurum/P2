@@ -9,31 +9,48 @@ namespace OrienteeringTracker
 {
     static class Helper
     {
-        public static void ReadGPXData(Stream stream)
+        public static Route ReadGPXData(Stream GpxStream)
         {
+            Route route = new Route();
+            GpxReader reader = new GpxReader(GpxStream);
+            reader.Read();
+            route.Date = reader.Track.Segments[0].TrackPoints[0].Time;
 
+            foreach (GpxPoint gp in reader.Track.Segments[0].TrackPoints)
+            {
+                double UTMNorthing;
+                double UTMEasting;
+                string Zone;
+                ConvertLatLongtoUTM(gp.Latitude, gp.Longitude, out UTMNorthing, out UTMEasting, out Zone);
+
+                float x;
+                float y;
+                ConvertUTMToPixel(UTMNorthing, UTMEasting, out x, out y);
+
+                Coordinate c = new Coordinate(x, y, gp.Time);
+                route.Coords.Add(c);
+            }
+            return route;
         }
 
         public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
         {
-            x = Convert.ToInt32(((-0.84964441 * UTM_east) - (-0.84964441 * 539276.35483168)) / (0.84964441 * -0.84964441));
-            y = Convert.ToInt32(((0.84964441 * UTM_north) - (0.84964441 * 6250863.73506770)) / (0.84964441 * -0.84964441));
+            StreamReader sr = new StreamReader(Encoding.UTF8.GetString(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1));
+            string line;
+            List<double> worldTal = new List<double>();
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                worldTal.Add(Convert.ToDouble(line));
+            }
+
+            /*x = Convert.ToInt32(((-0.84964441 * UTM_east) - (-0.84964441 * 539276.35483168)) / (0.84964441 * -0.84964441));
+            y = Convert.ToInt32(((0.84964441 * UTM_north) - (0.84964441 * 6250863.73506770)) / (0.84964441 * -0.84964441));*/
+            x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
+            y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
         }
 
-        public static void ConvertLatLongToUTM(double dLong, double dLat)
-        {
-
-            double dX;
-            double dY;
-            string Zone;
-
-
-            //Convert
-            LatLongtoUTM(dLat, dLong, out dY, out dX, out Zone);
-
-        }
-
-        public static void LatLongtoUTM(double Lat, double Long, out double UTMNorthing, out double UTMEasting, out string Zone)
+        public static void ConvertLatLongtoUTM(double Lat, double Long, out double UTMNorthing, out double UTMEasting, out string Zone)
         {
 
             double a = 6378137; //WGS84
