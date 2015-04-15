@@ -45,6 +45,7 @@
             this.Map1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Map1.TabIndex = 0;
             this.Map1.TabStop = false;
+            this.Map1.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
             this.Map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseDown);
             this.Map1.MouseEnter += new System.EventHandler(this.Map1_MouseEnter);
             this.Map1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseMove);
@@ -71,7 +72,7 @@
             // 
             // PlayTimer
             // 
-            this.PlayTimer.Interval = PlayControl.Tempo;
+            this.PlayTimer.Interval = 200;
             this.PlayTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // MainForm
@@ -91,7 +92,7 @@
 
         #endregion
 
-        public System.Windows.Forms.PictureBox Map1;
+        private System.Windows.Forms.PictureBox Map1;
         private System.Windows.Forms.Button LoadButton;
         private System.Windows.Forms.Button PlayButton;
         private System.Windows.Forms.Timer PlayTimer;

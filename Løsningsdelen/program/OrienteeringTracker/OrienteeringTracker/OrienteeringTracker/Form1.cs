@@ -13,7 +13,7 @@ namespace OrienteeringTracker
     public partial class MainForm : Form
     {
         public MainForm()
-        {
+        {      
             InitializeComponent();
             OriginalMap = Map1.Image as Bitmap;
             PlayControl PC = new PlayControl();
@@ -21,10 +21,13 @@ namespace OrienteeringTracker
 
         #region Varibles
 
+        public static List<Route> Routes = new List<Route>();
+        public static List<PointF[]> RoutesToDraw = new List<PointF[]>();
         private Bitmap OriginalMap;
         private int MousePosX, MousePosY;
         private float ZoomFactor = 1;
         private int TailLenght = 30;
+        private int Tempo;
 
         #endregion
 
@@ -72,12 +75,61 @@ namespace OrienteeringTracker
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
-
+            foreach (Route route in Routes)
+            {
+                RoutesToDraw.Add(new PointF[TailLenght]);
+            }
+            if (PlayTimer.Enabled)
+            {
+                PlayTimer.Stop();
+            }
+            else
+            {
+                PlayTimer.Start();
+            }
         }
 
+        int ticks = 0;
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
-
+            if (ticks < Routes.Max(r => r.Coords.Count))
+            {
+                for (int routeNum = 0; routeNum < RoutesToDraw.Count; routeNum++ )
+                {
+                    for (int pointNum = 0; pointNum < TailLenght; pointNum++)
+                    {
+                        RoutesToDraw[routeNum][pointNum] = Routes[routeNum].Coords[ticks - (TailLenght - pointNum)].p;
+                    }
+                }
+            }
+            else
+            {
+                PlayTimer.Stop();
+            }
+            ticks++;
+            Map1.Refresh();
         }
+
+        private void Map1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            SolidBrush brush;
+            Pen pen;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            foreach (PointF[] route in RoutesToDraw)
+            {
+                brush = new SolidBrush(Color.Blue);
+                pen = new Pen(brush, 3);
+                for (int i = 0; i < TailLenght; i++ )
+                {
+                    route[i].X *= ZoomFactor;
+                    route[i].Y *= ZoomFactor;
+                }
+                g.DrawLines(pen, route);
+                g.FillEllipse(brush, route[route.Length - 1].X - 4, route[route.Length - 1].Y - 4, 8, 8);
+            }
+        }
+
+
     }
 }

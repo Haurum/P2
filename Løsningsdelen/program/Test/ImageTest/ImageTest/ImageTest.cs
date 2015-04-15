@@ -170,8 +170,6 @@ namespace ImageTest
             {
                 lineDrawTimer.Stop();
             }
-
-            
             j++;
             background.Refresh();
         }

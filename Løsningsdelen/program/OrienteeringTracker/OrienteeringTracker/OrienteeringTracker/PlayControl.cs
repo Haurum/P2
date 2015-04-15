@@ -9,20 +9,12 @@ namespace OrienteeringTracker
     class PlayControl
     {
 
-        public PlayControl()
-        {
-            Initialize();
-        }
-
         public int StartingPoint { get; set; }
         public int Tempo { get; set; }
 
-        public List<Route> TheRoute { get; set; }
-
-        private void Initialize()
+        public bool PlayDraw(int i)
         {
-            Tempo = 200;
-            StartingPoint = 0;
+            return true;
         }
     }
 }
