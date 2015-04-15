@@ -1,1 +1,2 @@
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
