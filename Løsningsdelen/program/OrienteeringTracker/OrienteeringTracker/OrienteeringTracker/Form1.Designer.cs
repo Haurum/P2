@@ -72,7 +72,7 @@
             // 
             // PlayTimer
             // 
-            this.PlayTimer.Interval = PlayControl.Tempo;
+            this.PlayTimer.Interval = 700;
             this.PlayTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // MainForm

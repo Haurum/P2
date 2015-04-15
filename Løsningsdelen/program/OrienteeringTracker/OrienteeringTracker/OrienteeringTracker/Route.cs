@@ -8,8 +8,16 @@ namespace OrienteeringTracker
 {
     class Route
     {
+        public Route()
+        {
+            Coords = new List<Coordinate>();
+            ToVisit = new List<ControlPoint>();
+            Visited = new List<ControlPoint>();
+        }
+
         public string RunnerName { get; set; }
         public DateTime Date { get; set; }
+
 
         public List<Coordinate> Coords { get; set; }
 

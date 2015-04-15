@@ -35,9 +35,12 @@ namespace OrienteeringTracker
 
         public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
         {
-            StreamReader sr = new StreamReader(Encoding.UTF8.GetString(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1));
+            //StreamReader sr = new StreamReader(Encoding.Default.GetString(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1));
+            //StreamReader sr = new StreamReader(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1.);
+            MemoryStream ms = new MemoryStream(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1);
             string line;
             List<double> worldTal = new List<double>();
+            StreamReader sr = new StreamReader(ms, Encoding.UTF8);
 
             while ((line = sr.ReadLine()) != null)
             {

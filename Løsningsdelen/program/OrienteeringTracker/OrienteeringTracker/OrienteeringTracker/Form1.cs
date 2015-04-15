@@ -85,7 +85,7 @@ namespace OrienteeringTracker
                     routes.Add(Helper.ReadGPXData(new FileStream(file, FileMode.Open)));
                 }
             }
-	}
+	    }
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
