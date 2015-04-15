@@ -173,14 +173,13 @@ namespace ImageTest
 
             
             j++;
-            background.Invalidate();
+            background.Refresh();
         }
 
         private void background_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             PointF[] points = new PointF[30];
-            PointF[] points2 = new PointF[30];
             int i = 0;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             if (rout.Count >= 30)
@@ -189,14 +188,10 @@ namespace ImageTest
                 {
                     points[i].X = routPoint.X * zoomFactor;
                     points[i].Y = routPoint.Y * zoomFactor;
-                    points2[i].X = routPoint.X * zoomFactor + 10;
-                    points2[i].Y = routPoint.Y * zoomFactor - 10;
                     i++;
                 }
                 g.DrawLines(pen, points);
-                g.DrawLines(pen, points2);
-                g.FillEllipse(brush, points[points.Length-1].X - 3, points[points.Length-1].Y - 3, 7, 7);
-                g.FillEllipse(brush, points2[points2.Length - 1].X - 3, points2[points2.Length - 1].Y - 3, 7, 7);
+                g.FillEllipse(brush, points[points.Length-1].X - 4, points[points.Length-1].Y - 4, 8, 8);
             }
         }
     }
