@@ -19,3 +19,6 @@ C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\GPXRead
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\GPXReader\GPXReader\bin\Debug\GPXReader.exe.config
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\GPXReader\GPXReader\obj\Debug\GPXReader.exe
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\GPXReader\GPXReader\obj\Debug\GPXReader.pdb
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\GPXReader\GPXReader\bin\Debug\GPXReader.exe.config
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\GPXReader\GPXReader\obj\Debug\GPXReader.exe
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\GPXReader\GPXReader\obj\Debug\GPXReader.pdb

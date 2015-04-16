@@ -1,4 +1,7 @@
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+<<<<<<< HEAD
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+=======
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csprojResolveAssemblyReference.cache
 C:\Users\frederik\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.MainForm.resources
@@ -16,3 +19,16 @@ C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\Oriente
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.MainForm.resources
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.Properties.Resources.resources
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csproj.GenerateResource.Cache
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.exe
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.pdb
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.pdb
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csprojResolveAssemblyReference.cache
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.MainForm.resources
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.Properties.Resources.resources
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csproj.GenerateResource.Cache
+>>>>>>> d4799551260ebd77e1734a33c9c4ba51bd7787c7
