@@ -17,8 +17,13 @@ namespace ImageTest
         {
             InitializeComponent();
             originalBitmap = background.Image as Bitmap;
+            pen = new Pen(brush, 3);
         }
         List<OPoint> pointFs = new List<OPoint>();
+        List<PointF> rout = new List<PointF>();
+        Pen pen;
+        SolidBrush brush = new SolidBrush(Color.Blue);
+        float zoomFactor = 1;
 
         private void LoadGPXButton_Click(object sender, EventArgs e)
         {
@@ -61,7 +66,12 @@ namespace ImageTest
             {
                 DateTime temp = pointFs[i].time;
                 temp = temp.AddSeconds(1);
-                if (!temp.Equals(pointFs[i+1].time))
+                if (pointFs[i].time.Equals(pointFs[i+1].time))
+                {
+                    pointFs.RemoveAt(i + 1);
+                    i--;
+                }
+                else if (!temp.Equals(pointFs[i+1].time))
                 {
                     pointFs.Insert(i + 1, new OPoint(pointFs[i].point, temp));
                 }
@@ -74,7 +84,7 @@ namespace ImageTest
 
         private void backGround_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
                 xPos = e.X;
                 yPos = e.Y;
@@ -114,8 +124,9 @@ namespace ImageTest
         {
             if (background.Width <= originalBitmap.Width * 1.5 && background.Height <= originalBitmap.Height * 1.5)
             {
-                background.Height = (int)(background.Height + (background.Height * 0.05));
-                background.Width = (int)(background.Width + (background.Width * 0.05));
+                zoomFactor *= 1.25f;
+                background.Height = (int)(originalBitmap.Height * zoomFactor);
+                background.Width = (int)(originalBitmap.Width * zoomFactor);
                 background.Refresh();
             }
         }
@@ -124,8 +135,9 @@ namespace ImageTest
         {
             if (background.Width >= originalBitmap.Width / 5 && background.Height >= originalBitmap.Height / 5)
             {
-                background.Height = (int)(background.Height - (background.Height * 0.05));
-                background.Width = (int)(background.Width - (background.Width * 0.05));
+                zoomFactor /= 1.25f;
+                background.Height = (int)(originalBitmap.Height * zoomFactor);
+                background.Width = (int)(originalBitmap.Width * zoomFactor);
                 background.Refresh();
             }
         }
@@ -145,11 +157,14 @@ namespace ImageTest
         int j = 0;
         private void lineDrawTimer_Tick(object sender, EventArgs e)
         {
-            Graphics g = Graphics.FromImage(background.Image);
-            Pen pen = new Pen(Color.Blue, 3);
-            if (j+1 < pointFs.Count)
+            if (j < pointFs.Count)
 	        {
-                g.DrawLine(pen, pointFs[j].point, pointFs[j + 1].point);
+                rout.Add(pointFs[j].point);
+                if (j >= 30)
+                {
+
+                    rout.RemoveAt(0);
+                }
             }
             else
             {
@@ -157,6 +172,25 @@ namespace ImageTest
             }
             j++;
             background.Refresh();
+        }
+
+        private void background_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            PointF[] points = new PointF[30];
+            int i = 0;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            if (rout.Count >= 30)
+            {
+                foreach (PointF routPoint in rout)
+                {
+                    points[i].X = routPoint.X * zoomFactor;
+                    points[i].Y = routPoint.Y * zoomFactor;
+                    i++;
+                }
+                g.DrawLines(pen, points);
+                g.FillEllipse(brush, points[points.Length-1].X - 4, points[points.Length-1].Y - 4, 8, 8);
+            }
         }
     }
 }

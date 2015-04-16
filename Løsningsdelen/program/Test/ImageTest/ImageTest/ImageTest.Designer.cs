@@ -46,6 +46,7 @@
             this.background.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.background.TabIndex = 0;
             this.background.TabStop = false;
+            this.background.Paint += new System.Windows.Forms.PaintEventHandler(this.background_Paint);
             this.background.MouseDown += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseDown);
             this.background.MouseEnter += new System.EventHandler(this.backGround_MouseEnter);
             this.background.MouseMove += new System.Windows.Forms.MouseEventHandler(this.backGround_MouseMove);
@@ -75,7 +76,7 @@
             // 
             // lineDrawTimer
             // 
-            this.lineDrawTimer.Interval = 200;
+            this.lineDrawTimer.Interval = 50;
             this.lineDrawTimer.Tick += new System.EventHandler(this.lineDrawTimer_Tick);
             // 
             // ImageTestForm
