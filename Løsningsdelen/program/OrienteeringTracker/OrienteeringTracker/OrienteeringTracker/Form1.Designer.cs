@@ -34,7 +34,6 @@
             this.PlayTimer = new System.Windows.Forms.Timer(this.components);
             this.PlayBar = new System.Windows.Forms.TrackBar();
             this.TempoUpDown = new System.Windows.Forms.NumericUpDown();
-            this.StartingpointUpDown = new System.Windows.Forms.NumericUpDown();
             this.ResetButton = new System.Windows.Forms.Button();
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
             this.MouseCoordinatesLabel = new System.Windows.Forms.Label();
@@ -65,11 +64,11 @@
             this.PlayButton.TabIndex = 2;
             this.PlayButton.Text = "Play/Pause";
             this.PlayButton.UseVisualStyleBackColor = true;
+            this.PlayButton.Visible = false;
             this.PlayButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
             // PlayTimer
             // 
-            this.PlayTimer.Interval = 200;
             this.PlayTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // PlayBar
@@ -79,6 +78,7 @@
             this.PlayBar.Name = "PlayBar";
             this.PlayBar.Size = new System.Drawing.Size(998, 45);
             this.PlayBar.TabIndex = 3;
+            this.PlayBar.Visible = false;
             this.PlayBar.Scroll += new System.EventHandler(this.PlayBar_Scroll);
             // 
             // TempoUpDown
@@ -94,19 +94,12 @@
             this.TempoUpDown.Size = new System.Drawing.Size(66, 20);
             this.TempoUpDown.TabIndex = 4;
             this.TempoUpDown.Value = new decimal(new int[] {
-            5,
+            10,
             0,
             0,
             0});
+            this.TempoUpDown.Visible = false;
             this.TempoUpDown.ValueChanged += new System.EventHandler(this.TempoUpDown_ValueChanged);
-            // 
-            // StartingpointUpDown
-            // 
-            this.StartingpointUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.StartingpointUpDown.Location = new System.Drawing.Point(84, 308);
-            this.StartingpointUpDown.Name = "StartingpointUpDown";
-            this.StartingpointUpDown.Size = new System.Drawing.Size(66, 20);
-            this.StartingpointUpDown.TabIndex = 5;
             // 
             // ResetButton
             // 
@@ -122,12 +115,12 @@
             // 
             // RunnersCheckBox
             // 
-            this.RunnersCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.RunnersCheckBox.FormattingEnabled = true;
-            this.RunnersCheckBox.Location = new System.Drawing.Point(866, 205);
+            this.RunnersCheckBox.Location = new System.Drawing.Point(871, 280);
             this.RunnersCheckBox.Name = "RunnersCheckBox";
-            this.RunnersCheckBox.Size = new System.Drawing.Size(120, 94);
+            this.RunnersCheckBox.Size = new System.Drawing.Size(115, 19);
             this.RunnersCheckBox.TabIndex = 7;
+            this.RunnersCheckBox.Visible = false;
             // 
             // MouseCoordinatesLabel
             // 
@@ -161,7 +154,6 @@
             this.Controls.Add(this.MouseCoordinatesLabel);
             this.Controls.Add(this.RunnersCheckBox);
             this.Controls.Add(this.ResetButton);
-            this.Controls.Add(this.StartingpointUpDown);
             this.Controls.Add(this.TempoUpDown);
             this.Controls.Add(this.PlayBar);
             this.Controls.Add(this.PlayButton);
@@ -173,8 +165,11 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();
+<<<<<<< HEAD
             ((System.ComponentModel.ISupportInitialize)(this.StartingpointUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
+=======
+>>>>>>> origin/master
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,7 +183,6 @@
         private System.Windows.Forms.Timer PlayTimer;
         private System.Windows.Forms.TrackBar PlayBar;
         private System.Windows.Forms.NumericUpDown TempoUpDown;
-        private System.Windows.Forms.NumericUpDown StartingpointUpDown;
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.CheckedListBox RunnersCheckBox;
         private System.Windows.Forms.Label MouseCoordinatesLabel;
