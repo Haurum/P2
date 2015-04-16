@@ -9,12 +9,13 @@ namespace OrienteeringTracker
 {
     static class Helper
     {
-        public static Route ReadGPXData(Stream GpxStream)
+        public static Route ReadGPXData(FileStream GpxStream)
         {
             Route route = new Route();
             GpxReader reader = new GpxReader(GpxStream);
             reader.Read();
             route.Date = reader.Track.Segments[0].TrackPoints[0].Time;
+            route.RunnerName = Path.GetFileNameWithoutExtension(GpxStream.Name);
 
             foreach (GpxPoint gp in reader.Track.Segments[0].TrackPoints)
             {
@@ -47,10 +48,10 @@ namespace OrienteeringTracker
                 worldTal.Add(Convert.ToDouble(line));
             }
 
-            /*x = Convert.ToInt32(((-0.84964441 * UTM_east) - (-0.84964441 * 539276.35483168)) / (0.84964441 * -0.84964441));
-            y = Convert.ToInt32(((0.84964441 * UTM_north) - (0.84964441 * 6250863.73506770)) / (0.84964441 * -0.84964441));*/
-            x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
-            y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
+            x = Convert.ToInt32(((-0.84964441 * UTM_east) - (-0.84964441 * 539276.35483168)) / (0.84964441 * -0.84964441));
+            y = Convert.ToInt32(((0.84964441 * UTM_north) - (0.84964441 * 6250863.73506770)) / (0.84964441 * -0.84964441));
+            //x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
+            //y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
         }
 
         public static void ConvertLatLongtoUTM(double Lat, double Long, out double UTMNorthing, out double UTMEasting, out string Zone)
