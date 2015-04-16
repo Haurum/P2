@@ -61,6 +61,17 @@ namespace OrienteeringTracker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 128;570;1
+        ///548;598;2
+        ///765;729;3.
+        /// </summary>
+        internal static string controlpoints {
+            get {
+                return ResourceManager.GetString("controlpoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Hjermind_Egekrat_ref_ref {

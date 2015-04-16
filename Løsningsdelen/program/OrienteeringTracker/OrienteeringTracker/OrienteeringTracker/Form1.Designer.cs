@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Map1 = new System.Windows.Forms.PictureBox();
             this.LoadButton = new System.Windows.Forms.Button();
             this.PlayButton = new System.Windows.Forms.Button();
             this.PlayTimer = new System.Windows.Forms.Timer(this.components);
@@ -38,26 +37,13 @@
             this.StartingpointUpDown = new System.Windows.Forms.NumericUpDown();
             this.ResetButton = new System.Windows.Forms.Button();
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
+            this.MouseCoordinatesLabel = new System.Windows.Forms.Label();
+            this.Map1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartingpointUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Map1
-            // 
-            this.Map1.Image = global::OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref;
-            this.Map1.Location = new System.Drawing.Point(0, 0);
-            this.Map1.Name = "Map1";
-            this.Map1.Size = new System.Drawing.Size(2875, 3256);
-            this.Map1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.Map1.TabIndex = 0;
-            this.Map1.TabStop = false;
-            this.Map1.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
-            this.Map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseDown);
-            this.Map1.MouseEnter += new System.EventHandler(this.Map1_MouseEnter);
-            this.Map1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseMove);
-            this.Map1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseWheel);
             // 
             // LoadButton
             // 
@@ -143,11 +129,36 @@
             this.RunnersCheckBox.Size = new System.Drawing.Size(120, 94);
             this.RunnersCheckBox.TabIndex = 7;
             // 
+            // MouseCoordinatesLabel
+            // 
+            this.MouseCoordinatesLabel.AutoSize = true;
+            this.MouseCoordinatesLabel.Location = new System.Drawing.Point(444, 9);
+            this.MouseCoordinatesLabel.Name = "MouseCoordinatesLabel";
+            this.MouseCoordinatesLabel.Size = new System.Drawing.Size(22, 13);
+            this.MouseCoordinatesLabel.TabIndex = 8;
+            this.MouseCoordinatesLabel.Text = "0,0";
+            // 
+            // Map1
+            // 
+            this.Map1.Image = global::OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref;
+            this.Map1.Location = new System.Drawing.Point(0, 0);
+            this.Map1.Name = "Map1";
+            this.Map1.Size = new System.Drawing.Size(2875, 3256);
+            this.Map1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Map1.TabIndex = 0;
+            this.Map1.TabStop = false;
+            this.Map1.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
+            this.Map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseDown);
+            this.Map1.MouseEnter += new System.EventHandler(this.Map1_MouseEnter);
+            this.Map1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseMove);
+            this.Map1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseWheel);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(998, 379);
+            this.Controls.Add(this.MouseCoordinatesLabel);
             this.Controls.Add(this.RunnersCheckBox);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.StartingpointUpDown);
@@ -158,10 +169,12 @@
             this.Controls.Add(this.Map1);
             this.Name = "MainForm";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StartingpointUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,6 +191,7 @@
         private System.Windows.Forms.NumericUpDown StartingpointUpDown;
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.CheckedListBox RunnersCheckBox;
+        private System.Windows.Forms.Label MouseCoordinatesLabel;
     }
 }
 

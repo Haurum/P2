@@ -9,6 +9,18 @@ namespace OrienteeringTracker
 {
     static class Helper
     {
+        public static List<ControlPoint> ReadControlPoints(string path)
+        {
+            string[] coordinatesString;
+            List<ControlPoint> controlPoints = new List<ControlPoint>();
+            foreach (var line in File.ReadLines(path))
+            {
+                coordinatesString = line.Split(';');
+                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now), Radius = 10, Number = Convert.ToInt32(coordinatesString[2]) });
+            }
+            return controlPoints;
+        }
+
         public static Route ReadGPXData(FileStream GpxStream)
         {
             Route route = new Route();
