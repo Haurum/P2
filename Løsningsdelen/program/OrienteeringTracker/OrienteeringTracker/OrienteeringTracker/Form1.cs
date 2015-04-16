@@ -14,7 +14,7 @@ namespace OrienteeringTracker
     public partial class MainForm : Form
     {
         public MainForm()
-        {      
+        {
             InitializeComponent();
             OriginalMap = Map1.Image as Bitmap;
         }
@@ -23,13 +23,10 @@ namespace OrienteeringTracker
 
         Color[] Colors = { Color.Blue, Color.Red, Color.Black, Color.Purple, Color.Turquoise, Color.Orange };
         List<Route> Routes = new List<Route>();
-        List<PointF[]> RoutesToDraw = new List<PointF[]>();
         private Bitmap OriginalMap;
         private int MousePosX, MousePosY;
         private float ZoomFactor = 1;
         private int TailLenght = 30;
-        private int MaxLenght = 0;
-        private int Tempo;
 
         #endregion
 
@@ -79,7 +76,7 @@ namespace OrienteeringTracker
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult dr = fbd.ShowDialog();
-            if(dr == DialogResult.OK)
+            if (dr == DialogResult.OK)
             {
                 string[] files = Directory.GetFiles(fbd.SelectedPath);
 
@@ -87,21 +84,30 @@ namespace OrienteeringTracker
                 {
                     Routes.Add(Helper.ReadGPXData(new FileStream(file, FileMode.Open)));
                 }
-                PlayBar.Maximum = Routes.Max(r => r.Coords.Count) + 1;
-                foreach (Route route in Routes)
+                for (int Index = 0; Index < Routes.Count; Index++)
                 {
-                    RoutesToDraw.Add(new PointF[TailLenght]);
-                    RunnersCheckBox.Items.Add(route.RunnerName);
+                    Routes[Index].RouteColor = Colors[Index];
+                    RunnersCheckBox.Items.Add(Routes[Index].RunnerName);
+                    RunnersCheckBox.SetItemChecked(Index, true);
                 }
+                RunnersCheckBox.ClientSize = new Size(RunnersCheckBox.Width, 
+                    RunnersCheckBox.GetItemRectangle(0).Height * RunnersCheckBox.Items.Count);
+                RunnersCheckBox.Top -= RunnersCheckBox.GetItemRectangle(0).Height * (RunnersCheckBox.Items.Count - 1);
+                PlayBar.Maximum = Routes.Max(r => r.Coords.Count) + 1;
+                PlayBar.Minimum = TailLenght;
                 LoadButton.Hide();
                 ResetButton.Show();
+                PlayButton.Show();
+                PlayBar.Show();
+                TempoUpDown.Show();
+                RunnersCheckBox.Show();
             }
-            
-	    }
+
+        }
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
-            
+
             if (PlayTimer.Enabled)
             {
                 PlayTimer.Stop();
@@ -115,35 +121,17 @@ namespace OrienteeringTracker
         int ticks = 0;
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
-            UpdateState();
-            ticks++;
-        }
-
-        private void UpdateState()
-        {
-            if (ticks > TailLenght)
+            if (ticks < TailLenght)
             {
-                for (int routeNum = 0; routeNum < RoutesToDraw.Count; routeNum++)
-                {
-                    for (int pointNum = 0; pointNum < TailLenght; pointNum++)
-                    {
-                        if (ticks < Routes[routeNum].Coords.Count)
-                        {
-                            RoutesToDraw[routeNum][pointNum] = Routes[routeNum].Coords[ticks - (TailLenght - pointNum)].p;
-                        }
-                        else
-                        {
-                            RoutesToDraw[routeNum][pointNum] = new PointF();
-                        }
-                    }
-                }
-                PlayBar.Value = ticks;
-                Map1.Refresh();
+                ticks = TailLenght + 1;
             }
             if (ticks >= Routes.Max(r => r.Coords.Count))
             {
                 PlayTimer.Stop();
             }
+            PlayBar.Value = ticks;
+            Map1.Refresh();
+            ticks++;
         }
 
         private void Map1_Paint(object sender, PaintEventArgs e)
@@ -151,20 +139,40 @@ namespace OrienteeringTracker
             Graphics g = e.Graphics;
             SolidBrush brush;
             Pen pen;
-            int colorIndex = 0;
+            bool draw = true;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            foreach (PointF[] route in RoutesToDraw)
+            foreach (Route route in Routes)
             {
-                brush = new SolidBrush(Colors[colorIndex]);
-                colorIndex++;
-                pen = new Pen(brush, 3);
-                for (int i = 0; i < TailLenght; i++ )
+                if (!RunnersCheckBox.CheckedItems.Contains(route.RunnerName))
                 {
-                    route[i].X *= ZoomFactor;
-                    route[i].Y *= ZoomFactor;
+                    continue;
                 }
-                g.DrawLines(pen, route);
-                g.FillEllipse(brush, route[route.Length - 1].X - 4, route[route.Length - 1].Y - 4, 8, 8);
+                brush = new SolidBrush(route.RouteColor);
+                pen = new Pen(brush, 3);
+                PointF[] RunnerToDraw = new PointF[TailLenght];
+                for (int Index = 0; Index < TailLenght; Index++)
+                {
+                    if (ticks >= route.Coords.Count())
+                    {
+                        draw = false;
+                    }
+                    else if(ticks > TailLenght)
+                    {
+                        RunnerToDraw[Index] = route.Coords[ticks - (TailLenght - Index)].p;
+                        RunnerToDraw[Index].X *= ZoomFactor;
+                        RunnerToDraw[Index].Y *= ZoomFactor;
+                        draw = true;
+                    }
+
+                }
+                if (draw)
+                {
+                    g.DrawLines(pen, RunnerToDraw);
+                    g.FillEllipse(brush, RunnerToDraw[RunnerToDraw.Length - 1].X - 4, 
+                        RunnerToDraw[RunnerToDraw.Length - 1].Y - 4, 8, 8);
+                    g.DrawString(route.RunnerName, new Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Black),
+                        RunnerToDraw[RunnerToDraw.Length - 1].X + 5, RunnerToDraw[RunnerToDraw.Length - 1].Y + 5);
+                }    
             }
         }
 
@@ -181,12 +189,12 @@ namespace OrienteeringTracker
         private void ResetButton_Click(object sender, EventArgs e)
         {
             Routes.Clear();
-            RoutesToDraw.Clear();
             ticks = 0;
             PlayTimer.Stop();
             Map1.Refresh();
             ResetButton.Hide();
-            LoadButton.Show();  
+            LoadButton.Show();
+            RunnersCheckBox.Items.Clear();
         }
 
 

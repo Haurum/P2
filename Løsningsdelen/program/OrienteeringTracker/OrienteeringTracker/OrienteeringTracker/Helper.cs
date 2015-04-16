@@ -17,6 +17,7 @@ namespace OrienteeringTracker
             route.Date = reader.Track.Segments[0].TrackPoints[0].Time;
             route.RunnerName = Path.GetFileNameWithoutExtension(GpxStream.Name);
 
+
             foreach (GpxPoint gp in reader.Track.Segments[0].TrackPoints)
             {
                 double UTMNorthing;
@@ -31,6 +32,7 @@ namespace OrienteeringTracker
                 Coordinate c = new Coordinate(x, y, gp.Time);
                 route.Coords.Add(c);
             }
+            GpxStream.Close();
             return route;
         }
 

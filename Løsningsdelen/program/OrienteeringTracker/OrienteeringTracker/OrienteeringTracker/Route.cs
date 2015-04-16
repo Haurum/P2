@@ -17,6 +17,7 @@ namespace OrienteeringTracker
 
         public string RunnerName { get; set; }
         public DateTime Date { get; set; }
+        public System.Drawing.Color RouteColor { get; set; }
 
 
         public List<Coordinate> Coords { get; set; }
