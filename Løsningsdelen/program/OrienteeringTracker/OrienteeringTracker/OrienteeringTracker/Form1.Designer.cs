@@ -150,6 +150,7 @@
             this.Controls.Add(this.Map1);
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();
