@@ -193,6 +193,10 @@ namespace OrienteeringTracker
             PlayTimer.Stop();
             Map1.Refresh();
             ResetButton.Hide();
+            PlayButton.Hide();
+            PlayBar.Hide();
+            TempoUpDown.Hide();
+            RunnersCheckBox.Hide();
             LoadButton.Show();
             RunnersCheckBox.Items.Clear();
         }

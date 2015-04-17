@@ -128,6 +128,7 @@
             // 
             // RunnersCheckBox
             // 
+            this.RunnersCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.RunnersCheckBox.FormattingEnabled = true;
             this.RunnersCheckBox.Location = new System.Drawing.Point(871, 280);
             this.RunnersCheckBox.Name = "RunnersCheckBox";
