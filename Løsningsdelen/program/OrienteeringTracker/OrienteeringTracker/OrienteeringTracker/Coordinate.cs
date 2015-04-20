@@ -9,21 +9,31 @@ namespace OrienteeringTracker
 {
     public class Coordinate
     {
-        public Coordinate(float x, float y, DateTime t)
+        public Coordinate(float x, float y, DateTime t, float UTME, float UTMN)
         {
-            _p = new PointF(x, y);
+            _pixelPoint = new PointF(x, y);
+            _UTMPoint = new PointF(UTME, UTMN);
             Time = t;
         }
 
-        private PointF _p { get; set; }
-        public PointF p
+        private PointF _pixelPoint { get; set; }
+        public PointF pixelPoint
         {
             get
             {
-                return _p;
+                return _pixelPoint;
             }
         }
         public DateTime Time { get; set; }
+
+        private PointF _UTMPoint { get; set; }
+        public PointF UTMPoint
+        {
+            get
+            {
+                return _UTMPoint;
+            }
+        }
         
     }
 }

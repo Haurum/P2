@@ -159,7 +159,7 @@ namespace OrienteeringTracker
                     }
                     else if(ticks > TailLenght)
                     {
-                        RunnerToDraw[Index] = route.Coords[ticks - (TailLenght - Index)].p;
+                        RunnerToDraw[Index] = route.Coords[ticks - (TailLenght - Index)].pixelPoint;
                         RunnerToDraw[Index].X *= ZoomFactor;
                         RunnerToDraw[Index].Y *= ZoomFactor;
                         draw = true;

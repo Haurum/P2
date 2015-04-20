@@ -29,11 +29,32 @@ namespace OrienteeringTracker
                 float y;
                 ConvertUTMToPixel(UTMNorthing, UTMEasting, out x, out y);
 
-                Coordinate c = new Coordinate(x, y, gp.Time);
+                Coordinate c = new Coordinate(x, y, gp.Time, (float)(UTMEasting), (float)(UTMNorthing));
                 route.Coords.Add(c);
             }
             GpxStream.Close();
+            AddMissingPoints(ref route);
             return route;
+        }
+
+        public static void AddMissingPoints(ref Route route)
+        {
+            int counter = 0;
+            while (counter < route.Coords.Count-1)
+            {
+                if (route.Coords[counter].Time >= route.Coords[counter + 1].Time)
+                {
+                    route.Coords.RemoveAt(counter + 1);
+                    counter--;
+                }
+                else if (route.Coords[counter].Time.AddSeconds(1) != route.Coords[counter + 1].Time)
+                {
+                    Coordinate temp = route.Coords[counter];
+                    temp.Time = temp.Time.AddSeconds(1);
+                    route.Coords.Insert(counter + 1, temp);
+                }
+                counter++;
+            }
         }
 
         public static List<ControlPoint> ReadControlPoints(string path)
