@@ -259,6 +259,17 @@ namespace OrienteeringTracker
             }
         }
 
+        private void MainForm_MouseClick(object sender, MouseEventArgs e)
+        {
+            Coordsreader.Text = e.Location.X * ZoomFactor + ", " + e.Location.Y * ZoomFactor;
+        }
+
+        private void Map1_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            Coordsreader.Text = me.Location.X / ZoomFactor + ", " + me.Location.Y / ZoomFactor;
+        }
+
 
     }
 }

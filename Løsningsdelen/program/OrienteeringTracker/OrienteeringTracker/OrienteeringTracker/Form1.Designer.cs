@@ -37,6 +37,7 @@
             this.TempoUpDown = new System.Windows.Forms.NumericUpDown();
             this.ResetButton = new System.Windows.Forms.Button();
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
+            this.Coordsreader = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
@@ -51,6 +52,7 @@
             this.Map1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Map1.TabIndex = 0;
             this.Map1.TabStop = false;
+            this.Map1.Click += new System.EventHandler(this.Map1_Click);
             this.Map1.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
             this.Map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseDown);
             this.Map1.MouseEnter += new System.EventHandler(this.Map1_MouseEnter);
@@ -136,11 +138,21 @@
             this.RunnersCheckBox.TabIndex = 7;
             this.RunnersCheckBox.Visible = false;
             // 
+            // Coordsreader
+            // 
+            this.Coordsreader.AutoSize = true;
+            this.Coordsreader.Location = new System.Drawing.Point(438, 9);
+            this.Coordsreader.Name = "Coordsreader";
+            this.Coordsreader.Size = new System.Drawing.Size(22, 13);
+            this.Coordsreader.TabIndex = 8;
+            this.Coordsreader.Text = "0,0";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(998, 379);
+            this.Controls.Add(this.Coordsreader);
             this.Controls.Add(this.RunnersCheckBox);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.TempoUpDown);
@@ -151,6 +163,7 @@
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();
@@ -169,6 +182,7 @@
         private System.Windows.Forms.NumericUpDown TempoUpDown;
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.CheckedListBox RunnersCheckBox;
+        private System.Windows.Forms.Label Coordsreader;
     }
 }
 
