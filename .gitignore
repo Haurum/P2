@@ -27,3 +27,6 @@ Løsningsdelen/program/OrienteeringTracker/OrienteeringTracker/OrienteeringTrack
 *.suo
 Løsningsdelen/program/OrienteeringTracker/OrienteeringTracker/OrienteeringTracker/bin/Debug/OrienteeringTracker.exe
 *.cache
+*.pdb
+Løsningsdelen/program/OrienteeringTracker/OrienteeringTracker/OrienteeringTracker/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Løsningsdelen/program/OrienteeringTracker/OrienteeringTracker/OrienteeringTracker/obj/Debug/OrienteeringTracker.csproj.FileListAbsolute.txt
