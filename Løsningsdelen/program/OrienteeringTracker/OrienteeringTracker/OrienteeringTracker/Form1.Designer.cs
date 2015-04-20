@@ -38,6 +38,7 @@
             this.ResetButton = new System.Windows.Forms.Button();
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
             this.Coordsreader = new System.Windows.Forms.Label();
+            this.loadTrack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
@@ -147,11 +148,22 @@
             this.Coordsreader.TabIndex = 8;
             this.Coordsreader.Text = "0,0";
             // 
+            // loadTrack
+            // 
+            this.loadTrack.Location = new System.Drawing.Point(749, 305);
+            this.loadTrack.Name = "loadTrack";
+            this.loadTrack.Size = new System.Drawing.Size(75, 23);
+            this.loadTrack.TabIndex = 9;
+            this.loadTrack.Text = "Load route";
+            this.loadTrack.UseVisualStyleBackColor = true;
+            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(998, 379);
+            this.Controls.Add(this.loadTrack);
             this.Controls.Add(this.Coordsreader);
             this.Controls.Add(this.RunnersCheckBox);
             this.Controls.Add(this.ResetButton);
@@ -183,6 +195,7 @@
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.CheckedListBox RunnersCheckBox;
         private System.Windows.Forms.Label Coordsreader;
+        private System.Windows.Forms.Button loadTrack;
     }
 }
 

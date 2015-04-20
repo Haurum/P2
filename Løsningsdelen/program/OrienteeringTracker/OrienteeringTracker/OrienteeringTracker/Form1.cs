@@ -81,9 +81,13 @@ namespace OrienteeringTracker
             {
                 string[] files = Directory.GetFiles(fbd.SelectedPath);
 
+                Route route = new Route();
+
                 foreach (string file in files)
                 {
-                    Routes.Add(Helper.ReadGPXData(new FileStream(file, FileMode.Open)));
+                    route = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
+                    route.ToVisit = ControlPoints;
+                    Routes.Add(route);
                 }
                 for (int Index = 0; Index < Routes.Count; Index++)
                 {
@@ -173,6 +177,7 @@ namespace OrienteeringTracker
                         RunnerToDraw[RunnerToDraw.Length - 1].Y - 4, 8, 8);
                     g.DrawString(route.RunnerName, new Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Black),
                         RunnerToDraw[RunnerToDraw.Length - 1].X + 5, RunnerToDraw[RunnerToDraw.Length - 1].Y + 5);
+                    //Coordsreader.Text = Routes[1].Coords[ticks].UTMPoint.X / ZoomFactor + ", " + Routes[1].Coords[ticks].UTMPoint.Y / ZoomFactor + ", " + Routes[1].Coords[ticks].pixelPoint.X / ZoomFactor + ", " + Routes[1].Coords[ticks].pixelPoint.Y / ZoomFactor;
                 }    
             }
         }
@@ -204,6 +209,21 @@ namespace OrienteeringTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+        }
+
+        private void MainForm_MouseClick(object sender, MouseEventArgs e)
+        {
+            //Coordsreader.Text = e.Location.X * ZoomFactor + ", " + e.Location.Y * ZoomFactor;
+        }
+
+        private void Map1_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            //Coordsreader.Text = me.Location.X / ZoomFactor + ", " + me.Location.Y / ZoomFactor;
+        }
+
+        private void loadTrack_Click(object sender, EventArgs e)
+        {
             OpenFileDialog ofd = new OpenFileDialog();
             DialogResult dr = ofd.ShowDialog();
             if (dr == DialogResult.OK)
@@ -218,56 +238,46 @@ namespace OrienteeringTracker
 
             foreach (ControlPoint cp in ControlPoints)
             {
-                Point[] points = {new Point(Convert.ToInt32(cp.Cord.p.X + 30), Convert.ToInt32(cp.Cord.p.Y)), 
-                                         new Point(Convert.ToInt32(cp.Cord.p.X - 15), Convert.ToInt32(cp.Cord.p.Y-30)), 
-                                         new Point(Convert.ToInt32(cp.Cord.p.X - 15), Convert.ToInt32(cp.Cord.p.Y+30))};
+                Point[] points = {new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y)), 
+                                         new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y-30)), 
+                                         new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y+30))};
                 if (ControlPoints.First() == cp)
                 {
                     g.DrawPolygon(p, points);
                 }
                 else if (ControlPoints.Last() == cp)
                 {
-                    g.DrawEllipse(p, cp.Cord.p.X - 17, cp.Cord.p.Y - 17, 34, 34);
-                    g.DrawEllipse(p, cp.Cord.p.X - 25, cp.Cord.p.Y - 25, 50, 50);
+                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 17, cp.Cord.pixelPoint.Y - 17, 34, 34);
+                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
                 }
                 else
                 {
-                    g.DrawEllipse(p, cp.Cord.p.X - 25, cp.Cord.p.Y - 25, 50, 50);
+                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
                 }
 
 
                 using (Font myFont = new Font("Arial", 24, FontStyle.Bold))
                 {
-                    g.DrawString(cp.Number.ToString(), myFont, Brushes.Magenta, new Point(Convert.ToInt32(cp.Cord.p.X + 30), Convert.ToInt32(cp.Cord.p.Y - 25 / 2)));
+                    g.DrawString(cp.Number.ToString(), myFont, Brushes.Magenta, new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y - 25 / 2)));
                 }
 
                 if (ControlPoints.First() != cp)
                 {
-                    float xDiff = ControlPoints[i - 1].Cord.p.X - cp.Cord.p.X;
-                    float yDiff = ControlPoints[i - 1].Cord.p.Y - cp.Cord.p.Y;
+                    float xDiff = ControlPoints[i - 1].Cord.pixelPoint.X - cp.Cord.pixelPoint.X;
+                    float yDiff = ControlPoints[i - 1].Cord.pixelPoint.Y - cp.Cord.pixelPoint.Y;
 
                     float angle = (float)Math.Atan2(yDiff, xDiff) - (float)(Math.PI);
 
                     float distance = (float)Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
 
-                    float newX = (float)(ControlPoints[i - 1].Cord.p.X + (Math.Cos(angle) * (distance - 25)));
-                    float newY = (float)(ControlPoints[i - 1].Cord.p.Y + (Math.Sin(angle) * (distance - 25)));
+                    float newX = (float)(ControlPoints[i - 1].Cord.pixelPoint.X + (Math.Cos(angle) * (distance - 25)));
+                    float newY = (float)(ControlPoints[i - 1].Cord.pixelPoint.Y + (Math.Sin(angle) * (distance - 25)));
 
-                    g.DrawLine(p, new Point(Convert.ToInt32(ControlPoints[i - 1].Cord.p.X + Math.Cos(angle) * 25), Convert.ToInt32(ControlPoints[i - 1].Cord.p.Y + Math.Sin(angle) * 25)), new Point(Convert.ToInt32(newX), Convert.ToInt32(newY)));
+                    g.DrawLine(p, new Point(Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.X + Math.Cos(angle) * 25), Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.Y + Math.Sin(angle) * 25)), new Point(Convert.ToInt32(newX), Convert.ToInt32(newY)));
                 }
                 i++;
             }
-        }
-
-        private void MainForm_MouseClick(object sender, MouseEventArgs e)
-        {
-            Coordsreader.Text = e.Location.X * ZoomFactor + ", " + e.Location.Y * ZoomFactor;
-        }
-
-        private void Map1_Click(object sender, EventArgs e)
-        {
-            MouseEventArgs me = (MouseEventArgs)e;
-            Coordsreader.Text = me.Location.X / ZoomFactor + ", " + me.Location.Y / ZoomFactor;
+            Map1.Refresh();
         }
 
 

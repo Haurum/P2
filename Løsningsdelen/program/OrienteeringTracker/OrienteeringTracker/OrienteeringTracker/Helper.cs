@@ -65,7 +65,12 @@ namespace OrienteeringTracker
             foreach (var line in File.ReadLines(path))
             {
                 coordinatesString = line.Split(';');
-                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now), Radius = 10, Number = i });
+                //float x;
+                //float y;
+                //ConvertUTMToPixel(Convert.ToDouble(coordinatesString[0]), Convert.ToDouble(coordinatesString[1]), out x, out y);
+
+                //controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now, 0,0), Radius = 10, Number = i });
+                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[2], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[3], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now, float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture),float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture)), Radius = 10, Number = i });
                 i++;
             }
             return controlPoints;
