@@ -106,6 +106,7 @@ namespace OrienteeringTracker
                 PlayBar.Show();
                 TempoUpDown.Show();
                 RunnersCheckBox.Show();
+                tempoLabel.Show();
             }
 
         }
@@ -203,8 +204,10 @@ namespace OrienteeringTracker
             PlayBar.Hide();
             TempoUpDown.Hide();
             RunnersCheckBox.Hide();
+            TempoUpDown.Hide();
             LoadButton.Show();
             RunnersCheckBox.Items.Clear();
+            
         }
 
         private void MainForm_Load(object sender, EventArgs e)
