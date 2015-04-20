@@ -25,3 +25,12 @@ C:\Users\frederik\Desktop\p2\P2-f219cf0ffbd583d209d5a13f5459ec50b2ebc959\Løsnin
 C:\Users\frederik\Desktop\p2\P2-f219cf0ffbd583d209d5a13f5459ec50b2ebc959\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.MainForm.resources
 C:\Users\frederik\Desktop\p2\P2-f219cf0ffbd583d209d5a13f5459ec50b2ebc959\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.Properties.Resources.resources
 C:\Users\frederik\Desktop\p2\P2-f219cf0ffbd583d209d5a13f5459ec50b2ebc959\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csproj.GenerateResource.Cache
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.exe
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.pdb
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csprojResolveAssemblyReference.cache
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.MainForm.resources
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.Properties.Resources.resources
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csproj.GenerateResource.Cache
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe
+C:\Users\Christian\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.pdb
