@@ -21,7 +21,7 @@ namespace OrienteeringTracker
 
         #region Varibles
 
-        Color[] Colors = { Color.Blue, Color.Red, Color.Black, Color.Purple, Color.Turquoise, Color.Orange };
+        Color[] Colors = { Color.Blue, Color.Red, Color.Black, Color.Purple, Color.Turquoise, Color.Lime };
         List<Route> Routes = new List<Route>();
         List<ControlPoint> ControlPoints = new List<ControlPoint>();
         private Bitmap OriginalMap;
