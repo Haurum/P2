@@ -60,11 +60,13 @@ namespace OrienteeringTracker
         public static List<ControlPoint> ReadControlPoints(string path)
         {
             string[] coordinatesString;
+            int i = 1;
             List<ControlPoint> controlPoints = new List<ControlPoint>();
             foreach (var line in File.ReadLines(path))
             {
                 coordinatesString = line.Split(';');
-                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now), Radius = 10, Number = Convert.ToInt32(coordinatesString[2]) });
+                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now), Radius = 10, Number = i });
+                i++;
             }
             return controlPoints;
         }

@@ -42,6 +42,7 @@
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
             this.DataTitle = new System.Windows.Forms.Label();
+            this.Coordsreader = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
@@ -60,6 +61,7 @@
             this.Map1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Map1.TabIndex = 0;
             this.Map1.TabStop = false;
+            this.Map1.Click += new System.EventHandler(this.Map1_Click);
             this.Map1.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
             this.Map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseDown);
             this.Map1.MouseEnter += new System.EventHandler(this.Map1_MouseEnter);
@@ -164,6 +166,7 @@
             // 
             // mapTab
             // 
+            this.mapTab.Controls.Add(this.Coordsreader);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
             this.mapTab.Controls.Add(this.ResetButton);
@@ -212,6 +215,15 @@
             this.DataTitle.TabIndex = 0;
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            //
+            // Coordsreader
+            // 
+            this.Coordsreader.AutoSize = true;
+            this.Coordsreader.Location = new System.Drawing.Point(438, 9);
+            this.Coordsreader.Name = "Coordsreader";
+            this.Coordsreader.Size = new System.Drawing.Size(22, 13);
+            this.Coordsreader.TabIndex = 8;
+            this.Coordsreader.Text = "0,0";
             // 
             // MainForm
             // 
@@ -223,6 +235,7 @@
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();
@@ -249,6 +262,7 @@
         private System.Windows.Forms.TabPage dataTab;
         private System.Windows.Forms.Label tempoLabel;
         private System.Windows.Forms.Label DataTitle;
+        private System.Windows.Forms.Label Coordsreader;
     }
 }
 
