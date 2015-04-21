@@ -10,10 +10,11 @@ namespace OrienteeringTracker
 {
     public class Coordinate
     {
-        public Coordinate(float x, float y, DateTime t, float UTME, float UTMN)
+        public Coordinate(float x, float y, DateTime t, double UTME, double UTMN)
         {
             _pixelPoint = new PointF(x, y);
-            _UTMPoint = new PointF(UTME, UTMN);
+            UTMEast = UTME;
+            UTMNorth = UTMN;
             Time = t;
         }
 
@@ -27,14 +28,7 @@ namespace OrienteeringTracker
         }
         public DateTime Time { get; set; }
 
-        private PointF _UTMPoint { get; set; }
-        public PointF UTMPoint
-        {
-            get
-            {
-                return _UTMPoint;
-            }
-        }
-        
+        public double UTMEast { get; set; }
+        public double UTMNorth { get; set; }
     }
 }
