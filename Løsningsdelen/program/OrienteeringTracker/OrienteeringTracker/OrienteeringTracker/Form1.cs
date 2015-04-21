@@ -213,6 +213,7 @@ namespace OrienteeringTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LoadButton.Hide();
         }
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
@@ -282,6 +283,8 @@ namespace OrienteeringTracker
                 i++;
             }
             Map1.Refresh();
+            LoadButton.Show();
+            loadTrack.Hide();
         }
 
 

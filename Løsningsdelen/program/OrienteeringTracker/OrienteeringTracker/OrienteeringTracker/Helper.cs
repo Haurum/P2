@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Globalization;
 using System.Drawing;
 
 namespace OrienteeringTracker
@@ -94,22 +95,18 @@ namespace OrienteeringTracker
 
         public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
         {
-            //StreamReader sr = new StreamReader(Encoding.Default.GetString(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1));
-            //StreamReader sr = new StreamReader(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1.);
             MemoryStream ms = new MemoryStream(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1);
             string line;
-            List<double> worldTal = new List<double>();
+            List<float> worldTal = new List<float>();
             StreamReader sr = new StreamReader(ms, Encoding.UTF8);
 
             while ((line = sr.ReadLine()) != null)
             {
-                worldTal.Add(Convert.ToDouble(line));
+                worldTal.Add(float.Parse(line, CultureInfo.InvariantCulture));
             }
 
-            x = Convert.ToInt32(((-0.84964441 * UTM_east) - (-0.84964441 * 539276.35483168)) / (0.84964441 * -0.84964441));
-            y = Convert.ToInt32(((0.84964441 * UTM_north) - (0.84964441 * 6250863.73506770)) / (0.84964441 * -0.84964441));
-            //x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
-            //y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
+            x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
+            y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
         }
 
         public static void ConvertLatLongtoUTM(double Lat, double Long, out double UTMNorthing, out double UTMEasting, out string Zone)
