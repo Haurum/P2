@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Globalization;
+using System.Drawing;
 
 namespace OrienteeringTracker
 {
@@ -75,6 +76,21 @@ namespace OrienteeringTracker
                 i++;
             }
             return controlPoints;
+        }
+
+        public static double CalcTotalLength(Route route, int startPoint, int endPoint)
+        {
+            double Res = 0;
+            for (int i = startPoint; i < endPoint; i++)
+            {
+                Res += CalcSingleLength(route.Coords[i].UTMEast, route.Coords[i].UTMNorth, route.Coords[i + 1].UTMEast, route.Coords[i + 1].UTMNorth);
+            }
+            return Res;
+        }
+
+        public static double CalcSingleLength(double startPoint_X, double startPoint_Y, double endPoint_X, double endPoint_Y)
+        {
+            return Math.Sqrt(Math.Pow(startPoint_X - endPoint_X, 2) + Math.Pow(startPoint_Y - endPoint_Y, 2));
         }
 
         public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)

@@ -44,6 +44,7 @@
             this.dataTab = new System.Windows.Forms.TabPage();
             this.DataTitle = new System.Windows.Forms.Label();
             this.loadTrack = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
@@ -168,6 +169,7 @@
             // mapTab
             // 
             this.mapTab.Controls.Add(this.loadTrack);
+            this.mapTab.Controls.Add(this.label1);
             this.mapTab.Controls.Add(this.Coordsreader);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
@@ -190,7 +192,7 @@
             this.Coordsreader.AutoSize = true;
             this.Coordsreader.Location = new System.Drawing.Point(438, 9);
             this.Coordsreader.Name = "Coordsreader";
-            this.Coordsreader.Size = new System.Drawing.Size(22, 13);
+            this.Coordsreader.Size = new System.Drawing.Size(28, 17);
             this.Coordsreader.TabIndex = 8;
             this.Coordsreader.Text = "0,0";
             // 
@@ -238,9 +240,19 @@
             this.loadTrack.UseVisualStyleBackColor = true;
             this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(556, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "label1";
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1331, 466);
+            this.Controls.Add(this.loadTrack);
             this.Controls.Add(this.tabControl);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
@@ -275,6 +287,7 @@
         private System.Windows.Forms.Label DataTitle;
         private System.Windows.Forms.Label Coordsreader;
         private System.Windows.Forms.Button loadTrack;
+        private System.Windows.Forms.Label label1;
     }
 }
 
