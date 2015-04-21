@@ -116,7 +116,7 @@
             this.TempoUpDown.Location = new System.Drawing.Point(9, 348);
             this.TempoUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.TempoUpDown.Maximum = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
