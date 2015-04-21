@@ -78,6 +78,28 @@ namespace OrienteeringTracker
             return controlPoints;
         }
 
+        public static Distance ControlPointChecker(ControlPoint cp, Route r)
+        {
+            List<Distance> distList = new List<Distance>();
+            Distance dist = new Distance();
+            dist.CP = cp;
+            double doubleDist = 0;
+            foreach (Coordinate coord in r.Coords)
+            {
+                doubleDist = CalcSingleLength(coord.UTMEast, coord.UTMNorth, cp.Cord.UTMEast, cp.Cord.UTMNorth);
+                if (doubleDist < 25)
+                {
+                    dist.Dist = doubleDist;
+                    dist.Number = r.Coords.IndexOf(coord);
+                    distList.Add(dist);
+                }
+            }
+            if (distList.Count > 0)
+                return distList.OrderBy(distance => distance.Dist).First();
+            else
+                return new Distance();
+        }
+
         public static double CalcTotalLength(Route route, int startPoint, int endPoint)
         {
             double Res = 0;
@@ -87,7 +109,7 @@ namespace OrienteeringTracker
             }
             return Res;
         }
-
+        
         public static double CalcSingleLength(double startPoint_X, double startPoint_Y, double endPoint_X, double endPoint_Y)
         {
             return Math.Sqrt(Math.Pow(startPoint_X - endPoint_X, 2) + Math.Pow(startPoint_Y - endPoint_Y, 2));

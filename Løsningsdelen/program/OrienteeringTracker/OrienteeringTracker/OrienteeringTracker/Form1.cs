@@ -109,6 +109,18 @@ namespace OrienteeringTracker
                 tempoLabel.Show();
             }
 
+            List<Distance> dist = new List<Distance>();
+            foreach (ControlPoint cp in Routes[1].ToVisit)
+            {
+                dist.Add(Helper.ControlPointChecker(cp, Routes[1]));
+            }
+            Graphics g = Graphics.FromImage(Map1.Image);
+            Pen p = new Pen(Color.Tomato);
+            foreach (Distance d in dist)
+            {
+                if (d.CP != null)
+                    g.DrawEllipse(p, Routes[1].Coords.ElementAt(d.Number).pixelPoint.X, Routes[1].Coords.ElementAt(d.Number).pixelPoint.Y, 10, 10);
+            }
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
