@@ -167,6 +167,7 @@
             // 
             // mapTab
             // 
+            this.Controls.Add(this.loadTrack);
             this.mapTab.Controls.Add(this.Coordsreader);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
@@ -239,23 +240,9 @@
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
-            this.ClientSize = new System.Drawing.Size(998, 379);
-            this.Controls.Add(this.loadTrack);
-            this.Controls.Add(this.Coordsreader);
-            this.Controls.Add(this.RunnersCheckBox);
-            this.Controls.Add(this.ResetButton);
-            this.Controls.Add(this.TempoUpDown);
-            this.Controls.Add(this.PlayBar);
-            this.Controls.Add(this.PlayButton);
-            this.Controls.Add(this.LoadButton);
-            this.Controls.Add(this.Map1);
-=======
             this.ClientSize = new System.Drawing.Size(1331, 466);
             this.Controls.Add(this.tabControl);
             this.Margin = new System.Windows.Forms.Padding(4);
->>>>>>> 63aa426fa3b1cb65e2aad8c8d15a0c031b8cf9fd
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
