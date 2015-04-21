@@ -44,7 +44,6 @@
             this.dataTab = new System.Windows.Forms.TabPage();
             this.DataTitle = new System.Windows.Forms.Label();
             this.loadTrack = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
@@ -97,6 +96,7 @@
             // 
             // PlayTimer
             // 
+            this.PlayTimer.Interval = 1000;
             this.PlayTimer.Tick += new System.EventHandler(this.PlayTimer_Tick);
             // 
             // PlayBar
@@ -115,6 +115,11 @@
             this.TempoUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.TempoUpDown.Location = new System.Drawing.Point(9, 348);
             this.TempoUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.TempoUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.TempoUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -124,7 +129,7 @@
             this.TempoUpDown.Size = new System.Drawing.Size(69, 22);
             this.TempoUpDown.TabIndex = 4;
             this.TempoUpDown.Value = new decimal(new int[] {
-            10,
+            1,
             0,
             0,
             0});
@@ -168,7 +173,6 @@
             // 
             // mapTab
             // 
-            this.mapTab.Controls.Add(this.label1);
             this.mapTab.Controls.Add(this.Coordsreader);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
@@ -238,15 +242,6 @@
             this.loadTrack.UseVisualStyleBackColor = true;
             this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(556, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "label1";
-            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1331, 466);
@@ -285,7 +280,6 @@
         private System.Windows.Forms.Label DataTitle;
         private System.Windows.Forms.Label Coordsreader;
         private System.Windows.Forms.Button loadTrack;
-        private System.Windows.Forms.Label label1;
     }
 }
 
