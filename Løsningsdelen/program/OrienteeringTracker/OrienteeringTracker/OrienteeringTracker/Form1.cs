@@ -60,8 +60,7 @@ namespace OrienteeringTracker
             {
                 ZoomFactor /= 1.25f;
             }
-            Map1.Height = (int)(OriginalMap.Height * ZoomFactor);
-            Map1.Width = (int)(OriginalMap.Width * ZoomFactor);
+            
             Map1.Refresh();
         }
 
@@ -157,8 +156,10 @@ namespace OrienteeringTracker
             Graphics g = e.Graphics;
             SolidBrush brush;
             Pen pen;
-            bool draw = true;
+            bool draw = false;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            Map1.Height = (int)(OriginalMap.Height * ZoomFactor);
+            Map1.Width = (int)(OriginalMap.Width * ZoomFactor);
             foreach (Route route in Routes)
             {
                 if (!RunnersCheckBox.CheckedItems.Contains(route.RunnerName))
@@ -191,7 +192,6 @@ namespace OrienteeringTracker
                     g.DrawString(route.RunnerName, new Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Black),
                         RunnerToDraw[RunnerToDraw.Length - 1].X + 5, RunnerToDraw[RunnerToDraw.Length - 1].Y + 5);
                     //Coordsreader.Text = Routes[1].Coords[ticks].UTMPoint.X / ZoomFactor + ", " + Routes[1].Coords[ticks].UTMPoint.Y / ZoomFactor + ", " + Routes[1].Coords[ticks].pixelPoint.X / ZoomFactor + ", " + Routes[1].Coords[ticks].pixelPoint.Y / ZoomFactor;
-                    label1.Text = Convert.ToString((Helper.CalcTotalLength(Routes[3], 0, ticks)));
                 }    
             }
         }
@@ -203,7 +203,7 @@ namespace OrienteeringTracker
 
         private void TempoUpDown_ValueChanged(object sender, EventArgs e)
         {
-            PlayTimer.Interval = (int)(1000 / TempoUpDown.Value);
+            PlayTimer.Interval = (int)(1000 / Math.Pow(Convert.ToDouble(TempoUpDown.Value), 2));
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
