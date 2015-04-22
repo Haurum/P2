@@ -117,6 +117,14 @@ namespace OrienteeringTracker
             return Math.Sqrt(Math.Pow(startPoint_X - endPoint_X, 2) + Math.Pow(startPoint_Y - endPoint_Y, 2));
         }
 
+        public static double CalcSpeedMinsPrKm(double length, int startTick, int endTick)
+        {
+            int deltaTick = endTick - startTick;
+            double secPrMeter = deltaTick/length;
+            double result = secPrMeter * 1000 / 60;
+            return result;
+        }
+
         public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
         {
             MemoryStream ms = new MemoryStream(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1);

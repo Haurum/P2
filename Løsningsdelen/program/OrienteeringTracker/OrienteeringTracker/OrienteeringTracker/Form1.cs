@@ -91,6 +91,7 @@ namespace OrienteeringTracker
                 for (int Index = 0; Index < Routes.Count; Index++)
                 {
                     Routes[Index].RouteColor = Colors[Index];
+                    Routes[Index].startingTick.Add(0);
                     RunnersCheckBox.Items.Add(Routes[Index].RunnerName);
                     RunnersCheckBox.SetItemChecked(Index, true);
                 }
@@ -106,6 +107,8 @@ namespace OrienteeringTracker
                 TempoUpDown.Show();
                 RunnersCheckBox.Show();
                 tempoLabel.Show();
+                StartpointLabel.Show();
+                StartpointUpDown.Show();
             }
 
             List<Distance> distList = new List<Distance>();
@@ -157,6 +160,7 @@ namespace OrienteeringTracker
                 PlayTimer.Stop();
             }
             PlayBar.Value = ticks;
+            label1.Text = ticks.ToString();
             Map1.Refresh();
             ticks++;
         }
@@ -187,7 +191,7 @@ namespace OrienteeringTracker
                     }
                     else if(ticks > TailLenght)
                     {
-                        RunnerToDraw[Index] = route.Coords[ticks - (TailLenght - Index)].pixelPoint;
+                        RunnerToDraw[Index] = route.Coords[ticks - (TailLenght - Index) + route.startingTick[(int)StartpointUpDown.Value]].pixelPoint;
                         RunnerToDraw[Index].X *= ZoomFactor;
                         RunnerToDraw[Index].Y *= ZoomFactor;
                         draw = true;
@@ -308,7 +312,5 @@ namespace OrienteeringTracker
             LoadButton.Show();
             loadTrack.Hide();
         }
-
-
     }
 }

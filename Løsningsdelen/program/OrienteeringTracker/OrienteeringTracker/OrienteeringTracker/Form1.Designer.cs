@@ -39,16 +39,18 @@
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
-            this.Coordsreader = new System.Windows.Forms.Label();
+            this.StartpointLabel = new System.Windows.Forms.Label();
+            this.StartpointUpDown = new System.Windows.Forms.NumericUpDown();
+            this.loadTrack = new System.Windows.Forms.Button();
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
             this.DataTitle = new System.Windows.Forms.Label();
-            this.loadTrack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
             this.tabControl.SuspendLayout();
             this.mapTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StartpointUpDown)).BeginInit();
             this.dataTab.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -173,8 +175,9 @@
             // 
             // mapTab
             // 
+            this.mapTab.Controls.Add(this.StartpointLabel);
+            this.mapTab.Controls.Add(this.StartpointUpDown);
             this.mapTab.Controls.Add(this.loadTrack);
-            this.mapTab.Controls.Add(this.Coordsreader);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
             this.mapTab.Controls.Add(this.ResetButton);
@@ -191,20 +194,48 @@
             this.mapTab.Text = "Map View";
             this.mapTab.UseVisualStyleBackColor = true;
             // 
-            // Coordsreader
+            // StartpointLabel
             // 
-            this.Coordsreader.AutoSize = true;
-            this.Coordsreader.Location = new System.Drawing.Point(438, 9);
-            this.Coordsreader.Name = "Coordsreader";
-            this.Coordsreader.Size = new System.Drawing.Size(22, 13);
-            this.Coordsreader.TabIndex = 8;
-            this.Coordsreader.Text = "0,0";
+            this.StartpointLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.StartpointLabel.AutoSize = true;
+            this.StartpointLabel.Location = new System.Drawing.Point(83, 334);
+            this.StartpointLabel.Name = "StartpointLabel";
+            this.StartpointLabel.Size = new System.Drawing.Size(66, 13);
+            this.StartpointLabel.TabIndex = 11;
+            this.StartpointLabel.Text = "Startingpoint";
+            this.StartpointLabel.Visible = false;
+            // 
+            // StartpointUpDown
+            // 
+            this.StartpointUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.StartpointUpDown.Location = new System.Drawing.Point(86, 351);
+            this.StartpointUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.StartpointUpDown.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.StartpointUpDown.Name = "StartpointUpDown";
+            this.StartpointUpDown.Size = new System.Drawing.Size(69, 20);
+            this.StartpointUpDown.TabIndex = 10;
+            this.StartpointUpDown.Visible = false;
+            // 
+            // loadTrack
+            // 
+            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
+            this.loadTrack.Name = "loadTrack";
+            this.loadTrack.Size = new System.Drawing.Size(100, 28);
+            this.loadTrack.TabIndex = 9;
+            this.loadTrack.Text = "Load route";
+            this.loadTrack.UseVisualStyleBackColor = true;
+            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
             // 
             // tempoLabel
             // 
             this.tempoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tempoLabel.AutoSize = true;
-            this.tempoLabel.Location = new System.Drawing.Point(9, 330);
+            this.tempoLabel.Location = new System.Drawing.Point(17, 334);
             this.tempoLabel.Name = "tempoLabel";
             this.tempoLabel.Size = new System.Drawing.Size(40, 13);
             this.tempoLabel.TabIndex = 8;
@@ -233,17 +264,6 @@
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // loadTrack
-            // 
-            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
-            this.loadTrack.Name = "loadTrack";
-            this.loadTrack.Size = new System.Drawing.Size(100, 28);
-            this.loadTrack.TabIndex = 9;
-            this.loadTrack.Text = "Load route";
-            this.loadTrack.UseVisualStyleBackColor = true;
-            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
-            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1331, 466);
@@ -259,6 +279,7 @@
             this.tabControl.ResumeLayout(false);
             this.mapTab.ResumeLayout(false);
             this.mapTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StartpointUpDown)).EndInit();
             this.dataTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -279,8 +300,9 @@
         private System.Windows.Forms.TabPage dataTab;
         private System.Windows.Forms.Label tempoLabel;
         private System.Windows.Forms.Label DataTitle;
-        private System.Windows.Forms.Label Coordsreader;
         private System.Windows.Forms.Button loadTrack;
+        private System.Windows.Forms.Label StartpointLabel;
+        private System.Windows.Forms.NumericUpDown StartpointUpDown;
     }
 }
 
