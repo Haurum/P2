@@ -78,27 +78,28 @@ namespace OrienteeringTracker
             return controlPoints;
         }
 
-        public static Distance ControlPointChecker(ControlPoint cp, Route r)
+        public static ControlPointTime ControlPointChecker(ControlPoint cp, Route r)
         {
-            List<Distance> distList = new List<Distance>();
-            Distance dist = new Distance();
+            List<ControlPointTime> distList = new List<ControlPointTime>();
+            ControlPointTime cpt = new ControlPointTime();
             double doubleDist = 0;
             foreach (Coordinate coord in r.Coords)
             {
                 doubleDist = CalcSingleLength(coord.pixelPoint.X, coord.pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
                 if (doubleDist < 25)
                 {
-                    dist = new Distance();
-                    dist.CP = cp;
-                    dist.Dist = doubleDist;
-                    dist.Tick = r.Coords.IndexOf(coord);
-                    distList.Add(dist);
+                    cpt = new ControlPointTime();
+                    cpt.Cord = cp.Cord;
+                    cpt.Number = cp.Number;
+                    cpt.Dist = doubleDist;
+                    cpt.Tick = r.Coords.IndexOf(coord);
+                    distList.Add(cpt);
                 }
             }
             if (distList.Count > 0)
                 return distList.OrderBy(distance => distance.Dist).First();
             else
-                return null;
+                return new ControlPointTime();
 
         }
 

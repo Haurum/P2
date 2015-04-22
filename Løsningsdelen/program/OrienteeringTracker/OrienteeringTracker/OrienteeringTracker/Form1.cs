@@ -85,7 +85,6 @@ namespace OrienteeringTracker
                 foreach (string file in files)
                 {
                     route = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
-                    route.ToVisit = ControlPoints;
                     Routes.Add(route);
                 }
                 for (int Index = 0; Index < Routes.Count; Index++)
@@ -108,17 +107,11 @@ namespace OrienteeringTracker
                 tempoLabel.Show();
             }
 
-            List<Distance> distList = new List<Distance>();
-            Distance dist = new Distance();
             foreach (Route r in Routes)
             {
                 foreach (ControlPoint cp in ControlPoints)
                 {
-                    dist = Helper.ControlPointChecker(cp, r);
-                    if (dist != null)
-                    {
-                        r.Visited.Add(dist.CP);
-                    }
+                    r.Visited.Add(Helper.ControlPointChecker(cp, r));
                 }
             }
             
@@ -235,6 +228,7 @@ namespace OrienteeringTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Put_Data();
             LoadButton.Hide();
         }
 
@@ -247,6 +241,14 @@ namespace OrienteeringTracker
         {
             MouseEventArgs me = (MouseEventArgs)e;
             //Coordsreader.Text = me.Location.X / ZoomFactor + ", " + me.Location.Y / ZoomFactor;
+        }
+
+        private void Put_Data()
+        {
+            DataGridViewColumn dgvc = new DataGridViewColumn();
+            dgvc.Name = "Noget nice";
+            dgvc.HeaderText = "Hej tards";
+           // DataTable.Columns.Add(dgvc);
         }
 
         private void loadTrack_Click(object sender, EventArgs e)

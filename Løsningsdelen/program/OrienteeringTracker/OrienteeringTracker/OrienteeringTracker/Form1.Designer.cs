@@ -39,17 +39,19 @@
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
+            this.loadTrack = new System.Windows.Forms.Button();
             this.Coordsreader = new System.Windows.Forms.Label();
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
             this.DataTitle = new System.Windows.Forms.Label();
-            this.loadTrack = new System.Windows.Forms.Button();
+            this.DataTable = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
             this.tabControl.SuspendLayout();
             this.mapTab.SuspendLayout();
             this.dataTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTable)).BeginInit();
             this.SuspendLayout();
             // 
             // Map1
@@ -191,6 +193,17 @@
             this.mapTab.Text = "Map View";
             this.mapTab.UseVisualStyleBackColor = true;
             // 
+            // loadTrack
+            // 
+            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
+            this.loadTrack.Name = "loadTrack";
+            this.loadTrack.Size = new System.Drawing.Size(100, 28);
+            this.loadTrack.TabIndex = 9;
+            this.loadTrack.Text = "Load route";
+            this.loadTrack.UseVisualStyleBackColor = true;
+            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
+            // 
             // Coordsreader
             // 
             this.Coordsreader.AutoSize = true;
@@ -213,6 +226,7 @@
             // 
             // dataTab
             // 
+            this.dataTab.Controls.Add(this.DataTable);
             this.dataTab.Controls.Add(this.DataTitle);
             this.dataTab.Location = new System.Drawing.Point(4, 22);
             this.dataTab.Name = "dataTab";
@@ -233,16 +247,15 @@
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // loadTrack
+            // DataTable
             // 
-            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
-            this.loadTrack.Name = "loadTrack";
-            this.loadTrack.Size = new System.Drawing.Size(100, 28);
-            this.loadTrack.TabIndex = 9;
-            this.loadTrack.Text = "Load route";
-            this.loadTrack.UseVisualStyleBackColor = true;
-            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
+            this.DataTable.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataTable.Location = new System.Drawing.Point(3, 30);
+            this.DataTable.Name = "DataTable";
+            this.DataTable.Size = new System.Drawing.Size(1317, 407);
+            this.DataTable.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -260,6 +273,7 @@
             this.mapTab.ResumeLayout(false);
             this.mapTab.PerformLayout();
             this.dataTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataTable)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -281,6 +295,7 @@
         private System.Windows.Forms.Label DataTitle;
         private System.Windows.Forms.Label Coordsreader;
         private System.Windows.Forms.Button loadTrack;
+        private System.Windows.Forms.DataGridView DataTable;
     }
 }
 

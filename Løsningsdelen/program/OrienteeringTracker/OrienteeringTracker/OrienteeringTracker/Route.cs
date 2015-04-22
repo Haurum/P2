@@ -11,8 +11,7 @@ namespace OrienteeringTracker
         public Route()
         {
             Coords = new List<Coordinate>();
-            ToVisit = new List<ControlPoint>();
-            Visited = new List<ControlPoint>();
+            Visited = new List<ControlPointTime>();
         }
 
         public string RunnerName { get; set; }
@@ -22,8 +21,7 @@ namespace OrienteeringTracker
 
         public List<Coordinate> Coords { get; set; }
 
-        public List<ControlPoint> ToVisit { get; set; }
 
-        public List<ControlPoint> Visited { get; set; }
+        public List<ControlPointTime> Visited { get; set; }
     }
 }
