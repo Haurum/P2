@@ -39,12 +39,12 @@
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
-            this.loadTrack = new System.Windows.Forms.Button();
-            this.DataTable = new System.Windows.Forms.DataGridView();
             this.StartpointLabel = new System.Windows.Forms.Label();
             this.StartpointUpDown = new System.Windows.Forms.NumericUpDown();
+            this.loadTrack = new System.Windows.Forms.Button();
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
+            this.DataTable = new System.Windows.Forms.DataGridView();
             this.DataTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
@@ -166,9 +166,10 @@
             // 
             // tabControl
             // 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.mapTab);
             this.tabControl.Controls.Add(this.dataTab);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -196,20 +197,6 @@
             this.mapTab.Text = "Map View";
             this.mapTab.UseVisualStyleBackColor = true;
             // 
-
-            // loadTrack
-            // 
-            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
-            this.loadTrack.Name = "loadTrack";
-            this.loadTrack.Size = new System.Drawing.Size(100, 28);
-            this.loadTrack.TabIndex = 9;
-            this.loadTrack.Text = "Load route";
-            this.loadTrack.UseVisualStyleBackColor = true;
-            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
-            // 
-            // Coordsreader
-
             // StartpointLabel
             // 
             this.StartpointLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -271,6 +258,16 @@
             this.dataTab.Text = "Data View";
             this.dataTab.UseVisualStyleBackColor = true;
             // 
+            // DataTable
+            // 
+            this.DataTable.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataTable.Location = new System.Drawing.Point(3, 30);
+            this.DataTable.Name = "DataTable";
+            this.DataTable.Size = new System.Drawing.Size(1317, 407);
+            this.DataTable.TabIndex = 1;
+            // 
             // DataTitle
             // 
             this.DataTitle.Dock = System.Windows.Forms.DockStyle.Top;
@@ -281,16 +278,6 @@
             this.DataTitle.TabIndex = 0;
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // DataTable
-            // 
-            this.DataTable.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.DataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataTable.Location = new System.Drawing.Point(3, 30);
-            this.DataTable.Name = "DataTable";
-            this.DataTable.Size = new System.Drawing.Size(1317, 407);
-            this.DataTable.TabIndex = 1;
             // 
             // MainForm
             // 

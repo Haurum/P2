@@ -249,10 +249,7 @@ namespace OrienteeringTracker
 
         private void Put_Data()
         {
-            DataGridViewColumn dgvc = new DataGridViewColumn();
-            dgvc.Name = "Noget nice";
-            dgvc.HeaderText = "Hej tards";
-           // DataTable.Columns.Add(dgvc);
+            DataTable.ColumnCount = 4;
         }
 
         private void loadTrack_Click(object sender, EventArgs e)
