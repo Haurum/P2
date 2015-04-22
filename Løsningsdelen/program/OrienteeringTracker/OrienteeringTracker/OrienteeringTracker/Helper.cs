@@ -62,7 +62,7 @@ namespace OrienteeringTracker
         public static List<ControlPoint> ReadControlPoints(string path)
         {
             string[] coordinatesString;
-            int i = 1;
+            int i = 0;
             List<ControlPoint> controlPoints = new List<ControlPoint>();
             foreach (var line in File.ReadLines(path))
             {
