@@ -8,7 +8,7 @@ namespace OrienteeringTracker
 {
     class Distance
     {
-        public int Number { get; set; }
+        public int Tick { get; set; }
         public double Dist { get; set; }
         public ControlPoint CP { get; set; }
     }

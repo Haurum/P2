@@ -108,18 +108,28 @@ namespace OrienteeringTracker
                 tempoLabel.Show();
             }
 
-            List<Distance> dist = new List<Distance>();
-            foreach (ControlPoint cp in Routes[1].ToVisit)
+            List<Distance> distList = new List<Distance>();
+            Distance dist = new Distance();
+            foreach (Route r in Routes)
             {
-                dist.Add(Helper.ControlPointChecker(cp, Routes[1]));
+                foreach (ControlPoint cp in ControlPoints)
+                {
+                    dist = Helper.ControlPointChecker(cp, r);
+                    if (dist != null)
+                    {
+                        r.Visited.Add(dist.CP);
+                    }
+                }
             }
-            Graphics g = Graphics.FromImage(Map1.Image);
-            Pen p = new Pen(Color.Tomato);
-            foreach (Distance d in dist)
-            {
-                if (d.CP != null)
-                    g.DrawEllipse(p, Routes[1].Coords.ElementAt(d.Number).pixelPoint.X, Routes[1].Coords.ElementAt(d.Number).pixelPoint.Y, 10, 10);
-            }
+            
+            // Tjekker bare lige hvordan det ser ud
+            //Graphics g = Graphics.FromImage(Map1.Image);
+            //Pen p = new Pen(Color.Black,5);
+            //foreach (Distance d in distList)
+            //{
+            //    if (d.CP != null)
+            //        g.DrawEllipse(p, Routes[2].Coords.ElementAt(d.Tick).pixelPoint.X, Routes[2].Coords.ElementAt(d.Tick).pixelPoint.Y, 10, 10);
+            //}
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
