@@ -82,22 +82,24 @@ namespace OrienteeringTracker
         {
             List<Distance> distList = new List<Distance>();
             Distance dist = new Distance();
-            dist.CP = cp;
             double doubleDist = 0;
             foreach (Coordinate coord in r.Coords)
             {
-                doubleDist = CalcSingleLength(coord.UTMEast, coord.UTMNorth, cp.Cord.UTMEast, cp.Cord.UTMNorth);
+                doubleDist = CalcSingleLength(coord.pixelPoint.X, coord.pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
                 if (doubleDist < 25)
                 {
+                    dist = new Distance();
+                    dist.CP = cp;
                     dist.Dist = doubleDist;
-                    dist.Number = r.Coords.IndexOf(coord);
+                    dist.Tick = r.Coords.IndexOf(coord);
                     distList.Add(dist);
                 }
             }
             if (distList.Count > 0)
                 return distList.OrderBy(distance => distance.Dist).First();
             else
-                return new Distance();
+                return null;
+
         }
 
         public static double CalcTotalLength(Route route, int startPoint, int endPoint)
