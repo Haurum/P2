@@ -72,7 +72,7 @@
             // LoadButton
             // 
             this.LoadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LoadButton.Location = new System.Drawing.Point(1214, 342);
+            this.LoadButton.Location = new System.Drawing.Point(1214, 345);
             this.LoadButton.Margin = new System.Windows.Forms.Padding(4);
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(100, 28);
@@ -84,7 +84,7 @@
             // PlayButton
             // 
             this.PlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayButton.Location = new System.Drawing.Point(1106, 342);
+            this.PlayButton.Location = new System.Drawing.Point(1106, 345);
             this.PlayButton.Margin = new System.Windows.Forms.Padding(4);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(100, 28);
@@ -102,10 +102,10 @@
             // PlayBar
             // 
             this.PlayBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PlayBar.Location = new System.Drawing.Point(3, 378);
+            this.PlayBar.Location = new System.Drawing.Point(3, 392);
             this.PlayBar.Margin = new System.Windows.Forms.Padding(4);
             this.PlayBar.Name = "PlayBar";
-            this.PlayBar.Size = new System.Drawing.Size(1317, 56);
+            this.PlayBar.Size = new System.Drawing.Size(1317, 45);
             this.PlayBar.TabIndex = 3;
             this.PlayBar.Visible = false;
             this.PlayBar.Scroll += new System.EventHandler(this.PlayBar_Scroll);
@@ -113,7 +113,7 @@
             // TempoUpDown
             // 
             this.TempoUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.TempoUpDown.Location = new System.Drawing.Point(9, 348);
+            this.TempoUpDown.Location = new System.Drawing.Point(9, 351);
             this.TempoUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.TempoUpDown.Maximum = new decimal(new int[] {
             5,
@@ -126,7 +126,7 @@
             0,
             0});
             this.TempoUpDown.Name = "TempoUpDown";
-            this.TempoUpDown.Size = new System.Drawing.Size(69, 22);
+            this.TempoUpDown.Size = new System.Drawing.Size(69, 20);
             this.TempoUpDown.TabIndex = 4;
             this.TempoUpDown.Value = new decimal(new int[] {
             1,
@@ -139,7 +139,7 @@
             // ResetButton
             // 
             this.ResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResetButton.Location = new System.Drawing.Point(1214, 342);
+            this.ResetButton.Location = new System.Drawing.Point(1214, 345);
             this.ResetButton.Margin = new System.Windows.Forms.Padding(4);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(100, 28);
@@ -153,10 +153,10 @@
             // 
             this.RunnersCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.RunnersCheckBox.FormattingEnabled = true;
-            this.RunnersCheckBox.Location = new System.Drawing.Point(1162, 313);
+            this.RunnersCheckBox.Location = new System.Drawing.Point(1162, 316);
             this.RunnersCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.RunnersCheckBox.Name = "RunnersCheckBox";
-            this.RunnersCheckBox.Size = new System.Drawing.Size(152, 21);
+            this.RunnersCheckBox.Size = new System.Drawing.Size(152, 19);
             this.RunnersCheckBox.TabIndex = 7;
             this.RunnersCheckBox.Visible = false;
             // 
@@ -173,6 +173,7 @@
             // 
             // mapTab
             // 
+            this.mapTab.Controls.Add(this.loadTrack);
             this.mapTab.Controls.Add(this.Coordsreader);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
@@ -182,10 +183,10 @@
             this.mapTab.Controls.Add(this.PlayButton);
             this.mapTab.Controls.Add(this.LoadButton);
             this.mapTab.Controls.Add(this.Map1);
-            this.mapTab.Location = new System.Drawing.Point(4, 25);
+            this.mapTab.Location = new System.Drawing.Point(4, 22);
             this.mapTab.Name = "mapTab";
             this.mapTab.Padding = new System.Windows.Forms.Padding(3);
-            this.mapTab.Size = new System.Drawing.Size(1323, 437);
+            this.mapTab.Size = new System.Drawing.Size(1323, 440);
             this.mapTab.TabIndex = 0;
             this.mapTab.Text = "Map View";
             this.mapTab.UseVisualStyleBackColor = true;
@@ -195,7 +196,7 @@
             this.Coordsreader.AutoSize = true;
             this.Coordsreader.Location = new System.Drawing.Point(438, 9);
             this.Coordsreader.Name = "Coordsreader";
-            this.Coordsreader.Size = new System.Drawing.Size(28, 17);
+            this.Coordsreader.Size = new System.Drawing.Size(22, 13);
             this.Coordsreader.TabIndex = 8;
             this.Coordsreader.Text = "0,0";
             // 
@@ -203,9 +204,9 @@
             // 
             this.tempoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tempoLabel.AutoSize = true;
-            this.tempoLabel.Location = new System.Drawing.Point(9, 327);
+            this.tempoLabel.Location = new System.Drawing.Point(9, 330);
             this.tempoLabel.Name = "tempoLabel";
-            this.tempoLabel.Size = new System.Drawing.Size(52, 17);
+            this.tempoLabel.Size = new System.Drawing.Size(40, 13);
             this.tempoLabel.TabIndex = 8;
             this.tempoLabel.Text = "Tempo";
             this.tempoLabel.Visible = false;
@@ -213,10 +214,10 @@
             // dataTab
             // 
             this.dataTab.Controls.Add(this.DataTitle);
-            this.dataTab.Location = new System.Drawing.Point(4, 25);
+            this.dataTab.Location = new System.Drawing.Point(4, 22);
             this.dataTab.Name = "dataTab";
             this.dataTab.Padding = new System.Windows.Forms.Padding(3);
-            this.dataTab.Size = new System.Drawing.Size(1323, 437);
+            this.dataTab.Size = new System.Drawing.Size(1323, 440);
             this.dataTab.TabIndex = 1;
             this.dataTab.Text = "Data View";
             this.dataTab.UseVisualStyleBackColor = true;
@@ -234,9 +235,10 @@
             // 
             // loadTrack
             // 
-            this.loadTrack.Location = new System.Drawing.Point(749, 305);
+            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
             this.loadTrack.Name = "loadTrack";
-            this.loadTrack.Size = new System.Drawing.Size(75, 23);
+            this.loadTrack.Size = new System.Drawing.Size(100, 28);
             this.loadTrack.TabIndex = 9;
             this.loadTrack.Text = "Load route";
             this.loadTrack.UseVisualStyleBackColor = true;
@@ -245,7 +247,6 @@
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1331, 466);
-            this.Controls.Add(this.loadTrack);
             this.Controls.Add(this.tabControl);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
