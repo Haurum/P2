@@ -118,6 +118,7 @@ namespace OrienteeringTracker
                     r.Visited.Add(Helper.ControlPointChecker(cp, r));
                 }
             }
+            Put_Data();
             
             // Tjekker bare lige hvordan det ser ud
             //Graphics g = Graphics.FromImage(Map1.Image);
@@ -232,7 +233,7 @@ namespace OrienteeringTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Put_Data();
+            Setup_Table();
             LoadButton.Hide();
         }
 
@@ -247,9 +248,23 @@ namespace OrienteeringTracker
             //Coordsreader.Text = me.Location.X / ZoomFactor + ", " + me.Location.Y / ZoomFactor;
         }
 
-        private void Put_Data()
+        private void Setup_Table()
         {
             DataTable.ColumnCount = 4;
+            DataTable.Columns[0].HeaderText = "Position";
+            DataTable.Columns[1].HeaderText = "Name";
+            DataTable.Columns[2].HeaderText = "Time";
+            DataTable.Columns[3].HeaderText = "Difference";
+        }
+
+        private void Put_Data()
+        {
+            string[] row;
+            foreach(Route r in Routes)
+            {
+                row = new string[] { "", r.RunnerName, "", "", };
+                DataTable.Rows.Add(row);
+            }
         }
 
         private void loadTrack_Click(object sender, EventArgs e)

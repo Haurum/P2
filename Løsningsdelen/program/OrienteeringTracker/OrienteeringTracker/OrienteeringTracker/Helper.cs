@@ -88,18 +88,22 @@ namespace OrienteeringTracker
                 doubleDist = CalcSingleLength(coord.pixelPoint.X, coord.pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
                 if (doubleDist < 25)
                 {
-                    cpt = new ControlPointTime();
-                    cpt.Cord = cp.Cord;
-                    cpt.Number = cp.Number;
-                    cpt.Dist = doubleDist;
-                    cpt.Tick = r.Coords.IndexOf(coord);
-                    distList.Add(cpt);
+                    for (int i = r.Coords.IndexOf(coord); i < r.Coords.Count; i++)
+                    {
+                        if (CalcSingleLength(r.Coords[i].pixelPoint.X, r.Coords[i].pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y) > 25)
+                        {
+                            return distList.OrderBy(distance => distance.Dist).First();
+                        }
+                        cpt = new ControlPointTime();
+                        cpt.Cord = cp.Cord;
+                        cpt.Number = cp.Number;
+                        cpt.Dist = doubleDist;
+                        cpt.Tick = r.Coords.IndexOf(coord);
+                        distList.Add(cpt);
+                    }
                 }
             }
-            if (distList.Count > 0)
-                return distList.OrderBy(distance => distance.Dist).First();
-            else
-                return new ControlPointTime();
+            return new ControlPointTime();
 
         }
 
