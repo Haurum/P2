@@ -219,6 +219,7 @@
             this.StartpointUpDown.Size = new System.Drawing.Size(69, 20);
             this.StartpointUpDown.TabIndex = 10;
             this.StartpointUpDown.Visible = false;
+            this.StartpointUpDown.ValueChanged += new System.EventHandler(this.StartpointUpDown_ValueChanged);
             // 
             // loadTrack
             // 

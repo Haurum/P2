@@ -28,6 +28,7 @@ namespace OrienteeringTracker
         private int MousePosX, MousePosY;
         private float ZoomFactor = 1;
         private int TailLenght = 30;
+        int ticks = 0;
 
         #endregion
 
@@ -92,14 +93,14 @@ namespace OrienteeringTracker
                 {
                     Routes[Index].RouteColor = Colors[Index];
                     Routes[Index].startingTick.Add(0);
+                    Routes[Index].startingTick.Add(422);
                     RunnersCheckBox.Items.Add(Routes[Index].RunnerName);
                     RunnersCheckBox.SetItemChecked(Index, true);
                 }
                 RunnersCheckBox.ClientSize = new Size(RunnersCheckBox.Width, 
                     RunnersCheckBox.GetItemRectangle(0).Height * RunnersCheckBox.Items.Count);
                 RunnersCheckBox.Top -= RunnersCheckBox.GetItemRectangle(0).Height * (RunnersCheckBox.Items.Count - 1);
-                PlayBar.Maximum = Routes.Max(r => r.Coords.Count) + 1;
-                PlayBar.Minimum = TailLenght;
+                PlayBar.Maximum = Routes.Max(r => r.Coords.Count - r.startingTick[0]) + 1;
                 LoadButton.Hide();
                 ResetButton.Show();
                 PlayButton.Show();
@@ -148,19 +149,13 @@ namespace OrienteeringTracker
             }
         }
 
-        int ticks = 0;
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
-            if (ticks < TailLenght)
-            {
-                ticks = TailLenght + 1;
-            }
-            if (ticks >= Routes.Max(r => r.Coords.Count))
+            if (ticks >= Routes.Max(r => r.Coords.Count - r.startingTick[(int)StartpointUpDown.Value]))
             {
                 PlayTimer.Stop();
             }
             PlayBar.Value = ticks;
-            label1.Text = ticks.ToString();
             Map1.Refresh();
             ticks++;
         }
@@ -171,27 +166,32 @@ namespace OrienteeringTracker
             SolidBrush brush;
             Pen pen;
             bool draw = false;
+            int tempTailLenght = TailLenght;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Map1.Height = (int)(OriginalMap.Height * ZoomFactor);
             Map1.Width = (int)(OriginalMap.Width * ZoomFactor);
             foreach (Route route in Routes)
             {
-                if (!RunnersCheckBox.CheckedItems.Contains(route.RunnerName))
+                if (!RunnersCheckBox.CheckedItems.Contains(route.RunnerName) || ticks < 2)
                 {
                     continue;
                 }
                 brush = new SolidBrush(route.RouteColor);
                 pen = new Pen(brush, 3);
-                PointF[] RunnerToDraw = new PointF[TailLenght];
-                for (int Index = 0; Index < TailLenght; Index++)
+                if (ticks < TailLenght)
                 {
-                    if (ticks >= route.Coords.Count())
+                    tempTailLenght = ticks;
+                }
+                PointF[] RunnerToDraw = new PointF[tempTailLenght];
+                for (int Index = 0; Index < tempTailLenght; Index++)
+                {
+                    if (ticks >= route.Coords.Count() - route.startingTick[(int)StartpointUpDown.Value])
                     {
                         draw = false;
                     }
-                    else if(ticks > TailLenght)
+                    else
                     {
-                        RunnerToDraw[Index] = route.Coords[ticks - (TailLenght - Index) + route.startingTick[(int)StartpointUpDown.Value]].pixelPoint;
+                        RunnerToDraw[Index] = route.Coords[ticks - (tempTailLenght - Index) + route.startingTick[(int)StartpointUpDown.Value]].pixelPoint;
                         RunnerToDraw[Index].X *= ZoomFactor;
                         RunnerToDraw[Index].Y *= ZoomFactor;
                         draw = true;
@@ -311,6 +311,12 @@ namespace OrienteeringTracker
             Map1.Refresh();
             LoadButton.Show();
             loadTrack.Hide();
+        }
+
+        private void StartpointUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            ticks = 0;
+            PlayBar.Maximum = Routes.Max(r => r.Coords.Count - r.startingTick[(int)StartpointUpDown.Value]) + 1;
         }
     }
 }
