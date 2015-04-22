@@ -39,6 +39,8 @@
             this.RunnersCheckBox = new System.Windows.Forms.CheckedListBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
+            this.loadTrack = new System.Windows.Forms.Button();
+            this.DataTable = new System.Windows.Forms.DataGridView();
             this.StartpointLabel = new System.Windows.Forms.Label();
             this.StartpointUpDown = new System.Windows.Forms.NumericUpDown();
             this.loadTrack = new System.Windows.Forms.Button();
@@ -52,6 +54,7 @@
             this.mapTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StartpointUpDown)).BeginInit();
             this.dataTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTable)).BeginInit();
             this.SuspendLayout();
             // 
             // Map1
@@ -194,6 +197,20 @@
             this.mapTab.Text = "Map View";
             this.mapTab.UseVisualStyleBackColor = true;
             // 
+
+            // loadTrack
+            // 
+            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
+            this.loadTrack.Name = "loadTrack";
+            this.loadTrack.Size = new System.Drawing.Size(100, 28);
+            this.loadTrack.TabIndex = 9;
+            this.loadTrack.Text = "Load route";
+            this.loadTrack.UseVisualStyleBackColor = true;
+            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
+            // 
+            // Coordsreader
+
             // StartpointLabel
             // 
             this.StartpointLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -245,6 +262,7 @@
             // 
             // dataTab
             // 
+            this.dataTab.Controls.Add(this.DataTable);
             this.dataTab.Controls.Add(this.DataTitle);
             this.dataTab.Location = new System.Drawing.Point(4, 22);
             this.dataTab.Name = "dataTab";
@@ -265,6 +283,16 @@
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // DataTable
+            // 
+            this.DataTable.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataTable.Location = new System.Drawing.Point(3, 30);
+            this.DataTable.Name = "DataTable";
+            this.DataTable.Size = new System.Drawing.Size(1317, 407);
+            this.DataTable.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1331, 466);
@@ -282,6 +310,7 @@
             this.mapTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StartpointUpDown)).EndInit();
             this.dataTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataTable)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -302,6 +331,7 @@
         private System.Windows.Forms.Label tempoLabel;
         private System.Windows.Forms.Label DataTitle;
         private System.Windows.Forms.Button loadTrack;
+        private System.Windows.Forms.DataGridView DataTable;
         private System.Windows.Forms.Label StartpointLabel;
         private System.Windows.Forms.NumericUpDown StartpointUpDown;
     }

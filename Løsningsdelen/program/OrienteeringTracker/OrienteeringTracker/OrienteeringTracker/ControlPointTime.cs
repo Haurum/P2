@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    class Distance
+    public class ControlPointTime : ControlPoint
     {
         public int Tick { get; set; }
         public double Dist { get; set; }
-        public ControlPoint CP { get; set; }
     }
 }
