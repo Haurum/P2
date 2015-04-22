@@ -43,7 +43,6 @@
             this.DataTable = new System.Windows.Forms.DataGridView();
             this.StartpointLabel = new System.Windows.Forms.Label();
             this.StartpointUpDown = new System.Windows.Forms.NumericUpDown();
-            this.loadTrack = new System.Windows.Forms.Button();
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
             this.DataTitle = new System.Windows.Forms.Label();

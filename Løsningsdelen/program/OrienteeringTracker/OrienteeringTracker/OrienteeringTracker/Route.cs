@@ -12,7 +12,7 @@ namespace OrienteeringTracker
         {
             Coords = new List<Coordinate>();
             Visited = new List<ControlPointTime>();
-	    startingTick = new List<int>();
+	        startingTick = new List<int>();
         }
 
         public string RunnerName { get; set; }
