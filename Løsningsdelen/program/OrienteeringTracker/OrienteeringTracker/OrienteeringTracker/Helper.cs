@@ -41,13 +41,17 @@ namespace OrienteeringTracker
 
         public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData)
         {
-            runnerData.OrderBy(runner => runner.time);
-            for (int i = 0; i < runnerData.Count - 1; i++ )
+            runnerData = runnerData.OrderBy(runner => runner.time).ToList();
+            for (int i = 0; i < runnerData.Count; i++ )
             {
-                runnerData[i].pos = i + 1;
-                if (i > 0)
+                if (runnerData[i].time == 0)
                 {
-                    runnerData[i].diff = runnerData[i].time - runnerData[i - 1].time;
+                    runnerData.Remove(runnerData[i]);
+                }
+                runnerData[i].pos = i + 1;
+                if (runnerData[i].pos != 1)
+                {
+                    runnerData[i].diff = runnerData[i].time - runnerData[0].time;
                 }
             }
             return runnerData;

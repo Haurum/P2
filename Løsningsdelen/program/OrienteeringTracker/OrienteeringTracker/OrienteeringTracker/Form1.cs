@@ -141,6 +141,7 @@ namespace OrienteeringTracker
                 StartpointLabel.Show();
                 StartpointUpDown.Show();
             }
+            Setup_Table();
             Put_Data();
             
             // Tjekker bare lige hvordan det ser ud
@@ -280,12 +281,13 @@ namespace OrienteeringTracker
             DataTable.Columns[4].HeaderText = "Distance";
             DataTable.Columns[5].HeaderText = "Speed";
 
-            for (int legIndex = 0; legIndex < ControlPoints.Count; legIndex++)
+            MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners);
+            for (int legIndex = 0; legIndex < ControlPoints.Count-1; legIndex++)
             {
                 DataTable.Columns[legIndex + headers].HeaderText = Legs[legIndex].Name;
             }
         }
-        Leg MainLeg = new Leg();
+
         private void Put_Data()
         {
             string[] row;
@@ -354,7 +356,6 @@ namespace OrienteeringTracker
             Map1.Refresh();
             LoadButton.Show();
             loadTrack.Hide();
-            Setup_Table();
         }
 
         private void StartpointUpDown_ValueChanged(object sender, EventArgs e)
