@@ -25,6 +25,7 @@ namespace OrienteeringTracker
         List<Runner> Runners = new List<Runner>();
         List<ControlPoint> ControlPoints = new List<ControlPoint>();
         List<Leg> Legs = new List<Leg>();
+        Leg MainLeg = new Leg();
         private Bitmap OriginalMap;
         private int MousePosX, MousePosY;
         private float ZoomFactor = 1;
@@ -89,8 +90,7 @@ namespace OrienteeringTracker
                     runner = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
                     Runners.Add(runner);
                 }
-                Leg RunData_StoE = new Leg();
-                RunData_StoE.Name = "S - E";
+                MainLeg.Name = string.Format("0 - {0}", ControlPoints.Count - 1);
                 for (int Index = 0; Index < Runners.Count; Index++)
                 {
                     Runners[Index].RouteColor = Colors[Index];
@@ -100,10 +100,31 @@ namespace OrienteeringTracker
                     {
                         Runners[Index].Visited.Add(Helper.ControlPointChecker(cp, Runners[Index]));
                     }
-                    /*RunData_StoE.Runners.Add(new RunnerData() { name = Routes[Index].RunnerName,
-                        distance = Helper.CalcTotalLength(Routes[Index], 0, Routes[Index].Coords.Count), });*/
+                    
+                    RunnerData runnerdata = new RunnerData();
+                    runnerdata.name = Runners[Index].RunnerName;
+                    runnerdata.distance = Helper.CalcTotalLength(Runners[Index], Runners[Index].Visited[0].Tick, Runners[Index].Visited[Runners[Index].Visited.Count-1].Tick);
+                    runnerdata.time = Runners[Index].Visited[Runners[Index].Visited.Count - 1].Tick - Runners[Index].Visited[0].Tick;
+                    runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, runnerdata.time);
+                    MainLeg.Runners.Add(runnerdata);
 
                 }
+
+                for (int i = 1; i < ControlPoints.Count; i++)
+                {
+                    Leg leg = new Leg();
+                    foreach (Runner r in Runners)
+                    {
+                        RunnerData runnerdata = new RunnerData();
+                        runnerdata.name = r.RunnerName;
+                        runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Tick, r.Visited[i].Tick);
+                        runnerdata.time = r.Visited[i].Tick - r.Visited[i - 1].Tick;
+                        runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, runnerdata.time);
+                        leg.Runners.Add(runnerdata);
+                    }
+                    Legs.Add(leg);                    
+                }
+
                 RunnersCheckBox.ClientSize = new Size(RunnersCheckBox.Width, 
                     RunnersCheckBox.GetItemRectangle(0).Height * RunnersCheckBox.Items.Count);
                 RunnersCheckBox.Top -= RunnersCheckBox.GetItemRectangle(0).Height * (RunnersCheckBox.Items.Count - 1);
