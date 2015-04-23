@@ -11,9 +11,9 @@ namespace OrienteeringTracker
 {
     static class Helper
     {
-        public static Route ReadGPXData(FileStream GpxStream)
+        public static Runner ReadGPXData(FileStream GpxStream)
         {
-            Route route = new Route();
+            Runner route = new Runner();
             GpxReader reader = new GpxReader(GpxStream);
             reader.Read();
             route.Date = reader.Track.Segments[0].TrackPoints[0].Time;
@@ -39,7 +39,7 @@ namespace OrienteeringTracker
             return route;
         }
 
-        public static void AddMissingPoints(ref Route route)
+        public static void AddMissingPoints(ref Runner route)
         {
             int counter = 0;
             while (counter < route.Coords.Count-1)
@@ -78,7 +78,7 @@ namespace OrienteeringTracker
             return controlPoints;
         }
 
-        public static ControlPointTime ControlPointChecker(ControlPoint cp, Route r)
+        public static ControlPointTime ControlPointChecker(ControlPoint cp, Runner r)
         {
             List<ControlPointTime> distList = new List<ControlPointTime>();
             ControlPointTime cpt = new ControlPointTime();
@@ -107,7 +107,7 @@ namespace OrienteeringTracker
 
         }
 
-        public static double CalcTotalLength(Route route, int startPoint, int endPoint)
+        public static double CalcTotalLength(Runner route, int startPoint, int endPoint)
         {
             double Res = 0;
             for (int i = startPoint; i < endPoint; i++)

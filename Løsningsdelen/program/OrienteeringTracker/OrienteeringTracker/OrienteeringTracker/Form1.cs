@@ -22,7 +22,7 @@ namespace OrienteeringTracker
         #region Varibles
 
         Color[] Colors = { Color.Blue, Color.Red, Color.Black, Color.Purple, Color.Turquoise, Color.Lime };
-        List<Route> Routes = new List<Route>();
+        List<Runner> Runners = new List<Runner>();
         List<ControlPoint> ControlPoints = new List<ControlPoint>();
         List<Leg> Legs = new List<Leg>();
         private Bitmap OriginalMap;
@@ -82,23 +82,23 @@ namespace OrienteeringTracker
             {
                 string[] files = Directory.GetFiles(fbd.SelectedPath);
 
-                Route route = new Route();
+                Runner runner = new Runner();
 
                 foreach (string file in files)
                 {
-                    route = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
-                    Routes.Add(route);
+                    runner = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
+                    Runners.Add(runner);
                 }
                 Leg RunData_StoE = new Leg();
                 RunData_StoE.Name = "S - E";
-                for (int Index = 0; Index < Routes.Count; Index++)
+                for (int Index = 0; Index < Runners.Count; Index++)
                 {
-                    Routes[Index].RouteColor = Colors[Index];
-                    RunnersCheckBox.Items.Add(Routes[Index].RunnerName);
+                    Runners[Index].RouteColor = Colors[Index];
+                    RunnersCheckBox.Items.Add(Runners[Index].RunnerName);
                     RunnersCheckBox.SetItemChecked(Index, true);
                     foreach (ControlPoint cp in ControlPoints)
                     {
-                        Routes[Index].Visited.Add(Helper.ControlPointChecker(cp, Routes[Index]));
+                        Runners[Index].Visited.Add(Helper.ControlPointChecker(cp, Runners[Index]));
                     }
                     /*RunData_StoE.Runners.Add(new RunnerData() { name = Routes[Index].RunnerName,
                         distance = Helper.CalcTotalLength(Routes[Index], 0, Routes[Index].Coords.Count), });*/
@@ -107,7 +107,7 @@ namespace OrienteeringTracker
                 RunnersCheckBox.ClientSize = new Size(RunnersCheckBox.Width, 
                     RunnersCheckBox.GetItemRectangle(0).Height * RunnersCheckBox.Items.Count);
                 RunnersCheckBox.Top -= RunnersCheckBox.GetItemRectangle(0).Height * (RunnersCheckBox.Items.Count - 1);
-                PlayBar.Maximum = Routes.Max(r => r.Coords.Count - r.Visited[0].Tick);
+                PlayBar.Maximum = Runners.Max(r => r.Coords.Count - r.Visited[0].Tick);
                 StartpointUpDown.Maximum = ControlPoints.Count - 1;
                 LoadButton.Hide();
                 ResetButton.Show();
@@ -146,7 +146,7 @@ namespace OrienteeringTracker
 
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
-            if (ticks >= Routes.Max(r => r.Coords.Count - r.Visited[(int)StartpointUpDown.Value].Tick))
+            if (ticks >= Runners.Max(r => r.Coords.Count - r.Visited[(int)StartpointUpDown.Value].Tick))
             {
                 PlayTimer.Stop();
             }
@@ -165,7 +165,7 @@ namespace OrienteeringTracker
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Map1.Height = (int)(OriginalMap.Height * ZoomFactor);
             Map1.Width = (int)(OriginalMap.Width * ZoomFactor);
-            foreach (Route route in Routes)
+            foreach (Runner route in Runners)
             {
                 if (!RunnersCheckBox.CheckedItems.Contains(route.RunnerName) || ticks < 2)
                 {
@@ -217,7 +217,7 @@ namespace OrienteeringTracker
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            Routes.Clear();
+            Runners.Clear();
             ticks = 0;
             PlayTimer.Stop();
             Map1.Refresh();
@@ -234,7 +234,6 @@ namespace OrienteeringTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Setup_Table();
             LoadButton.Hide();
         }
 
@@ -251,17 +250,26 @@ namespace OrienteeringTracker
 
         private void Setup_Table()
         {
-            DataTable.ColumnCount = 4;
+            DataTable.ColumnCount = 4 + ControlPoints.Count-1;
             DataTable.Columns[0].HeaderText = "Position";
             DataTable.Columns[1].HeaderText = "Name";
             DataTable.Columns[2].HeaderText = "Time";
             DataTable.Columns[3].HeaderText = "Difference";
+
+            for (int cpIndex = 0; cpIndex < ControlPoints.Count; cpIndex++)
+            {
+
+                if (cpIndex != ControlPoints.Count-1)
+                {
+                    DataTable.Columns[cpIndex + 4].HeaderText = string.Format("{0} - {1}", ControlPoints[cpIndex].Number, ControlPoints[cpIndex + 1].Number);
+                }
+            }
         }
 
         private void Put_Data()
         {
             string[] row;
-            foreach(Route r in Routes)
+            foreach(Runner r in Runners)
             {
                 row = new string[] { "", r.RunnerName, "", "", };
                 DataTable.Rows.Add(row);
@@ -326,12 +334,13 @@ namespace OrienteeringTracker
             Map1.Refresh();
             LoadButton.Show();
             loadTrack.Hide();
+            Setup_Table();
         }
 
         private void StartpointUpDown_ValueChanged(object sender, EventArgs e)
         {
             ticks = 0;
-            PlayBar.Maximum = Routes.Max(r => r.Coords.Count - r.Visited[(int)StartpointUpDown.Value].Tick);
+            PlayBar.Maximum = Runners.Max(r => r.Coords.Count - r.Visited[(int)StartpointUpDown.Value].Tick);
         }
     }
 }

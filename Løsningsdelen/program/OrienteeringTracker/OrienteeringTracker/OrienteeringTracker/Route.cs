@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    public class Route
+    public class Runner
     {
-        public Route()
+        public Runner()
         {
             Coords = new List<Coordinate>();
             Visited = new List<ControlPointTime>();
