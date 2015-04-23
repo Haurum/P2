@@ -31,6 +31,7 @@ namespace OrienteeringTracker
         private float ZoomFactor = 1;
         private int TailLenght = 30;
         int ticks = 0;
+        int headers = 6;
 
         #endregion
 
@@ -271,28 +272,26 @@ namespace OrienteeringTracker
 
         private void Setup_Table()
         {
-            DataTable.ColumnCount = 4 + ControlPoints.Count-1;
+            DataTable.ColumnCount = headers + ControlPoints.Count-1;
             DataTable.Columns[0].HeaderText = "Position";
             DataTable.Columns[1].HeaderText = "Name";
             DataTable.Columns[2].HeaderText = "Time";
             DataTable.Columns[3].HeaderText = "Difference";
+            DataTable.Columns[4].HeaderText = "Distance";
+            DataTable.Columns[5].HeaderText = "Speed";
 
-            for (int cpIndex = 0; cpIndex < ControlPoints.Count; cpIndex++)
+            for (int legIndex = 0; legIndex < ControlPoints.Count; legIndex++)
             {
-
-                if (cpIndex != ControlPoints.Count-1)
-                {
-                    DataTable.Columns[cpIndex + 4].HeaderText = string.Format("{0} - {1}", ControlPoints[cpIndex].Number, ControlPoints[cpIndex + 1].Number);
-                }
+                DataTable.Columns[legIndex + headers].HeaderText = Legs[legIndex].Name;
             }
         }
-
+        Leg MainLeg = new Leg();
         private void Put_Data()
         {
             string[] row;
-            foreach(Runner r in Runners)
+            foreach(RunnerData rd in MainLeg.Runners)
             {
-                row = new string[] { "", r.RunnerName, "", "", };
+                row = new string[] { rd.pos.ToString(), rd.name, rd.time.ToString(), rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
                 DataTable.Rows.Add(row);
             }
         }
@@ -362,6 +361,17 @@ namespace OrienteeringTracker
         {
             ticks = 0;
             PlayBar.Maximum = Runners.Max(r => r.Coords.Count - r.Visited[(int)StartpointUpDown.Value].Tick);
+        }
+
+        private void DataTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            for (int i = 0; i < Legs.Count - 1; i++)
+            {
+                if (i == e.ColumnIndex - headers)
+                {
+
+                }
+            }
         }
     }
 }

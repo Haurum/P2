@@ -267,6 +267,7 @@
             this.DataTable.Name = "DataTable";
             this.DataTable.Size = new System.Drawing.Size(1317, 407);
             this.DataTable.TabIndex = 1;
+            this.DataTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataTable_CellClick);
             // 
             // DataTitle
             // 

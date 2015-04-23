@@ -39,6 +39,20 @@ namespace OrienteeringTracker
             return route;
         }
 
+        public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData)
+        {
+            runnerData.OrderBy(runner => runner.time);
+            for (int i = 0; i < runnerData.Count - 1; i++ )
+            {
+                runnerData[i].pos = i + 1;
+                if (i > 0)
+                {
+                    runnerData[i].diff = runnerData[i].time - runnerData[i - 1].time;
+                }
+            }
+            return runnerData;
+        }
+
         public static void AddMissingPoints(ref Runner route)
         {
             int counter = 0;
