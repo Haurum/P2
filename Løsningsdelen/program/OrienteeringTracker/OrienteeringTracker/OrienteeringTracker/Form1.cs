@@ -32,6 +32,7 @@ namespace OrienteeringTracker
         private int TailLenght = 30;
         int ticks = 0;
         int headers = 6;
+        bool isLeg = false;
 
         #endregion
 
@@ -110,10 +111,12 @@ namespace OrienteeringTracker
                     MainLeg.Runners.Add(runnerdata);
 
                 }
+                MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners);
 
                 for (int i = 1; i < ControlPoints.Count; i++)
                 {
                     Leg leg = new Leg();
+                    leg.Name = string.Format("{0} - {1}", i - 1, i);
                     foreach (Runner r in Runners)
                     {
                         RunnerData runnerdata = new RunnerData();
@@ -123,6 +126,7 @@ namespace OrienteeringTracker
                         runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, runnerdata.time.Seconds);
                         leg.Runners.Add(runnerdata);
                     }
+                    leg.Runners = Helper.GetPosAndDiff(leg.Runners);
                     Legs.Add(leg);                    
                 }
 
@@ -141,8 +145,7 @@ namespace OrienteeringTracker
                 StartpointLabel.Show();
                 StartpointUpDown.Show();
             }
-            Setup_Table();
-            Put_Data();
+            Put_Data(MainLeg);
             
             // Tjekker bare lige hvordan det ser ud
             //Graphics g = Graphics.FromImage(Map1.Image);
@@ -258,6 +261,7 @@ namespace OrienteeringTracker
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadButton.Hide();
+            BackButton.Hide();
         }
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
@@ -273,7 +277,9 @@ namespace OrienteeringTracker
 
         private void Setup_Table()
         {
-            DataTable.ColumnCount = headers + ControlPoints.Count-1;
+            DataTable.Columns.Clear();
+            
+            DataTable.ColumnCount = headers + ControlPoints.Count - 1;
             DataTable.Columns[0].HeaderText = "Position";
             DataTable.Columns[1].HeaderText = "Name";
             DataTable.Columns[2].HeaderText = "Time";
@@ -281,20 +287,56 @@ namespace OrienteeringTracker
             DataTable.Columns[4].HeaderText = "Distance";
             DataTable.Columns[5].HeaderText = "Speed";
 
-            MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners);
-            for (int legIndex = 0; legIndex < ControlPoints.Count-1; legIndex++)
+            if (isLeg)
             {
-                DataTable.Columns[legIndex + headers].HeaderText = Legs[legIndex].Name;
+                headers++;
+                DataTable.ColumnCount = headers;
+                DataTable.Columns[6].HeaderText = "Final Position";
+            }
+            else if (!isLeg)
+            {
+                for (int legIndex = 0; legIndex < ControlPoints.Count - 1; legIndex++)
+                {
+                    DataTable.Columns[legIndex + headers].HeaderText = Legs[legIndex].Name;
+                }
             }
         }
 
-        private void Put_Data()
+        private void Put_Data(Leg leg)
         {
-            string[] row;
-            foreach(RunnerData rd in MainLeg.Runners)
+            DataTitle.Text = leg.Name;
+            Setup_Table();
+            DataTable.Rows.Clear();
+            List<string> row;
+            foreach(RunnerData rd in leg.Runners)
             {
-                row = new string[] { rd.pos.ToString(), rd.name, rd.time.ToString(), rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
-                DataTable.Rows.Add(row);
+                if (isLeg)
+                {
+                    row = new List<string> { rd.pos.ToString(), rd.name, rd.time.ToString(), rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    foreach (RunnerData mainRd in MainLeg.Runners)
+                    {
+                        if (mainRd.name == rd.name)
+                        {
+                            row.Add(mainRd.pos.ToString());
+                        }
+                    } 
+                }
+                else
+                {
+                    row = new List<string> { rd.pos.ToString(), rd.name, rd.time.ToString(), rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    foreach (Leg l in Legs)
+                    {
+                        for (int runnerIndex = 0; runnerIndex < l.Runners.Count; runnerIndex++)
+                        { 
+                            if (rd.name == l.Runners[runnerIndex].name)
+                            {
+                                row.Add(l.Runners[runnerIndex].time.ToString());
+                            }
+                        }
+                    }
+                    
+                }
+                DataTable.Rows.Add(row.ToArray<string>());
             }
         }
 
@@ -366,13 +408,27 @@ namespace OrienteeringTracker
 
         private void DataTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            for (int i = 0; i < Legs.Count - 1; i++)
+            if (!isLeg)
             {
-                if (i == e.ColumnIndex - headers)
+                for (int i = 0; i < Legs.Count; i++)
                 {
-
+                    if (i == e.ColumnIndex - headers)
+                    {
+                        DataTable.ColumnCount = headers;
+                        isLeg = true;
+                        Put_Data(Legs[i]);
+                        BackButton.Show();
+                    }
                 }
             }
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            headers--;
+            isLeg = false;
+            Put_Data(MainLeg);
+            BackButton.Hide();
         }
     }
 }

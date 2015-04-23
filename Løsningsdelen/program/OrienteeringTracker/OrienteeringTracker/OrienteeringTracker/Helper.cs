@@ -44,7 +44,7 @@ namespace OrienteeringTracker
             runnerData = runnerData.OrderBy(runner => runner.time).ToList();
             for (int i = 0; i < runnerData.Count; i++ )
             {
-                if (runnerData[i].time == 0)
+                if (runnerData[i].time.Seconds == 0)
                 {
                     runnerData.Remove(runnerData[i]);
                 }

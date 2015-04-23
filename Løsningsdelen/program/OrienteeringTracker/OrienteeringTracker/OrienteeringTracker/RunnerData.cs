@@ -12,7 +12,7 @@ namespace OrienteeringTracker
         public string name { get; set; }
         public int pos { get; set; }
         public TimeSpan time { get; set; }
-        public double diff { get; set; }
+        public TimeSpan diff { get; set; }
         public double distance { get; set; }
         public double speed { get; set; }
     }

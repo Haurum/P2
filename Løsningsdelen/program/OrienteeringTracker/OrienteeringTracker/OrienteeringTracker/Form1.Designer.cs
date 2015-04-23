@@ -46,6 +46,7 @@
             this.dataTab = new System.Windows.Forms.TabPage();
             this.DataTable = new System.Windows.Forms.DataGridView();
             this.DataTitle = new System.Windows.Forms.Label();
+            this.BackButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
@@ -247,6 +248,7 @@
             // 
             // dataTab
             // 
+            this.dataTab.Controls.Add(this.BackButton);
             this.dataTab.Controls.Add(this.DataTable);
             this.dataTab.Controls.Add(this.DataTitle);
             this.dataTab.Location = new System.Drawing.Point(4, 22);
@@ -259,13 +261,14 @@
             // 
             // DataTable
             // 
+            this.DataTable.AllowUserToAddRows = false;
             this.DataTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DataTable.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataTable.Location = new System.Drawing.Point(3, 30);
+            this.DataTable.Location = new System.Drawing.Point(3, 37);
             this.DataTable.Name = "DataTable";
-            this.DataTable.Size = new System.Drawing.Size(1317, 407);
+            this.DataTable.Size = new System.Drawing.Size(1317, 400);
             this.DataTable.TabIndex = 1;
             this.DataTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataTable_CellClick);
             // 
@@ -275,10 +278,22 @@
             this.DataTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DataTitle.Location = new System.Drawing.Point(3, 3);
             this.DataTitle.Name = "DataTitle";
-            this.DataTitle.Size = new System.Drawing.Size(1317, 27);
+            this.DataTitle.Size = new System.Drawing.Size(1317, 34);
             this.DataTitle.TabIndex = 0;
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BackButton
+            // 
+            this.BackButton.AutoSize = true;
+            this.BackButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackButton.Location = new System.Drawing.Point(8, 6);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(42, 23);
+            this.BackButton.TabIndex = 2;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // MainForm
             // 
@@ -297,6 +312,7 @@
             this.mapTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StartpointUpDown)).EndInit();
             this.dataTab.ResumeLayout(false);
+            this.dataTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataTable)).EndInit();
             this.ResumeLayout(false);
 
@@ -321,6 +337,7 @@
         private System.Windows.Forms.DataGridView DataTable;
         private System.Windows.Forms.Label StartpointLabel;
         private System.Windows.Forms.NumericUpDown StartpointUpDown;
+        private System.Windows.Forms.Button BackButton;
     }
 }
 
