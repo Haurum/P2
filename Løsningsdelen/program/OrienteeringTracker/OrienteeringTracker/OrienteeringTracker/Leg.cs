@@ -8,7 +8,7 @@ namespace OrienteeringTracker
 {
     class Leg
     {
-        List<RunnerData> Runners = new List<RunnerData>();
-        string name;
+        public List<RunnerData> Runners = new List<RunnerData>();
+        public string Name { get; set; }
     }
 }
