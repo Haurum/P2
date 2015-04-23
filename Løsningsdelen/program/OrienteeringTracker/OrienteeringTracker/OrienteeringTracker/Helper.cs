@@ -125,7 +125,12 @@ namespace OrienteeringTracker
         public static double CalcSpeedMinsPrKm(double length, int startTick, int endTick)
         {
             int deltaTick = endTick - startTick;
-            double secPrMeter = deltaTick/length;
+            return CalcSpeedMinsPrKm(length, deltaTick);
+        }
+
+        public static double CalcSpeedMinsPrKm(double length, int deltaTick)
+        {
+            double secPrMeter = deltaTick / length;
             double result = secPrMeter * 1000 / 60;
             return result;
         }
