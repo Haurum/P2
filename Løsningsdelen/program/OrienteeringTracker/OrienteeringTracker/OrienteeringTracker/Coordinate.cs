@@ -4,26 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Collections;
 
 namespace OrienteeringTracker
 {
     public class Coordinate
     {
-        public Coordinate(float x, float y, DateTime t)
+        public Coordinate(float x, float y, DateTime t, double UTME, double UTMN)
         {
-            _p = new PointF(x, y);
+            _pixelPoint = new PointF(x, y);
+            UTMEast = UTME;
+            UTMNorth = UTMN;
             Time = t;
         }
 
-        private PointF _p { get; set; }
-        public PointF p
+        private PointF _pixelPoint { get; set; }
+        public PointF pixelPoint
         {
             get
             {
-                return _p;
+                return _pixelPoint;
             }
         }
         public DateTime Time { get; set; }
-        
+
+        public double UTMEast { get; set; }
+        public double UTMNorth { get; set; }
     }
 }

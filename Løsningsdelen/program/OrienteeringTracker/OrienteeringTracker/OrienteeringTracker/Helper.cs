@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Globalization;
+using System.Drawing;
 
 namespace OrienteeringTracker
 {
     static class Helper
     {
-        public static Route ReadGPXData(FileStream GpxStream)
+        public static Runner ReadGPXData(FileStream GpxStream)
         {
-            Route route = new Route();
+            Runner route = new Runner();
             GpxReader reader = new GpxReader(GpxStream);
             reader.Read();
             route.Date = reader.Track.Segments[0].TrackPoints[0].Time;
@@ -29,43 +31,142 @@ namespace OrienteeringTracker
                 float y;
                 ConvertUTMToPixel(UTMNorthing, UTMEasting, out x, out y);
 
-                Coordinate c = new Coordinate(x, y, gp.Time);
+                Coordinate c = new Coordinate(x, y, gp.Time, (float)(UTMEasting), (float)(UTMNorthing));
                 route.Coords.Add(c);
             }
             GpxStream.Close();
+            AddMissingPoints(ref route);
             return route;
+        }
+
+        public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData)
+        {
+            runnerData = runnerData.OrderBy(runner => runner.time).ToList();
+            for (int i = 0; i < runnerData.Count; i++ )
+            {
+                if (runnerData[i].time.Seconds == 0)
+                {
+                    runnerData.Remove(runnerData[i]);
+                }
+                runnerData[i].pos = i + 1;
+                if (runnerData[i].pos != 1)
+                {
+                    runnerData[i].diff = runnerData[i].time - runnerData[0].time;
+                }
+            }
+            return runnerData;
+        }
+
+        public static void AddMissingPoints(ref Runner route)
+        {
+            int counter = 0;
+            while (counter < route.Coords.Count-1)
+            {
+                if (route.Coords[counter].Time >= route.Coords[counter + 1].Time)
+                {
+                    route.Coords.RemoveAt(counter + 1);
+                    counter--;
+                }
+                else if (route.Coords[counter].Time.AddSeconds(1) != route.Coords[counter + 1].Time)
+                {
+                    Coordinate temp = route.Coords[counter];
+                    temp.Time = temp.Time.AddSeconds(1);
+                    route.Coords.Insert(counter + 1, temp);
+                }
+                counter++;
+            }
         }
 
         public static List<ControlPoint> ReadControlPoints(string path)
         {
             string[] coordinatesString;
+            int i = 0;
             List<ControlPoint> controlPoints = new List<ControlPoint>();
             foreach (var line in File.ReadLines(path))
             {
                 coordinatesString = line.Split(';');
-                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now), Radius = 10, Number = Convert.ToInt32(coordinatesString[2]) });
+                //float x;
+                //float y;
+                //ConvertUTMToPixel(Convert.ToDouble(coordinatesString[0]), Convert.ToDouble(coordinatesString[1]), out x, out y);
+
+                //controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now, 0,0), Radius = 10, Number = i });
+                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[2], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[3], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now, float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture),float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture)), Radius = 10, Number = i });
+                i++;
             }
             return controlPoints;
         }
 
+        public static ControlPointTime ControlPointChecker(ControlPoint cp, Runner r)
+        {
+            List<ControlPointTime> distList = new List<ControlPointTime>();
+            ControlPointTime cpt = new ControlPointTime();
+            double doubleDist = 0;
+            foreach (Coordinate coord in r.Coords)
+            {
+                doubleDist = CalcSingleLength(coord.pixelPoint.X, coord.pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
+                if (doubleDist < 25)
+                {
+                    for (int i = r.Coords.IndexOf(coord); i < r.Coords.Count; i++)
+                    {
+                        if (CalcSingleLength(r.Coords[i].pixelPoint.X, r.Coords[i].pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y) > 25)
+                        {
+                            return distList.OrderBy(distance => distance.Dist).First();
+                        }
+                        cpt = new ControlPointTime();
+                        cpt.Cord = cp.Cord;
+                        cpt.Number = cp.Number;
+                        cpt.Dist = doubleDist;
+                        cpt.Tick = r.Coords.IndexOf(coord);
+                        distList.Add(cpt);
+                    }
+                }
+            }
+            return new ControlPointTime();
+
+        }
+
+        public static double CalcTotalLength(Runner route, int startPoint, int endPoint)
+        {
+            double Res = 0;
+            for (int i = startPoint; i < endPoint; i++)
+            {
+                Res += CalcSingleLength(route.Coords[i].UTMEast, route.Coords[i].UTMNorth, route.Coords[i + 1].UTMEast, route.Coords[i + 1].UTMNorth);
+            }
+            return Res;
+        }
+        
+        public static double CalcSingleLength(double startPoint_X, double startPoint_Y, double endPoint_X, double endPoint_Y)
+        {
+            return Math.Sqrt(Math.Pow(startPoint_X - endPoint_X, 2) + Math.Pow(startPoint_Y - endPoint_Y, 2));
+        }
+
+        public static double CalcSpeedMinsPrKm(double length, int startTick, int endTick)
+        {
+            int deltaTick = endTick - startTick;
+            return CalcSpeedMinsPrKm(length, deltaTick);
+        }
+
+        public static double CalcSpeedMinsPrKm(double length, int deltaTick)
+        {
+            double secPrMeter = deltaTick / length;
+            double result = secPrMeter * 1000 / 60;
+            return result;
+        }
+
         public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
         {
-            //StreamReader sr = new StreamReader(Encoding.Default.GetString(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1));
-            //StreamReader sr = new StreamReader(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1.);
             MemoryStream ms = new MemoryStream(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1);
             string line;
-            List<double> worldTal = new List<double>();
+            List<float> worldTal = new List<float>();
             StreamReader sr = new StreamReader(ms, Encoding.UTF8);
 
             while ((line = sr.ReadLine()) != null)
             {
-                worldTal.Add(Convert.ToDouble(line));
+                worldTal.Add(float.Parse(line, CultureInfo.InvariantCulture));
             }
 
-            x = Convert.ToInt32(((-0.84964441 * UTM_east) - (-0.84964441 * 539276.35483168)) / (0.84964441 * -0.84964441));
-            y = Convert.ToInt32(((0.84964441 * UTM_north) - (0.84964441 * 6250863.73506770)) / (0.84964441 * -0.84964441));
-            //x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
-            //y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
+            x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
+            y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
         }
 
         public static void ConvertLatLongtoUTM(double Lat, double Long, out double UTMNorthing, out double UTMEasting, out string Zone)
