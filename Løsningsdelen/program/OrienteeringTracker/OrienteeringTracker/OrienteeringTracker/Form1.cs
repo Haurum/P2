@@ -107,7 +107,7 @@ namespace OrienteeringTracker
                     runnerdata.name = Runners[Index].RunnerName;
                     runnerdata.distance = Helper.CalcTotalLength(Runners[Index], Runners[Index].Visited[0].Tick, Runners[Index].Visited[Runners[Index].Visited.Count-1].Tick);
                     runnerdata.time = TimeSpan.FromSeconds(Runners[Index].Visited[Runners[Index].Visited.Count - 1].Tick - Runners[Index].Visited[0].Tick);
-                    runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, runnerdata.time.Seconds);
+                    runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
                     MainLeg.Runners.Add(runnerdata);
 
                 }
@@ -123,7 +123,7 @@ namespace OrienteeringTracker
                         runnerdata.name = r.RunnerName;
                         runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Tick, r.Visited[i].Tick);
                         runnerdata.time = TimeSpan.FromSeconds(r.Visited[i].Tick - r.Visited[i - 1].Tick);
-                        runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, runnerdata.time.Seconds);
+                        runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
                         leg.Runners.Add(runnerdata);
                     }
                     leg.Runners = Helper.GetPosAndDiff(leg.Runners);
@@ -148,13 +148,13 @@ namespace OrienteeringTracker
             Put_Data(MainLeg);
             
             // Tjekker bare lige hvordan det ser ud
-            //Graphics g = Graphics.FromImage(Map1.Image);
-            //Pen p = new Pen(Color.Black,5);
-            //foreach (Distance d in distList)
-            //{
-            //    if (d.CP != null)
-            //        g.DrawEllipse(p, Routes[2].Coords.ElementAt(d.Tick).pixelPoint.X, Routes[2].Coords.ElementAt(d.Tick).pixelPoint.Y, 10, 10);
-            //}
+            Graphics g = Graphics.FromImage(Map1.Image);
+            Pen p = new Pen(Color.Black, 5);
+            foreach (ControlPointTime d in Runners[1].Visited)
+            {
+                if (d != null)
+                    g.DrawEllipse(p, Runners[1].Coords.ElementAt(d.Tick).pixelPoint.X, Runners[1].Coords.ElementAt(d.Tick).pixelPoint.Y, 10, 10);
+            }
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
