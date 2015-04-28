@@ -116,7 +116,7 @@ namespace OrienteeringTracker
                         cpt.Cord = cp.Cord;
                         cpt.Number = cp.Number;
                         cpt.Dist = doubleDist;
-                        cpt.Tick = r.Coords.IndexOf(coord);
+                        cpt.Second = r.Coords.IndexOf(coord);
                         distList.Add(cpt);
                     }
                 }

@@ -8,7 +8,7 @@ namespace OrienteeringTracker
 {
     public class ControlPointTime : ControlPoint
     {
-        public int Tick { get; set; }
+        public int Second { get; set; }
         public double Dist { get; set; }
     }
 }
