@@ -42,7 +42,7 @@ namespace OrienteeringTracker
         public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData)
         {
             runnerData = runnerData.OrderBy(runner => runner.time).ToList();
-            for (int i = 0; i < runnerData.Count; i++ )
+            for (int i = 0; i < runnerData.Count-1; i++ )
             {
                 if (runnerData[i].time.Seconds == 0)
                 {
@@ -115,8 +115,9 @@ namespace OrienteeringTracker
                         cpt = new ControlPointTime();
                         cpt.Cord = cp.Cord;
                         cpt.Number = cp.Number;
-                        cpt.Dist = doubleDist;
-                        cpt.Tick = r.Coords.IndexOf(coord);
+                        cpt.Dist = CalcSingleLength(r.Coords[i].pixelPoint.X, r.Coords[i].pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
+                        //cpt.Tick = r.Coords.IndexOf(coord);
+                        cpt.Tick = i;
                         distList.Add(cpt);
                     }
                 }

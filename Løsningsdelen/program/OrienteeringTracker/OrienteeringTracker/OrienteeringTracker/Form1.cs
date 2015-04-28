@@ -146,15 +146,14 @@ namespace OrienteeringTracker
                 StartpointUpDown.Show();
             }
             Put_Data(MainLeg);
-            
-            // Tjekker bare lige hvordan det ser ud
-            //Graphics g = Graphics.FromImage(Map1.Image);
-            //Pen p = new Pen(Color.Black,5);
-            //foreach (Distance d in distList)
-            //{
-            //    if (d.CP != null)
-            //        g.DrawEllipse(p, Routes[2].Coords.ElementAt(d.Tick).pixelPoint.X, Routes[2].Coords.ElementAt(d.Tick).pixelPoint.Y, 10, 10);
-            //}
+
+            Graphics g = Graphics.FromImage(Map1.Image);
+            Pen p = new Pen(Color.Black,5);
+            foreach (ControlPointTime d in Runners[1].Visited)
+            {
+                if (d.Cord != null)
+                    g.DrawEllipse(p, Runners[1].Coords.ElementAt(d.Tick).pixelPoint.X, Runners[1].Coords.ElementAt(d.Tick).pixelPoint.Y, 10, 10);
+            }
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
