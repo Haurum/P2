@@ -129,11 +129,11 @@ namespace OrienteeringTracker
                     {
                         RunnerData runnerdata = new RunnerData();
                         runnerdata.name = r.RunnerName;
-                        runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Tick, r.Visited[i].Tick);
-                        if ((r.Visited[i].Tick.CompareTo(r.Visited[i].Tick) < 0))
+                        runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Second, r.Visited[i].Second);
+                        if ((r.Visited[i].Second.CompareTo(r.Visited[i].Second) < 0))
                             runnerdata.time = new TimeSpan(0);
                         else
-                            runnerdata.time = TimeSpan.FromSeconds(r.Visited[i].Tick - r.Visited[i - 1].Tick);
+                            runnerdata.time = TimeSpan.FromSeconds(r.Visited[i].Second - r.Visited[i - 1].Second);
                         runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
                         leg.Runners.Add(runnerdata);
                     }
@@ -153,7 +153,7 @@ namespace OrienteeringTracker
             foreach (ControlPointTime d in Runners[1].Visited)
             {
                 if (d.Cord != null)
-                    g.DrawEllipse(p, Runners[1].Coords.ElementAt(d.Tick).pixelPoint.X, Runners[1].Coords.ElementAt(d.Tick).pixelPoint.Y, 10, 10);
+                    g.DrawEllipse(p, Runners[1].Coords.ElementAt(d.Second).pixelPoint.X, Runners[1].Coords.ElementAt(d.Second).pixelPoint.Y, 10, 10);
             }
         }
 
