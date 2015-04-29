@@ -44,9 +44,9 @@
             this.loadTrack = new System.Windows.Forms.Button();
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
+            this.BackButton = new System.Windows.Forms.Button();
             this.DataTable = new System.Windows.Forms.DataGridView();
             this.DataTitle = new System.Windows.Forms.Label();
-            this.BackButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).BeginInit();
@@ -259,6 +259,18 @@
             this.dataTab.Text = "Data View";
             this.dataTab.UseVisualStyleBackColor = true;
             // 
+            // BackButton
+            // 
+            this.BackButton.AutoSize = true;
+            this.BackButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackButton.Location = new System.Drawing.Point(8, 6);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(42, 23);
+            this.BackButton.TabIndex = 2;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // DataTable
             // 
             this.DataTable.AllowUserToAddRows = false;
@@ -283,25 +295,13 @@
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // BackButton
-            // 
-            this.BackButton.AutoSize = true;
-            this.BackButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackButton.Location = new System.Drawing.Point(8, 6);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(42, 23);
-            this.BackButton.TabIndex = 2;
-            this.BackButton.Text = "Back";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1331, 466);
             this.Controls.Add(this.tabControl);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Orienteering Tracker";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
@@ -320,23 +320,23 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox Map1;
+        public System.Windows.Forms.PictureBox Map1;
         private System.Windows.Forms.Button LoadButton;
-        private System.Windows.Forms.Button PlayButton;
-        private System.Windows.Forms.Timer PlayTimer;
-        private System.Windows.Forms.TrackBar PlayBar;
-        private System.Windows.Forms.NumericUpDown TempoUpDown;
-        private System.Windows.Forms.Button ResetButton;
-        private System.Windows.Forms.CheckedListBox RunnersCheckBox;
+        public System.Windows.Forms.Button PlayButton;
+        public System.Windows.Forms.Timer PlayTimer;
+        public System.Windows.Forms.TrackBar PlayBar;
+        public System.Windows.Forms.NumericUpDown TempoUpDown;
+        public System.Windows.Forms.Button ResetButton;
+        public System.Windows.Forms.CheckedListBox RunnersCheckBox;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage mapTab;
         private System.Windows.Forms.TabPage dataTab;
-        private System.Windows.Forms.Label tempoLabel;
+        public System.Windows.Forms.Label tempoLabel;
         private System.Windows.Forms.Label DataTitle;
         private System.Windows.Forms.Button loadTrack;
         private System.Windows.Forms.DataGridView DataTable;
-        private System.Windows.Forms.Label StartpointLabel;
-        private System.Windows.Forms.NumericUpDown StartpointUpDown;
+        public System.Windows.Forms.Label StartpointLabel;
+        public System.Windows.Forms.NumericUpDown StartpointUpDown;
         private System.Windows.Forms.Button BackButton;
     }
 }

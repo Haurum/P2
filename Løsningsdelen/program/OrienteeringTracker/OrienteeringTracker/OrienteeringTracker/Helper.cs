@@ -125,9 +125,14 @@ namespace OrienteeringTracker
                         cpt = new ControlPointTime();
                         cpt.Cord = cp.Cord;
                         cpt.Number = cp.Number;
+<<<<<<< HEAD
+                        cpt.Dist = doubleDist;
+                        cpt.Second = r.Coords.IndexOf(coord);
+=======
                         cpt.Dist = CalcSingleLength(r.Coords[i].pixelPoint.X, r.Coords[i].pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
                         //cpt.Tick = r.Coords.IndexOf(coord);
                         cpt.Tick = i;
+>>>>>>> origin/master
                         distList.Add(cpt);
                     }
                 }

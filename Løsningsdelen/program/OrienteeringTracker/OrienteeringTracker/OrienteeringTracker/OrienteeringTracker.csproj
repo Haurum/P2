@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Player.cs" />
     <Compile Include="ControlPointTime.cs" />
-    <Compile Include="totalRunnerData.cs" />
     <Compile Include="RunnerData.cs" />
     <Compile Include="Leg.cs" />
     <Compile Include="PlayControl.cs" />

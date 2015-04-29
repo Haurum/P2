@@ -16,21 +16,21 @@ namespace OrienteeringTracker
         public MainForm()
         {
             InitializeComponent();
+            player = new Player(this);
             OriginalMap = Map1.Image as Bitmap;
         }
 
         #region Varibles
 
         Color[] Colors = { Color.Blue, Color.Red, Color.Black, Color.Purple, Color.Turquoise, Color.Lime };
-        List<Runner> Runners = new List<Runner>();
-        List<ControlPoint> ControlPoints = new List<ControlPoint>();
+        public List<Runner> Runners = new List<Runner>();
+        public List<ControlPoint> ControlPoints = new List<ControlPoint>();
         List<Leg> Legs = new List<Leg>();
         Leg MainLeg = new Leg();
+        Player player;
         private Bitmap OriginalMap;
         private int MousePosX, MousePosY;
-        private float ZoomFactor = 1;
-        private int TailLenght = 30;
-        int ticks = 0;
+        public float ZoomFactor = 1;
         int headers = 6;
         bool isLeg = false;
 
@@ -98,8 +98,7 @@ namespace OrienteeringTracker
                 for (int Index = 0; Index < Runners.Count; Index++)
                 {
                     Runners[Index].RouteColor = Colors[Index];
-                    RunnersCheckBox.Items.Add(Runners[Index].RunnerName);
-                    RunnersCheckBox.SetItemChecked(Index, true);
+                    player.AddRunnerCheckBox(Runners[Index].RunnerName, true);
                     foreach (ControlPoint cp in ControlPoints)
                     {
                         cpt = Helper.ControlPointChecker(cp, Runners[Index]);
@@ -112,8 +111,10 @@ namespace OrienteeringTracker
                     
                     RunnerData runnerdata = new RunnerData();
                     runnerdata.name = Runners[Index].RunnerName;
-                    runnerdata.distance = Helper.CalcTotalLength(Runners[Index], Runners[Index].Visited[0].Tick, Runners[Index].Visited[Runners[Index].Visited.Count-1].Tick);
-                    runnerdata.time = TimeSpan.FromSeconds(Runners[Index].Visited[Runners[Index].Visited.Count - 1].Tick - Runners[Index].Visited[0].Tick);
+                    runnerdata.distance = Helper.CalcTotalLength(Runners[Index], Runners[Index].Visited[0].Second, 
+                        Runners[Index].Visited[Runners[Index].Visited.Count-1].Second);
+                    runnerdata.time = TimeSpan.FromSeconds(Runners[Index].Visited[Runners[Index].Visited.Count - 1].Second - 
+                        Runners[Index].Visited[0].Second);
                     runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
                     MainLeg.Runners.Add(runnerdata);
 
@@ -140,22 +141,12 @@ namespace OrienteeringTracker
                     Legs.Add(leg);                    
                 }
 
-                RunnersCheckBox.ClientSize = new Size(RunnersCheckBox.Width, 
-                    RunnersCheckBox.GetItemRectangle(0).Height * RunnersCheckBox.Items.Count);
-                RunnersCheckBox.Top -= RunnersCheckBox.GetItemRectangle(0).Height * (RunnersCheckBox.Items.Count - 1);
-                PlayBar.Maximum = Runners.Max(r => r.Coords.Count - r.Visited[0].Tick);
-                StartpointUpDown.Maximum = ControlPoints.Count - 1;
                 LoadButton.Hide();
                 ResetButton.Show();
-                PlayButton.Show();
-                PlayBar.Show();
-                TempoUpDown.Show();
-                RunnersCheckBox.Show();
-                tempoLabel.Show();
-                StartpointLabel.Show();
-                StartpointUpDown.Show();
+                player.StartUp();
             }
             Put_Data(MainLeg);
+
 
             Graphics g = Graphics.FromImage(Map1.Image);
             Pen p = new Pen(Color.Black,5);
@@ -168,81 +159,24 @@ namespace OrienteeringTracker
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
-
-            if (PlayTimer.Enabled)
-            {
-                PlayTimer.Stop();
-            }
-            else
-            {
-                PlayTimer.Start();
-            }
+            player.Play_Pause();
         }
 
         private void PlayTimer_Tick(object sender, EventArgs e)
         {
-            if (ticks >= Runners.Max(r => r.Coords.Count - r.Visited[(int)StartpointUpDown.Value].Tick))
-            {
-                PlayTimer.Stop();
-            }
-            PlayBar.Value = ticks;
-            Map1.Refresh();
-            ticks++;
+            player.Tick();
         }
 
         private void Map1_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            SolidBrush brush;
-            Pen pen;
-            bool draw = false;
-            int tempTailLenght = TailLenght;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Map1.Height = (int)(OriginalMap.Height * ZoomFactor);
             Map1.Width = (int)(OriginalMap.Width * ZoomFactor);
-            foreach (Runner route in Runners)
-            {
-                if (!RunnersCheckBox.CheckedItems.Contains(route.RunnerName) || ticks < 2)
-                {
-                    continue;
-                }
-                brush = new SolidBrush(route.RouteColor);
-                pen = new Pen(brush, 3);
-                if (ticks < TailLenght)
-                {
-                    tempTailLenght = ticks;
-                }
-                PointF[] RunnerToDraw = new PointF[tempTailLenght];
-                for (int Index = 0; Index < tempTailLenght; Index++)
-                {
-                    if (ticks >= route.Coords.Count() - route.Visited[(int)StartpointUpDown.Value].Tick)
-                    {
-                        draw = false;
-                    }
-                    else
-                    {
-                        RunnerToDraw[Index] = route.Coords[ticks - (tempTailLenght - Index) + route.Visited[(int)StartpointUpDown.Value].Tick].pixelPoint;
-                        RunnerToDraw[Index].X *= ZoomFactor;
-                        RunnerToDraw[Index].Y *= ZoomFactor;
-                        draw = true;
-                    }
-
-                }
-                if (draw)
-                {
-                    g.DrawLines(pen, RunnerToDraw);
-                    g.FillEllipse(brush, RunnerToDraw[RunnerToDraw.Length - 1].X - 4, 
-                        RunnerToDraw[RunnerToDraw.Length - 1].Y - 4, 8, 8);
-                    g.DrawString(route.RunnerName, new Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Black),
-                        RunnerToDraw[RunnerToDraw.Length - 1].X + 5, RunnerToDraw[RunnerToDraw.Length - 1].Y + 5);
-                    //Coordsreader.Text = Routes[1].Coords[ticks].UTMPoint.X / ZoomFactor + ", " + Routes[1].Coords[ticks].UTMPoint.Y / ZoomFactor + ", " + Routes[1].Coords[ticks].pixelPoint.X / ZoomFactor + ", " + Routes[1].Coords[ticks].pixelPoint.Y / ZoomFactor;
-                }    
-            }
+            player.Draw(e.Graphics);
         }
 
         private void PlayBar_Scroll(object sender, EventArgs e)
         {
-            ticks = PlayBar.Value;
+            player.Second = PlayBar.Value;
         }
 
         private void TempoUpDown_ValueChanged(object sender, EventArgs e)
@@ -253,16 +187,12 @@ namespace OrienteeringTracker
         private void ResetButton_Click(object sender, EventArgs e)
         {
             Runners.Clear();
-            ticks = 0;
+            player.Second = 0;
             PlayTimer.Stop();
             Map1.Refresh();
             ResetButton.Hide();
-            PlayButton.Hide();
-            PlayBar.Hide();
-            TempoUpDown.Hide();
-            RunnersCheckBox.Hide();
-            TempoUpDown.Hide();
             LoadButton.Show();
+            player.ShutDown();           
             RunnersCheckBox.Items.Clear();
             
         }
@@ -419,7 +349,9 @@ namespace OrienteeringTracker
                     float newX = (float)(ControlPoints[i - 1].Cord.pixelPoint.X + (Math.Cos(angle) * (distance - 25)));
                     float newY = (float)(ControlPoints[i - 1].Cord.pixelPoint.Y + (Math.Sin(angle) * (distance - 25)));
 
-                    g.DrawLine(p, new Point(Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.X + Math.Cos(angle) * 25), Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.Y + Math.Sin(angle) * 25)), new Point(Convert.ToInt32(newX), Convert.ToInt32(newY)));
+                    g.DrawLine(p, new Point(Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.X + Math.Cos(angle) * 25), 
+                        Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.Y + Math.Sin(angle) * 25)), 
+                        new Point(Convert.ToInt32(newX), Convert.ToInt32(newY)));
                 }
                 i++;
             }
@@ -430,8 +362,8 @@ namespace OrienteeringTracker
 
         private void StartpointUpDown_ValueChanged(object sender, EventArgs e)
         {
-            ticks = 0;
-            PlayBar.Maximum = Runners.Max(r => r.Coords.Count - r.Visited[(int)StartpointUpDown.Value].Tick);
+            player.Second = 0;
+            player.Update();
         }
 
         private void DataTable_CellClick(object sender, DataGridViewCellEventArgs e)
