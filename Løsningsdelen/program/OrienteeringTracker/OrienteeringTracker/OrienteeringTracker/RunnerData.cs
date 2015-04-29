@@ -8,7 +8,7 @@ namespace OrienteeringTracker
 {
     class RunnerData
     {
-
+        public bool reached { get; set; }
         public string name { get; set; }
         public int pos { get; set; }
         public TimeSpan time { get; set; }

@@ -45,23 +45,19 @@ namespace OrienteeringTracker
             runnerData = runnerData.OrderBy(runner => runner.time).ToList();
             for (int i = 0; i < runnerData.Count; i++ )
             {
-                foreach (Runner runner in runners)
+                if (runnerData[i].reached)
                 {
-                    if (runner.RunnerName == runnerData[i].name && !runner.reachedAll)
+                    runnerData[i].pos = pos;
+                    if (runnerData[i].pos != 1)
                     {
-                        runnerData[i].pos = 0;
-                        runnerData[i].diff = new TimeSpan(0);
+                        runnerData[i].diff = runnerData[i-1].diff + runnerData[i].time - runnerData[i-1].time;
                     }
-                    else if (runner.RunnerName == runnerData[i].name && runner.reachedAll)
-                    {
-                        runnerData[i].pos = pos;
-                        if (runnerData[i].pos != 1)
-                        {
-                            runnerData[i].diff = runnerData[i].time - runnerData[0].time;
-                        }
-                        pos++;
-                    }
-
+                    pos++;
+                }
+                else
+                {
+                    runnerData[i].pos = -1;
+                    runnerData[i].diff = new TimeSpan(0);
                 }
             }
             return runnerData;
@@ -127,7 +123,6 @@ namespace OrienteeringTracker
                         cpt.Number = cp.Number;
                         cpt.Second = r.Coords.IndexOf(coord);
                         cpt.Dist = CalcSingleLength(r.Coords[i].pixelPoint.X, r.Coords[i].pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
-                        //cpt.Tick = r.Coords.IndexOf(coord);
                         cpt.Second = i;
                         distList.Add(cpt);
                     }
