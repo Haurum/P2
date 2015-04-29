@@ -18,6 +18,7 @@ namespace OrienteeringTracker
         public string RunnerName { get; set; }
         public DateTime Date { get; set; }
         public System.Drawing.Color RouteColor { get; set; }
+        public bool reachedAll { get; set; }
         public List<int> startingTick { get; set; }
 
 

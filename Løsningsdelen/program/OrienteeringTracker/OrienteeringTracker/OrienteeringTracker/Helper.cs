@@ -39,19 +39,29 @@ namespace OrienteeringTracker
             return route;
         }
 
-        public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData)
+        public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData, List<Runner> runners)
         {
+            int pos = 1;
             runnerData = runnerData.OrderBy(runner => runner.time).ToList();
-            for (int i = 0; i < runnerData.Count-1; i++ )
+            for (int i = 0; i < runnerData.Count; i++ )
             {
-                if (runnerData[i].time.Seconds == 0)
+                foreach (Runner runner in runners)
                 {
-                    runnerData.Remove(runnerData[i]);
-                }
-                runnerData[i].pos = i + 1;
-                if (runnerData[i].pos != 1)
-                {
-                    runnerData[i].diff = runnerData[i].time - runnerData[0].time;
+                    if (runner.RunnerName == runnerData[i].name && !runner.reachedAll)
+                    {
+                        runnerData[i].pos = 0;
+                        runnerData[i].diff = new TimeSpan(0);
+                    }
+                    else if (runner.RunnerName == runnerData[i].name && runner.reachedAll)
+                    {
+                        runnerData[i].pos = pos;
+                        if (runnerData[i].pos != 1)
+                        {
+                            runnerData[i].diff = runnerData[i].time - runnerData[0].time;
+                        }
+                        pos++;
+                    }
+
                 }
             }
             return runnerData;
