@@ -17,6 +17,7 @@ namespace OrienteeringTracker
         {
             InitializeComponent();
             player = new Player(this);
+            data = new Data(this);
             OriginalMap = Map1.Image as Bitmap;
         }
 
@@ -28,6 +29,7 @@ namespace OrienteeringTracker
         List<Leg> Legs = new List<Leg>();
         Leg MainLeg = new Leg();
         Player player;
+        Data data;
         private Bitmap OriginalMap;
         private int MousePosX, MousePosY;
         public float ZoomFactor = 1;
@@ -153,7 +155,8 @@ namespace OrienteeringTracker
             foreach (ControlPointTime d in Runners[1].Visited)
             {
                 if (d.Cord != null)
-                    g.DrawEllipse(p, Runners[1].Coords.ElementAt(d.Second).pixelPoint.X, Runners[1].Coords.ElementAt(d.Second).pixelPoint.Y, 10, 10);
+                    g.DrawEllipse(p, Runners[1].Coords.ElementAt(d.Second).pixelPoint.X, 
+                        Runners[1].Coords.ElementAt(d.Second).pixelPoint.Y, 10, 10);
             }
         }
 
@@ -261,7 +264,8 @@ namespace OrienteeringTracker
                 }
                 if (isLeg)
                 {
-                    row = new List<string> { rd.pos.ToString(), rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    row = new List<string> { rd.pos.ToString(), rd.name, time, rd.diff.ToString(), rd.distance.ToString(), 
+                        rd.speed.ToString() };
                     foreach (RunnerData mainRd in MainLeg.Runners)
                     {
                         if (mainRd.name == rd.name)
@@ -272,7 +276,8 @@ namespace OrienteeringTracker
                 }
                 else
                 {
-                    row = new List<string> { rd.pos.ToString(), rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    row = new List<string> { rd.pos.ToString(), rd.name, time, rd.diff.ToString(), rd.distance.ToString(), 
+                        rd.speed.ToString() };
                     foreach (Leg l in Legs)
                     {
                         for (int runnerIndex = 0; runnerIndex < l.Runners.Count; runnerIndex++)
@@ -334,7 +339,8 @@ namespace OrienteeringTracker
 
                 using (Font myFont = new Font("Arial", 24, FontStyle.Bold))
                 {
-                    g.DrawString(cp.Number.ToString(), myFont, Brushes.Magenta, new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y - 25 / 2)));
+                    g.DrawString(cp.Number.ToString(), myFont, Brushes.Magenta, new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), 
+                        Convert.ToInt32(cp.Cord.pixelPoint.Y - 25 / 2)));
                 }
 
                 if (ControlPoints.First() != cp)
