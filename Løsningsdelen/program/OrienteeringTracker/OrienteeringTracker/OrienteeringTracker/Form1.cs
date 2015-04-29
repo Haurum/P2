@@ -95,8 +95,10 @@ namespace OrienteeringTracker
                 }
                 MainLeg.Name = string.Format("0 - {0}", ControlPoints.Count - 1);
                 ControlPointTime cpt = new ControlPointTime();
+                bool reached;
                 for (int Index = 0; Index < Runners.Count; Index++)
                 {
+                    reached = true;
                     Runners[Index].RouteColor = Colors[Index];
                     player.AddRunnerCheckBox(Runners[Index].RunnerName, true);
                     foreach (ControlPoint cp in ControlPoints)
@@ -105,17 +107,28 @@ namespace OrienteeringTracker
                         Runners[Index].Visited.Add(Helper.ControlPointChecker(cp, Runners[Index]));
                         if (cpt.Cord == null)
                         {
-                            Runners[Index].reachedAll = false;
+                            reached = false;
                         }
                     }
-                    
+
                     RunnerData runnerdata = new RunnerData();
                     runnerdata.name = Runners[Index].RunnerName;
-                    runnerdata.distance = Helper.CalcTotalLength(Runners[Index], Runners[Index].Visited[0].Second, 
-                        Runners[Index].Visited[Runners[Index].Visited.Count-1].Second);
-                    runnerdata.time = TimeSpan.FromSeconds(Runners[Index].Visited[Runners[Index].Visited.Count - 1].Second - 
-                        Runners[Index].Visited[0].Second);
-                    runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+                    if (reached)
+                    {
+                        runnerdata.distance = Helper.CalcTotalLength(Runners[Index], Runners[Index].Visited[0].Second,
+                            Runners[Index].Visited[Runners[Index].Visited.Count - 1].Second);
+                        runnerdata.time = TimeSpan.FromSeconds(Runners[Index].Visited[Runners[Index].Visited.Count - 1].Second -
+                            Runners[Index].Visited[0].Second);
+                        runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+                    }
+                    else
+                    {
+                        runnerdata.distance = 0;
+                        runnerdata.time = new TimeSpan(0);
+                        runnerdata.speed = 0;
+                    }
+                    
+                    runnerdata.reached = reached;
                     MainLeg.Runners.Add(runnerdata);
 
                 }
@@ -128,13 +141,22 @@ namespace OrienteeringTracker
                     foreach (Runner r in Runners)
                     {
                         RunnerData runnerdata = new RunnerData();
-                        runnerdata.name = r.RunnerName;
-                        runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Second, r.Visited[i].Second);
-                        if ((r.Visited[i].Second.CompareTo(r.Visited[i].Second) < 0))
-                            runnerdata.time = new TimeSpan(0);
-                        else
+                        if (r.Visited[i].Cord != null)
+                        {
+                            runnerdata.reached = true;
+                            runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Second, r.Visited[i].Second);
                             runnerdata.time = TimeSpan.FromSeconds(r.Visited[i].Second - r.Visited[i - 1].Second);
-                        runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+                            runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+                        }
+                        else
+                        {
+                            runnerdata.reached = false;
+                            runnerdata.distance = 0;
+                            runnerdata.time = new TimeSpan(0);
+                            runnerdata.speed = 0;
+                        }
+                        
+                        runnerdata.name = r.RunnerName;
                         leg.Runners.Add(runnerdata);
                     }
                     leg.Runners = Helper.GetPosAndDiff(leg.Runners, Runners);
@@ -248,46 +270,48 @@ namespace OrienteeringTracker
             DataTable.Rows.Clear();
             List<string> row;
             string time = "";
+            string pos = "";
             foreach(RunnerData rd in leg.Runners)
             {
-                time = "";
                 if (rd.time <= new TimeSpan(0))
                 {
-                    time = "-------";
+                    time = "X";
                 }
                 else
                 {
                     time = rd.time.ToString();
                 }
+                if (rd.pos == -1)
+                    pos = "X";
+                else
+                    pos = rd.pos.ToString();
                 if (isLeg)
                 {
-                    row = new List<string> { rd.pos.ToString(), rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    row = new List<string> { pos, rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
                     foreach (RunnerData mainRd in MainLeg.Runners)
                     {
                         if (mainRd.name == rd.name)
                         {
-                            row.Add(mainRd.pos.ToString());
+                            if (mainRd.pos == -1)
+                                row.Add("X");
+                            else
+                                row.Add(mainRd.pos.ToString());
                         }
                     } 
                 }
                 else
                 {
-                    row = new List<string> { rd.pos.ToString(), rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    row = new List<string> { pos, rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
                     foreach (Leg l in Legs)
                     {
                         for (int runnerIndex = 0; runnerIndex < l.Runners.Count; runnerIndex++)
                         { 
                             if (rd.name == l.Runners[runnerIndex].name)
                             {
-                                time = "";
                                 if (l.Runners[runnerIndex].time <= new TimeSpan(0))
-                                {
-                                    time = "-------";
-                                }
+                                    time = "X";
                                 else
-                                {
                                     time = l.Runners[runnerIndex].time.ToString();
-                                }
                                 row.Add(time);
                             }
                         }
@@ -296,6 +320,7 @@ namespace OrienteeringTracker
                 }
                 DataTable.Rows.Add(row.ToArray<string>());
             }
+            DataTable.Sort(DataTable.Columns[0], ListSortDirection.Ascending);
         }
 
         private void loadTrack_Click(object sender, EventArgs e)
