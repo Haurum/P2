@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    class Leg
+    public class Leg
     {
         public List<RunnerData> Runners = new List<RunnerData>();
         public string Name { get; set; }

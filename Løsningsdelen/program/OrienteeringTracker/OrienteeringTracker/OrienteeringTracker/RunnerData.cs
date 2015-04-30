@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    class RunnerData
+    public class RunnerData
     {
         public bool reached { get; set; }
         public string name { get; set; }

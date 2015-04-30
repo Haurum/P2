@@ -41,7 +41,6 @@
             this.mapTab = new System.Windows.Forms.TabPage();
             this.StartpointLabel = new System.Windows.Forms.Label();
             this.StartpointUpDown = new System.Windows.Forms.NumericUpDown();
-            this.loadTrack = new System.Windows.Forms.Button();
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
             this.BackButton = new System.Windows.Forms.Button();
@@ -67,7 +66,6 @@
             this.Map1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Map1.TabIndex = 0;
             this.Map1.TabStop = false;
-            this.Map1.Click += new System.EventHandler(this.Map1_Click);
             this.Map1.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
             this.Map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseDown);
             this.Map1.MouseEnter += new System.EventHandler(this.Map1_MouseEnter);
@@ -180,7 +178,6 @@
             // 
             this.mapTab.Controls.Add(this.StartpointLabel);
             this.mapTab.Controls.Add(this.StartpointUpDown);
-            this.mapTab.Controls.Add(this.loadTrack);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
             this.mapTab.Controls.Add(this.ResetButton);
@@ -223,17 +220,6 @@
             this.StartpointUpDown.TabIndex = 10;
             this.StartpointUpDown.Visible = false;
             this.StartpointUpDown.ValueChanged += new System.EventHandler(this.StartpointUpDown_ValueChanged);
-            // 
-            // loadTrack
-            // 
-            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
-            this.loadTrack.Name = "loadTrack";
-            this.loadTrack.Size = new System.Drawing.Size(100, 28);
-            this.loadTrack.TabIndex = 9;
-            this.loadTrack.Text = "Load route";
-            this.loadTrack.UseVisualStyleBackColor = true;
-            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
             // 
             // tempoLabel
             // 
@@ -303,7 +289,6 @@
             this.Name = "MainForm";
             this.Text = "Orienteering Tracker";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();
@@ -333,7 +318,6 @@
         private System.Windows.Forms.TabPage dataTab;
         public System.Windows.Forms.Label tempoLabel;
         private System.Windows.Forms.Label DataTitle;
-        private System.Windows.Forms.Button loadTrack;
         private System.Windows.Forms.DataGridView DataTable;
         public System.Windows.Forms.Label StartpointLabel;
         public System.Windows.Forms.NumericUpDown StartpointUpDown;

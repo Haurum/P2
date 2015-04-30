@@ -16,8 +16,7 @@ namespace OrienteeringTracker
         public MainForm()
         {
             InitializeComponent();
-            player = new Player(this);
-            data = new Data(this);
+            player = new Player(this);           
             OriginalMap = Map1.Image as Bitmap;
         }
 
@@ -29,7 +28,6 @@ namespace OrienteeringTracker
         List<Leg> Legs = new List<Leg>();
         Leg MainLeg = new Leg();
         Player player;
-        Data data;
         private Bitmap OriginalMap;
         private int MousePosX, MousePosY;
         public float ZoomFactor = 1;
@@ -81,105 +79,19 @@ namespace OrienteeringTracker
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
+            
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult dr = fbd.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                string[] files = Directory.GetFiles(fbd.SelectedPath);
-
-                Runner runner = new Runner();
-
-                foreach (string file in files)
-                {
-                    runner = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
-                    runner.reachedAll = true;
-                    Runners.Add(runner);
-                }
-                MainLeg.Name = string.Format("0 - {0}", ControlPoints.Count - 1);
-                ControlPointTime cpt = new ControlPointTime();
-                bool reached;
-                for (int Index = 0; Index < Runners.Count; Index++)
-                {
-                    reached = true;
-                    Runners[Index].RouteColor = Colors[Index];
-                    player.AddRunnerCheckBox(Runners[Index].RunnerName, true);
-                    foreach (ControlPoint cp in ControlPoints)
-                    {
-                        cpt = Helper.ControlPointChecker(cp, Runners[Index]);
-                        Runners[Index].Visited.Add(Helper.ControlPointChecker(cp, Runners[Index]));
-                        if (cpt.Cord == null)
-                        {
-                            reached = false;
-                        }
-                    }
-
-                    RunnerData runnerdata = new RunnerData();
-                    runnerdata.name = Runners[Index].RunnerName;
-                    if (reached)
-                    {
-                        runnerdata.distance = Helper.CalcTotalLength(Runners[Index], Runners[Index].Visited[0].Second,
-                            Runners[Index].Visited[Runners[Index].Visited.Count - 1].Second);
-                        runnerdata.time = TimeSpan.FromSeconds(Runners[Index].Visited[Runners[Index].Visited.Count - 1].Second -
-                            Runners[Index].Visited[0].Second);
-                        runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
-                    }
-                    else
-                    {
-                        runnerdata.distance = 0;
-                        runnerdata.time = new TimeSpan(0);
-                        runnerdata.speed = 0;
-                    }
-                    
-                    runnerdata.reached = reached;
-                    MainLeg.Runners.Add(runnerdata);
-
-                }
-                MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners, Runners);
-
-                for (int i = 1; i < ControlPoints.Count; i++)
-                {
-                    Leg leg = new Leg();
-                    leg.Name = string.Format("{0} - {1}", i - 1, i);
-                    foreach (Runner r in Runners)
-                    {
-                        RunnerData runnerdata = new RunnerData();
-                        if (r.Visited[i].Cord != null)
-                        {
-                            runnerdata.reached = true;
-                            runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Second, r.Visited[i].Second);
-                            runnerdata.time = TimeSpan.FromSeconds(r.Visited[i].Second - r.Visited[i - 1].Second);
-                            runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
-                        }
-                        else
-                        {
-                            runnerdata.reached = false;
-                            runnerdata.distance = 0;
-                            runnerdata.time = new TimeSpan(0);
-                            runnerdata.speed = 0;
-                        }
-                        
-                        runnerdata.name = r.RunnerName;
-                        leg.Runners.Add(runnerdata);
-                    }
-                    leg.Runners = Helper.GetPosAndDiff(leg.Runners, Runners);
-                    Legs.Add(leg);                    
-                }
-
-                LoadButton.Hide();
-                ResetButton.Show();
-                player.StartUp();
+                LoadControlPoints(Directory.GetFiles(fbd.SelectedPath, "*utm").FirstOrDefault());
+                LoadRunners(Directory.GetFiles(fbd.SelectedPath, "*.gpx"));
+                LoadLegs();
             }
+            LoadButton.Hide();
+            ResetButton.Show();
+            player.StartUp();
             Put_Data(MainLeg);
-
-
-            Graphics g = Graphics.FromImage(Map1.Image);
-            Pen p = new Pen(Color.Black,5);
-            foreach (ControlPointTime d in Runners[1].Visited)
-            {
-                if (d.Cord != null)
-                    g.DrawEllipse(p, Runners[1].Coords.ElementAt(d.Second).pixelPoint.X, 
-                        Runners[1].Coords.ElementAt(d.Second).pixelPoint.Y, 10, 10);
-            }
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
@@ -224,19 +136,7 @@ namespace OrienteeringTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            LoadButton.Hide();
             BackButton.Hide();
-        }
-
-        private void MainForm_MouseClick(object sender, MouseEventArgs e)
-        {
-            //Coordsreader.Text = e.Location.X * ZoomFactor + ", " + e.Location.Y * ZoomFactor;
-        }
-
-        private void Map1_Click(object sender, EventArgs e)
-        {
-            MouseEventArgs me = (MouseEventArgs)e;
-            //Coordsreader.Text = me.Location.X / ZoomFactor + ", " + me.Location.Y / ZoomFactor;
         }
 
         private void Setup_Table()
@@ -326,69 +226,6 @@ namespace OrienteeringTracker
             DataTable.Sort(DataTable.Columns[0], ListSortDirection.Ascending);
         }
 
-        private void loadTrack_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            DialogResult dr = ofd.ShowDialog();
-            if (dr == DialogResult.OK)
-            {
-                ControlPoints = Helper.ReadControlPoints(ofd.FileName);
-            }
-
-            Graphics g = Graphics.FromImage(Map1.Image);
-            Pen p = new Pen(Color.Magenta);
-            p.Width = 5;
-            int i = 0;
-
-            foreach (ControlPoint cp in ControlPoints)
-            {
-                Point[] points = {new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y)), 
-                                         new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y-30)), 
-                                         new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y+30))};
-                if (ControlPoints.First() == cp)
-                {
-                    g.DrawPolygon(p, points);
-                }
-                else if (ControlPoints.Last() == cp)
-                {
-                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 17, cp.Cord.pixelPoint.Y - 17, 34, 34);
-                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
-                }
-                else
-                {
-                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
-                }
-
-
-                using (Font myFont = new Font("Arial", 24, FontStyle.Bold))
-                {
-                    g.DrawString(cp.Number.ToString(), myFont, Brushes.Magenta, new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), 
-                        Convert.ToInt32(cp.Cord.pixelPoint.Y - 25 / 2)));
-                }
-
-                if (ControlPoints.First() != cp)
-                {
-                    float xDiff = ControlPoints[i - 1].Cord.pixelPoint.X - cp.Cord.pixelPoint.X;
-                    float yDiff = ControlPoints[i - 1].Cord.pixelPoint.Y - cp.Cord.pixelPoint.Y;
-
-                    float angle = (float)Math.Atan2(yDiff, xDiff) - (float)(Math.PI);
-
-                    float distance = (float)Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
-
-                    float newX = (float)(ControlPoints[i - 1].Cord.pixelPoint.X + (Math.Cos(angle) * (distance - 25)));
-                    float newY = (float)(ControlPoints[i - 1].Cord.pixelPoint.Y + (Math.Sin(angle) * (distance - 25)));
-
-                    g.DrawLine(p, new Point(Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.X + Math.Cos(angle) * 25), 
-                        Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.Y + Math.Sin(angle) * 25)), 
-                        new Point(Convert.ToInt32(newX), Convert.ToInt32(newY)));
-                }
-                i++;
-            }
-            Map1.Refresh();
-            LoadButton.Show();
-            loadTrack.Hide();
-        }
-
         private void StartpointUpDown_ValueChanged(object sender, EventArgs e)
         {
             player.Second = 0;
@@ -418,6 +255,146 @@ namespace OrienteeringTracker
             isLeg = false;
             Put_Data(MainLeg);
             BackButton.Hide();
+        }
+
+        private void LoadRunners(string[] GPXFiles)
+        {
+            int ColorCount = 0;
+            Runner runner = new Runner();
+            MainLeg.Name = string.Format("0 - {0}", ControlPoints.Count - 1);
+            ControlPointTime cpt = new ControlPointTime();
+            bool reached;
+
+            foreach (string file in GPXFiles)
+            {
+
+                runner = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
+                runner.reachedAll = true;
+                runner.RouteColor = Colors[ColorCount];
+                ColorCount++;
+                reached = true;
+
+
+                foreach (ControlPoint cp in ControlPoints)
+                {
+                    cpt = Helper.ControlPointChecker(cp, runner);
+                    runner.Visited.Add(Helper.ControlPointChecker(cp, runner));
+                    if (cpt.Cord == null)
+                    {
+                        reached = false;
+                    }
+                }
+
+                RunnerData runnerdata = new RunnerData();
+                runnerdata.name = runner.RunnerName;
+                if (reached)
+                {
+                    runnerdata.distance = Helper.CalcTotalLength(runner, runner.Visited[0].Second,
+                        runner.Visited[runner.Visited.Count - 1].Second);
+                    runnerdata.time = TimeSpan.FromSeconds(runner.Visited[runner.Visited.Count - 1].Second -
+                        runner.Visited[0].Second);
+                    runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+                }
+                else
+                {
+                    runnerdata.distance = 0;
+                    runnerdata.time = new TimeSpan(0);
+                    runnerdata.speed = 0;
+                }
+
+                runnerdata.reached = reached;
+                MainLeg.Runners.Add(runnerdata);
+                Runners.Add(runner);
+            }
+            MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners, Runners);
+        }
+
+        private void LoadControlPoints(string RouteFile)
+        {
+            ControlPoints = Helper.ReadControlPoints(RouteFile);
+
+            Graphics g = Graphics.FromImage(Map1.Image);
+            Pen p = new Pen(Color.Magenta);
+            p.Width = 5;
+            int i = 0;
+
+            foreach (ControlPoint cp in ControlPoints)
+            {
+                Point[] points = {new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y)), 
+                                         new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y-30)), 
+                                         new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y+30))};
+                if (ControlPoints.First() == cp)
+                {
+                    g.DrawPolygon(p, points);
+                }
+                else if (ControlPoints.Last() == cp)
+                {
+                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 17, cp.Cord.pixelPoint.Y - 17, 34, 34);
+                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
+                }
+                else
+                {
+                    g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
+                }
+
+
+                using (Font myFont = new Font("Arial", 24, FontStyle.Bold))
+                {
+                    g.DrawString(cp.Number.ToString(), myFont, Brushes.Magenta, new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30),
+                        Convert.ToInt32(cp.Cord.pixelPoint.Y - 25 / 2)));
+                }
+
+                if (ControlPoints.First() != cp)
+                {
+                    float xDiff = ControlPoints[i - 1].Cord.pixelPoint.X - cp.Cord.pixelPoint.X;
+                    float yDiff = ControlPoints[i - 1].Cord.pixelPoint.Y - cp.Cord.pixelPoint.Y;
+
+                    float angle = (float)Math.Atan2(yDiff, xDiff) - (float)(Math.PI);
+
+                    float distance = (float)Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+
+                    float newX = (float)(ControlPoints[i - 1].Cord.pixelPoint.X + (Math.Cos(angle) * (distance - 25)));
+                    float newY = (float)(ControlPoints[i - 1].Cord.pixelPoint.Y + (Math.Sin(angle) * (distance - 25)));
+
+                    g.DrawLine(p, new Point(Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.X + Math.Cos(angle) * 25),
+                        Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.Y + Math.Sin(angle) * 25)),
+                        new Point(Convert.ToInt32(newX), Convert.ToInt32(newY)));
+                }
+                i++;
+            }
+            Map1.Refresh();
+        }
+
+        private void LoadLegs()
+        {
+            for (int i = 1; i < ControlPoints.Count; i++)
+            {
+                Leg leg = new Leg();
+                leg.Name = string.Format("{0} - {1}", i - 1, i);
+                foreach (Runner r in Runners)
+                {
+                    RunnerData runnerdata = new RunnerData();
+                    if (r.Visited[i].Cord != null)
+                    {
+                        runnerdata.reached = true;
+                        runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Second, r.Visited[i].Second);
+                        runnerdata.time = TimeSpan.FromSeconds(r.Visited[i].Second - r.Visited[i - 1].Second);
+                        runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+                    }
+                    else
+                    {
+                        runnerdata.reached = false;
+                        runnerdata.distance = 0;
+                        runnerdata.time = new TimeSpan(0);
+                        runnerdata.speed = 0;
+                    }
+
+                    runnerdata.name = r.RunnerName;
+                    leg.Runners.Add(runnerdata);
+                }
+                leg.Runners = Helper.GetPosAndDiff(leg.Runners, Runners);
+                Legs.Add(leg);
+            }
         }
     }
 }

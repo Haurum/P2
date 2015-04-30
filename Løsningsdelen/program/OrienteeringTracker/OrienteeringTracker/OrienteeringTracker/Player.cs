@@ -97,12 +97,6 @@ namespace OrienteeringTracker
                 r.Visited[(int)mainForm.StartpointUpDown.Value].Second);
         }
 
-        public void AddRunnerCheckBox(string name, bool isChecked)
-        {
-            mainForm.RunnersCheckBox.Items.Add(name);
-            mainForm.RunnersCheckBox.SetItemChecked(mainForm.RunnersCheckBox.Items.Count - 1, isChecked);
-        }
-
         public void StartUp()
         {
             mainForm.PlayButton.Show();
@@ -112,6 +106,12 @@ namespace OrienteeringTracker
             mainForm.tempoLabel.Show();
             mainForm.StartpointLabel.Show();
             mainForm.StartpointUpDown.Show();
+
+            foreach (Runner runner in mainForm.Runners)
+            {
+                mainForm.RunnersCheckBox.Items.Add(runner.RunnerName);
+                mainForm.RunnersCheckBox.SetItemChecked(mainForm.RunnersCheckBox.Items.Count - 1, true);
+            }
 
             mainForm.RunnersCheckBox.ClientSize = new Size(mainForm.RunnersCheckBox.ClientSize.Width,
                     mainForm.RunnersCheckBox.GetItemRectangle(0).Height * mainForm.RunnersCheckBox.Items.Count);
