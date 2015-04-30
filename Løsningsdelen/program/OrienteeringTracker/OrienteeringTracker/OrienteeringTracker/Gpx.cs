@@ -389,7 +389,7 @@ namespace OrienteeringTracker
         public abstract GpxPointCollection<GpxPoint> ToGpxPoints();
     }
 
-    public class GpxRoute : GpxTrackOrRoute
+    public class GpxRoute
     {
         private GpxPointCollection<GpxRoutePoint> RoutePoints_ = new GpxPointCollection<GpxRoutePoint>();
 
