@@ -11,5 +11,16 @@ namespace OrienteeringTracker
         public int Radius { get; set; }
         public int Number { get; set; }
         public Coordinate Cord { get; set; }
+
+        public Coordinate Coordinate
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }
