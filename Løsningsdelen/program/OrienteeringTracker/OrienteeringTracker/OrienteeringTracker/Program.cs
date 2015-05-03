@@ -8,6 +8,16 @@ namespace OrienteeringTracker
 {
     static class Program
     {
+        public static MainForm MainForm
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

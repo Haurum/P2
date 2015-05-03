@@ -74,5 +74,38 @@ namespace OrienteeringTracker
                 counter++;
             }
         }
+	
+        public Coordinate Coordinate
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public ControlPointTime ControlPointTime
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public ControlPoint ControlPoint
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }
