@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace OrienteeringTracker
 {
-    static class Helper
+    public static class Helper
     {
         public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData, List<Runner> runners)
         {
