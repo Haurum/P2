@@ -39,3 +39,5 @@ C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\Ori
 C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.Properties.Resources.resources
 C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csproj.GenerateResource.Cache
 C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.exe
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.dll
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.xml
