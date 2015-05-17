@@ -38,7 +38,7 @@ Ud fra overstående har gruppen, i samarbejde med Jens Børsting, opstillet nogl
 \item Webservicen skal grafisk kunne vise en eller flere GPS ruter uploaded fra appen ovenpå den tilknyttede bane (Kort)
 \item Webservicen skal have følgende replay funktionaliteter:
 \begin{itemize}
-\item Det skal være muligt at til/fravælge løbere til den viste bane, evt. mulighed for at tilpasse halelængde og farve
+\item Det skal være muligt at til/fravælge løbere til den viste bane, evt. mulighed for at tilpasse halelængde (grafiske visning af løberens seneste antal punkter) og farve
 \item Zoom funktion på kortet. (senere måske rotationsfunktion så kortet kan roteres og få strækretningen op på kortet.)
 \item Det skal være muligt at starte og pause afpilningen af GPS Dataene.
 \item Det skal være muligt at sætte tempoet til 1, 2, 5, 10 og 20 gange normal hastighed
@@ -66,7 +66,7 @@ Ud fra overstående har gruppen, i samarbejde med Jens Børsting, opstillet nogl
 \item Appen skal være brugervenlig, i den forstand, at det skal være let at vælge en bane, starte et løb, afslutte et løb og bruge replay-funktionen. Navigering i appen skal være simpel.
 \end{itemize}
 
-\subsection{Mugshots af optimalløsning}
+\subsection{Mockup af optimalløsning}
 \subsubsection{Mobilenhed}
 Gruppen har gjort sig nogle tanker om hvordan den opmitaleløsning skal se ud og hvilke funktioner den skal have. Udfra dette er der blevet lavet nogle mugshots af hvordan gruppen tæntke den optimale løsning kunne komme til at se ud.
 
@@ -193,7 +193,7 @@ Lige over mediaplayeren ses kan der ses hvor langt, brugeren er inde i genafspil
     \caption{Detaljeret sammenligning af løbere}
 \end{figure}
 
-Figur 4.12 viser menu punktet om deltaljeret statistik om løberene. Under denne side kan der ses en række informationer om løberen under genafspilingen af løbet. Dette skal være anden en måde at sammenligne løberne, frem for kun at have den grafiske sammenligning. De ting der er tiltænkt der skal kunne ses er løberens:
+Figur 4.12 viser menu punktet om deltaljeret statistik over løberne. Under denne side kan der ses en række informationer om løberen under genafspilingen af løbet. Dette skal være en anden måde at sammenligne løberne, frem for kun at have den grafiske sammenligning. De ting der er tiltænkt, at skulle ses er løberens:
 \begin{itemize}
 \item Navn
 \item Position i løbet
@@ -208,28 +208,28 @@ Figur 4.12 viser menu punktet om deltaljeret statistik om løberene. Under denne
 Sidste menupunkt i venstre side er hjælpefunktionen. Meningen med denne funktion er, at den kunne hjælpe forvirrede brugere med brugen af programmet, hvis dette skulle blive en nødvendighed.
 
 \section{Reelle løsning}
-Ud fra listen over krav til den optimaleløsning i afsnit 4.1.1, har gruppen som at priortere hvad løsningen skal indeholde. Gruppen har ud fra den resterende tid og gruppens erfaring, valgt at priortere replayfunktionen højest. Selve projektet handler om at kunne sammenligne og evaluere en o-løbs træning, derfor er det vigtigt at kunne se de gode og dårlige beslutninger, en o-løber har taget på hans eller hendes rute. Som udgangspunkt vil der blive arbejdet på at kunne genspille en rute med én løber, derefter at kunne tilføje flere løbere, for at kunne lave ene sammenligning. Derudover har gruppen valgt at priotere den tekstbaserede sammenligning/statistik over løberne lige under replayfunktionen, som ses på figur 4.12. Dette gøres for at kunne give brugeren flere sammenlignings muligheder. Replayfunktionen giver et godt overblik over bl.a. vejvalg, men den teskbaserede sammenligning giver eksempelvis er mere detaljeret i forhold til hastighed, tid og distance.
+Ud fra listen over krav til den optimaleløsning i afsnit 4.1.1, har gruppen som at priortere hvad løsningen skal indeholde. Gruppen har ud fra den resterende tid og gruppens erfaring, valgt at priortere replayfunktionen med tilhørende kort højest. Selve projektet handler om at kunne sammenligne og evaluere en o-løbs træning, derfor er det vigtigt at kunne se de gode og dårlige beslutninger, en o-løber har taget på hans eller hendes rute. Som udgangspunkt vil der blive arbejdet på at kunne genspille en rute med én løber, derefter at kunne tilføje flere løbere, for at kunne lave ene sammenligning. Derudover har gruppen valgt at priotere den tekstbaserede sammenligning/statistik over løberne lige under replayfunktionen, som ses på figur 4.12. Dette gøres for at kunne give brugeren flere sammenlignings muligheder. Replayfunktionen giver et godt overblik over bl.a. vejvalg, men den teskbaserede sammenligning giver eksempelvis er mere detaljeret i forhold til hastighed, tid og distance.
 
 Gruppen har valgt at lave en realistisk løsning af webservicen, hvor den er realisktisk i form af den tid og erfaring gruppen har tilrådighed. Mobildelen i projektet har gruppen valgt at simulere, hvor der optages nogle GPS signaler på en smartphone og filerne med længde- og breddegrader lægges over på computerne, og arbejdes med derfra.
 
 Nogle af punkterne i afsnit 4.1.1 kan ses nedenfor, hvilke er de punkter som gruppen har valgt at tageudgangspunkt i. Her ses de punkter der skal indgå i den grafiskvisning af løsningen:
 \begin{itemize}
-\item Det skal være muligt at til/fravælge løbere til den viste bane, evt. mulighed for at tilpasse halelængde og farve
+\item Det skal være muligt at til/fravælge løbere til den viste bane, evt. mulighed for at tilpasse halelængde og farve.
 \item Zoom funktion på kortet.
 \item Det skal være muligt at starte og pause afpilningen af GPS dataene.
-\item Det skal være muligt at sætte tempoet til 1, 2, 5, 10 og 20 gange normal hastighed
+\item Det skal være muligt at sætte tempoet til 1, 2, 5, 10 og 20 gange normal hastighed.
 \item Scrolling function for at komme hurtigt frem til et bestemt tidspunkt.
-\item Det skal være muligt at vælge én post (punkt som alle passerer) hvor alle viste løbere bliver samlet ved. Der skal kunne defineres/vælges flere poster/punkter
+\item Det skal være muligt at vælge én post (punkt som alle passerer) hvor alle viste løbere bliver samlet ved. Der skal kunne defineres/vælges flere poster/punkter.
 \end{itemize}
-Den tekstbaserede løsning skal kunne vise følgende:
+Den tekstbaserede løsning skal kunne vise følgende den enkelte løbers:
 \begin{itemize}
-\item Den enkelte løbers navn
-\item Den enkelte løbers placering i løbet efter strækket
-\item Den enkelte løbers stræk længde
-\item Den enkelte løbers tilbagelagte rute
-\item Den enkelte løbers samlede tid efter strækket
-\item Den enkelte løbers tid på strækket
-\item Den enkelte løbers tid i forhold til den hurtigste på strækket
-\item Den enkelte løbers gns. fart på strækket
-\item Den enkelte løbers top fart på strækket
+\item Navn.
+\item Placering i løbet efter strækket.
+\item Stræk længde.
+\item Tilbagelagte rute.
+\item Samlede tid efter strækket.
+\item Tid på strækket.
+\item Tid i forhold til den hurtigste på strækket.
+\item Gns. fart på strækket.
+\item Top fart på strækket.
 \end{itemize}
