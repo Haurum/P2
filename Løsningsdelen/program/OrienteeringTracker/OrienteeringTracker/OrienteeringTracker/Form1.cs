@@ -304,15 +304,15 @@ namespace OrienteeringTracker
         private void LoadRunners(string[] GPXFiles)
         {
             int ColorCount = 0;
-            Runner runner = new Runner();
+            Runner runner;
             MainLeg.Name = string.Format("0 - {0}", ControlPoints.Count - 1);
             ControlPointTime cpt = new ControlPointTime();
             bool reached;
 
             foreach (string file in GPXFiles)
             {
-
-                runner = Helper.ReadGPXData(new FileStream(file, FileMode.Open));
+                runner = new Runner();
+                runner.ReadGPXData(new FileStream(file, FileMode.Open));
                 runner.reachedAll = true;
                 runner.RouteColor = Colors[ColorCount];
                 ColorCount++;
@@ -321,8 +321,9 @@ namespace OrienteeringTracker
 
                 foreach (ControlPoint cp in ControlPoints)
                 {
-                    cpt = Helper.ControlPointChecker(cp, runner);
-                    runner.Visited.Add(Helper.ControlPointChecker(cp, runner));
+                    cpt = new ControlPointTime();
+                    cpt.ControlPointChecker(cp, runner);
+                    runner.Visited.Add(cpt);
                     if (cpt.Cord == null)
                     {
                         reached = false;
@@ -355,7 +356,15 @@ namespace OrienteeringTracker
 
         private void LoadControlPoints(string RouteFile)
         {
-            ControlPoints = Helper.ReadControlPoints(RouteFile);
+            ControlPoint newControlPoint;
+            int cpNr = 0;
+            foreach (var line in File.ReadLines(RouteFile))
+            {
+                newControlPoint = new ControlPoint();
+                newControlPoint.ReadControlPoint(line, cpNr);
+                ControlPoints.Add(newControlPoint);
+                cpNr++;
+            }
 
             Graphics g = Graphics.FromImage(Map1.Image);
             Pen p = new Pen(Color.Magenta);

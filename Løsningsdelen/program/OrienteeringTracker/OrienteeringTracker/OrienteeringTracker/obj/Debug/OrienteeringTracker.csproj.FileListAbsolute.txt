@@ -28,3 +28,21 @@ C:\Users\frederik\Desktop\p2\P2-f219cf0ffbd583d209d5a13f5459ec50b2ebc959\Løsnin
 C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
 C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.exe
 C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.pdb
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.pdb
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.pdb
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.dll
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.xml
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csprojResolveAssemblyReference.cache
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.MainForm.resources
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.Properties.Resources.resources
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.csproj.GenerateResource.Cache
+C:\Users\Mark\Documents\GitHub\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.exe
+<<<<<<< Updated upstream
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.dll
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.xml
+=======
+Z:\Documents\Software\2_semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+Z:\Documents\Software\2_semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.pdb
+>>>>>>> Stashed changes

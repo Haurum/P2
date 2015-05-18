@@ -9,36 +9,8 @@ using System.Drawing;
 
 namespace OrienteeringTracker
 {
-    static class Helper
+    public static class Helper
     {
-        public static Runner ReadGPXData(FileStream GpxStream)
-        {
-            Runner route = new Runner();
-            GpxReader reader = new GpxReader(GpxStream);
-            reader.Read();
-            route.Date = reader.Track.Segments[0].TrackPoints[0].Time;
-            route.RunnerName = Path.GetFileNameWithoutExtension(GpxStream.Name);
-
-
-            foreach (GpxPoint gp in reader.Track.Segments[0].TrackPoints)
-            {
-                double UTMNorthing;
-                double UTMEasting;
-                string Zone;
-                ConvertLatLongtoUTM(gp.Latitude, gp.Longitude, out UTMNorthing, out UTMEasting, out Zone);
-
-                float x;
-                float y;
-                ConvertUTMToPixel(UTMNorthing, UTMEasting, out x, out y);
-
-                Coordinate c = new Coordinate(x, y, gp.Time, (float)(UTMEasting), (float)(UTMNorthing));
-                route.Coords.Add(c);
-            }
-            GpxStream.Close();
-            AddMissingPoints(ref route);
-            return route;
-        }
-
         public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData, List<Runner> runners)
         {
             int pos = 1;
@@ -61,75 +33,6 @@ namespace OrienteeringTracker
                 }
             }
             return runnerData;
-        }
-
-        public static void AddMissingPoints(ref Runner route)
-        {
-            int counter = 0;
-            while (counter < route.Coords.Count-1)
-            {
-                if (route.Coords[counter].Time >= route.Coords[counter + 1].Time)
-                {
-                    route.Coords.RemoveAt(counter + 1);
-                    counter--;
-                }
-                else if (route.Coords[counter].Time.AddSeconds(1) != route.Coords[counter + 1].Time)
-                {
-                    Coordinate temp = route.Coords[counter];
-                    temp.Time = temp.Time.AddSeconds(1);
-                    route.Coords.Insert(counter + 1, temp);
-                }
-                counter++;
-            }
-        }
-
-        public static List<ControlPoint> ReadControlPoints(string path)
-        {
-            string[] coordinatesString;
-            int i = 0;
-            List<ControlPoint> controlPoints = new List<ControlPoint>();
-            foreach (var line in File.ReadLines(path))
-            {
-                coordinatesString = line.Split(';');
-                //float x;
-                //float y;
-                //ConvertUTMToPixel(Convert.ToDouble(coordinatesString[0]), Convert.ToDouble(coordinatesString[1]), out x, out y);
-
-                //controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now, 0,0), Radius = 10, Number = i });
-                controlPoints.Add(new ControlPoint() { Cord = new Coordinate(float.Parse(coordinatesString[2], System.Globalization.CultureInfo.InvariantCulture), float.Parse(coordinatesString[3], System.Globalization.CultureInfo.InvariantCulture), DateTime.Now, float.Parse(coordinatesString[0], System.Globalization.CultureInfo.InvariantCulture),float.Parse(coordinatesString[1], System.Globalization.CultureInfo.InvariantCulture)), Radius = 10, Number = i });
-                i++;
-            }
-            return controlPoints;
-        }
-
-        public static ControlPointTime ControlPointChecker(ControlPoint cp, Runner r)
-        {
-            List<ControlPointTime> distList = new List<ControlPointTime>();
-            ControlPointTime cpt = new ControlPointTime();
-            double doubleDist = 0;
-            foreach (Coordinate coord in r.Coords)
-            {
-                doubleDist = CalcSingleLength(coord.pixelPoint.X, coord.pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
-                if (doubleDist < 25)
-                {
-                    for (int i = r.Coords.IndexOf(coord); i < r.Coords.Count; i++)
-                    {
-                        if (CalcSingleLength(r.Coords[i].pixelPoint.X, r.Coords[i].pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y) > 25)
-                        {
-                            return distList.OrderBy(distance => distance.Dist).First();
-                        }
-                        cpt = new ControlPointTime();
-                        cpt.Cord = cp.Cord;
-                        cpt.Number = cp.Number;
-                        cpt.Second = r.Coords.IndexOf(coord);
-                        cpt.Dist = CalcSingleLength(r.Coords[i].pixelPoint.X, r.Coords[i].pixelPoint.Y, cp.Cord.pixelPoint.X, cp.Cord.pixelPoint.Y);
-                        cpt.Second = i;
-                        distList.Add(cpt);
-                    }
-                }
-            }
-            return new ControlPointTime();
-
         }
 
         public static double CalcTotalLength(Runner route, int startPoint, int endPoint)
