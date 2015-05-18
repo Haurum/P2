@@ -172,8 +172,8 @@ namespace OrienteeringTracker
                 worldTal.Add(float.Parse(line, CultureInfo.InvariantCulture));
             }
 
-            x = Convert.ToInt32(((worldTal[3] * UTM_east) - (worldTal[3] * worldTal[4])) / (worldTal[0] * worldTal[3]));
-            y = Convert.ToInt32(((worldTal[0] * UTM_north) - (worldTal[0] * worldTal[5])) / (worldTal[0] * worldTal[3]));
+            x = Convert.ToInt32((UTM_east - worldTal[4]) / worldTal[0]);
+            y = Convert.ToInt32((UTM_north - worldTal[5]) / worldTal[3]);
         }
 
         public static void ConvertLatLongtoUTM(double Lat, double Long, out double UTMNorthing, out double UTMEasting, out string Zone)
