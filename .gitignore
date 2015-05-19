@@ -1,4 +1,4 @@
-﻿*.aux
+*.aux
 *.glo
 *.idx
 *.log
@@ -42,3 +42,5 @@ Løsningsdelen/program/OrienteeringTracker/OrienteeringTracker/OrienteeringTrack
 Løsningsdelen/program/OrienteeringTracker/OrienteeringTracker/OrienteeringTracker/obj/Debug/OrienteeringTracker.csproj.GenerateResource.Cache
 Løsningsdelen/program/OrienteeringTracker/OrienteeringTracker/OrienteeringTracker/obj/Debug/OrienteeringTracker.csproj.GenerateResource.Cache
 
+
+*.aux
