@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    class RunnerData
+    public class RunnerData
     {
-        string name { get; set; }
-        int pos { get; set; }
-        double time { get; set; }
-        double diff { get; set; }
-        double distance { get; set; }
-        double speed { get; set; }
+        public bool reached { get; set; }
+        public string name { get; set; }
+        public int pos { get; set; }
+        public TimeSpan time { get; set; }
+        public TimeSpan diff { get; set; }
+        public double distance { get; set; }
+        public double speed { get; set; }
     }
 }

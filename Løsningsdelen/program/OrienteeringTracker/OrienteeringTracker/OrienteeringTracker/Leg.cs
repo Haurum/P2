@@ -6,9 +6,20 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
-    class Leg
+    public class Leg
     {
-        List<RunnerData> Runners = new List<RunnerData>();
-        string name;
+        public List<RunnerData> Runners = new List<RunnerData>();
+        public string Name { get; set; }
+
+        public RunnerData RunnerData
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

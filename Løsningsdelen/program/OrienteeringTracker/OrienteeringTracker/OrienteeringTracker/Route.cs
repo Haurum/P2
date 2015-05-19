@@ -13,13 +13,11 @@ namespace OrienteeringTracker
             Coords = new List<Coordinate>();
             ToVisit = new List<ControlPoint>();
             Visited = new List<ControlPoint>();
-            startingTick = new List<int>();
         }
 
         public string RunnerName { get; set; }
         public DateTime Date { get; set; }
         public System.Drawing.Color RouteColor { get; set; }
-        public List<int> startingTick { get; set; }
 
 
         public List<Coordinate> Coords { get; set; }

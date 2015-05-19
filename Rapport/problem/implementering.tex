@@ -1,5 +1,21 @@
 \chapter{Implementering}
 
+\section{Klassebeskrivelse}
+Gruppen har vha. Visual Studio udarbejdet et klasse diagram, for at give et bedre overblik over programmets klasser. I firkanterne i klassediagrammet ses klassens navn, dens fields, properties og metoder.
+%Bilede af klassediagram
+\begin {itemize}
+\item \textbf{Helper} klassen indeholder de metoder der bruges til at lave udregninger i programmet, eksempelvis konverteringen fra længde- breddegrade koordinater til UTM koordinater. 
+\item \textbf{Coordinate} indeholder koordinater for at kunne se hvor løberen er og hvor posterne er placeret, som både pixel- og UTM koordinater. 
+\item \textbf{ControlPoint} repræsentere posterne i løbet. Hvor den indeholde en posts radius, dens nummer og henter dens koordinater fra Coordinates.
+\item \textbf{ControlPointTime} har nedarvet fra ControlPoint, hvor den så implementere Second og Dist som vil være tid i sekunder og distancen fra løberren til posten. 
+\item \textbf{Runner} indeholder informationer om en løber, dette er bl.a. løberens koordinater på ruten, om løberen har besøgt alle poster og løberens navn.
+\item \textbf{RunnerData} gemmer på en mængde data om hver enkelt løber, som hastighed, distance løbet og position i løbet, hvor dette vil være de informationer som kan findes under tabben som gruppen har kaldt ”Data view”. 
+\item \textbf{Leg} er det som førnævnt kaldet et ”stræk”, dog nu oversat til engelsk. Leg indeholder en list af RunnerData samt et navn på strækket.
+\item \textbf{Player} sørger for at tegne løberen på kortet, samt den hale som skal være efter løberen. Derudover viser, skjuler og opdatere den forskellige funktioner i programmet når det køres, dette er bruges i den tab som gruppen har kaldt ”Map view”.
+\item \textbf{MainForm} holder sammen på programmet. Det er er GUI’en bliver lavet, samt events til programmet. 
+\item \textbf{Resources} indeholder kortet som bruges I programmet, samt worldfilen der indeholder nogle koordinater. Dette bruges til at få koordinaterne fra kortet til at passe med koordinaterne fra løberen.
+\item \textbf{Program} i denne klasse bliver programmet kørt fra.	
+\end {itemize}
 
 \section{Programbeskrivelse}
 

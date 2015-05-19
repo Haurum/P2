@@ -41,9 +41,10 @@
             this.mapTab = new System.Windows.Forms.TabPage();
             this.StartpointLabel = new System.Windows.Forms.Label();
             this.StartpointUpDown = new System.Windows.Forms.NumericUpDown();
-            this.loadTrack = new System.Windows.Forms.Button();
             this.tempoLabel = new System.Windows.Forms.Label();
             this.dataTab = new System.Windows.Forms.TabPage();
+            this.BackButton = new System.Windows.Forms.Button();
+            this.DataTable = new System.Windows.Forms.DataGridView();
             this.DataTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).BeginInit();
@@ -52,6 +53,7 @@
             this.mapTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StartpointUpDown)).BeginInit();
             this.dataTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTable)).BeginInit();
             this.SuspendLayout();
             // 
             // Map1
@@ -64,7 +66,6 @@
             this.Map1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Map1.TabIndex = 0;
             this.Map1.TabStop = false;
-            this.Map1.Click += new System.EventHandler(this.Map1_Click);
             this.Map1.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
             this.Map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map1_MouseDown);
             this.Map1.MouseEnter += new System.EventHandler(this.Map1_MouseEnter);
@@ -177,7 +178,6 @@
             // 
             this.mapTab.Controls.Add(this.StartpointLabel);
             this.mapTab.Controls.Add(this.StartpointUpDown);
-            this.mapTab.Controls.Add(this.loadTrack);
             this.mapTab.Controls.Add(this.tempoLabel);
             this.mapTab.Controls.Add(this.RunnersCheckBox);
             this.mapTab.Controls.Add(this.ResetButton);
@@ -219,17 +219,7 @@
             this.StartpointUpDown.Size = new System.Drawing.Size(69, 20);
             this.StartpointUpDown.TabIndex = 10;
             this.StartpointUpDown.Visible = false;
-            // 
-            // loadTrack
-            // 
-            this.loadTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadTrack.Location = new System.Drawing.Point(1213, 345);
-            this.loadTrack.Name = "loadTrack";
-            this.loadTrack.Size = new System.Drawing.Size(100, 28);
-            this.loadTrack.TabIndex = 9;
-            this.loadTrack.Text = "Load route";
-            this.loadTrack.UseVisualStyleBackColor = true;
-            this.loadTrack.Click += new System.EventHandler(this.loadTrack_Click);
+            this.StartpointUpDown.ValueChanged += new System.EventHandler(this.StartpointUpDown_ValueChanged);
             // 
             // tempoLabel
             // 
@@ -244,6 +234,8 @@
             // 
             // dataTab
             // 
+            this.dataTab.Controls.Add(this.BackButton);
+            this.dataTab.Controls.Add(this.DataTable);
             this.dataTab.Controls.Add(this.DataTitle);
             this.dataTab.Location = new System.Drawing.Point(4, 22);
             this.dataTab.Name = "dataTab";
@@ -253,13 +245,38 @@
             this.dataTab.Text = "Data View";
             this.dataTab.UseVisualStyleBackColor = true;
             // 
+            // BackButton
+            // 
+            this.BackButton.AutoSize = true;
+            this.BackButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackButton.Location = new System.Drawing.Point(8, 6);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(42, 23);
+            this.BackButton.TabIndex = 2;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
+            // DataTable
+            // 
+            this.DataTable.AllowUserToAddRows = false;
+            this.DataTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DataTable.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataTable.Location = new System.Drawing.Point(3, 37);
+            this.DataTable.Name = "DataTable";
+            this.DataTable.Size = new System.Drawing.Size(1317, 400);
+            this.DataTable.TabIndex = 1;
+            this.DataTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataTable_CellClick);
+            // 
             // DataTitle
             // 
             this.DataTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.DataTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DataTitle.Location = new System.Drawing.Point(3, 3);
             this.DataTitle.Name = "DataTitle";
-            this.DataTitle.Size = new System.Drawing.Size(1317, 27);
+            this.DataTitle.Size = new System.Drawing.Size(1317, 34);
             this.DataTitle.TabIndex = 0;
             this.DataTitle.Text = "S - F";
             this.DataTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -270,9 +287,8 @@
             this.Controls.Add(this.tabControl);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Orienteering Tracker";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();
@@ -281,28 +297,31 @@
             this.mapTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StartpointUpDown)).EndInit();
             this.dataTab.ResumeLayout(false);
+            this.dataTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTable)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox Map1;
+        public System.Windows.Forms.PictureBox Map1;
         private System.Windows.Forms.Button LoadButton;
-        private System.Windows.Forms.Button PlayButton;
-        private System.Windows.Forms.Timer PlayTimer;
-        private System.Windows.Forms.TrackBar PlayBar;
-        private System.Windows.Forms.NumericUpDown TempoUpDown;
-        private System.Windows.Forms.Button ResetButton;
-        private System.Windows.Forms.CheckedListBox RunnersCheckBox;
+        public System.Windows.Forms.Button PlayButton;
+        public System.Windows.Forms.Timer PlayTimer;
+        public System.Windows.Forms.TrackBar PlayBar;
+        public System.Windows.Forms.NumericUpDown TempoUpDown;
+        public System.Windows.Forms.Button ResetButton;
+        public System.Windows.Forms.CheckedListBox RunnersCheckBox;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage mapTab;
         private System.Windows.Forms.TabPage dataTab;
-        private System.Windows.Forms.Label tempoLabel;
+        public System.Windows.Forms.Label tempoLabel;
         private System.Windows.Forms.Label DataTitle;
-        private System.Windows.Forms.Button loadTrack;
-        private System.Windows.Forms.Label StartpointLabel;
-        private System.Windows.Forms.NumericUpDown StartpointUpDown;
+        private System.Windows.Forms.DataGridView DataTable;
+        public System.Windows.Forms.Label StartpointLabel;
+        public System.Windows.Forms.NumericUpDown StartpointUpDown;
+        private System.Windows.Forms.Button BackButton;
     }
 }
 
