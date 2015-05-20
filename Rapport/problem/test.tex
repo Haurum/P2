@@ -21,8 +21,10 @@ Blackbox testning er en test-type, hvor testeren indtaster input til programmet,
 
 Testcase 1: Indlæsning af flere af samme person, for at observere hvorvidt Data View tabbet giver korrekt information, og hvordan flere personers rute afbildes i Map View. Her forventes, at Data View kan sorteres per kolonne, hvor en passende sortering finder sted, og at flere versioner af samme person kan afbildes i Map View uden exceptions.\newline
 Testcase 2: Indlæsning af personer, som ikke når alle poster på ruten. Her forventes at deres data bliver sat til 0 eller ”X”.
+Testcase 3: Lukke dialog-boxen efter tryk på Load-knappen.
 
 I testcase 1, hvor flere af samme person læses ind, bliver Map View vist korrekt, og alle ”personer” af samme persons rute, blev lagt ovenpå hinanden. I Data View blev data givet korrekt, men sortering af position gik galt. De øverste positioner ved sortering blev: 1, 10, 11, 12... 2, 21, 22... Dette skyldes, at sorteringen skete ved sammenligning af strenge, og ikke ved tal. (INDSÆT FIX HER).\newline
 I testcase 2 blev personen, som ikke nåede alle poster, håndteret som forventet. Tider blev udskiftet med ”X” i de tilfælde personen ikke nåede en post, og difference i tid, samt distance løbet, blev sat til 0. Løberen indgår med korrekte tider i de stræk, som løberen nåede.
+I testcase 3 crashede programmet med en ArgumentOutOfRangeException (INDSÆT FIX HER).
 
 
