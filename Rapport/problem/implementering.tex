@@ -67,8 +67,7 @@ TEKST HER!
 \subsection{Helper}
 Helper er en statisk klasse, der er lavet for at have nogle funktioner tilgængelige overalt i programmet, uden at skulle instantiere et nyt objekt der kunne udføre handlingerne, eller copy-paste funktionerne ind i de klasser der skal bruge dem. 
 
-Helper indeholder konverteringsfunktionerne, i henholdsvis ConvertLatLongToUTM, og ConvertUTMToPixel. Teorien for hvordan dette bliver gjort, kan læses i teoriafsnittet.
-ConvertLatLongToUTM funktionen, er lånt af en eller anden på et eller andet forum.
+Helper indeholder konverteringsfunktionerne, i henholdsvis ConvertLatLongToUTM, og ConvertUTMToPixel.ConvertLatLongToUTM funktionen, er lånt fra brugeren Hactic fra Worldwindcentral's forum\citep{UTM}.
 Derudover bliver Helper klassen også brugt til at lave beregninger på løbernes ture, altså distance og hastighedsberegning. 
 
 \subsection{Coordinate}
@@ -192,6 +191,7 @@ Efter koordinaterner er læst ind fra filen, kaldes metoden AddMissingPoints. Pr
 RunnerData indeholder en række informationer, som bruges i "Data View" tabben.
 
 \subsection{Leg}
+Leg klassen indeholder en liste af RunnerData, samt et navn på det specifikke Leg.
 \subsection{Player}
 Player klassen styrer den grafiske afspilningen af løbernes ruter.Player indeholder en reference til MainForm, så den kan bruge nogle af dens data. \newline
 Player klassens vigtigste property er integeren “Second”. Denne property indeholder informationer om hvilket sekund programmet er kommet til i afspilningen, i forhold til startpunktet. 
@@ -201,7 +201,47 @@ Draw metoden iterere igennem alle Runner objekter i listen Runners fra MainForm,
 Først tjekkes at den pågældende Runner ikke er tjekket fra i checkboxen i Map View tabben, hvis dette er tilfældet hopper programmet videre til næste løber, og dermed vil denne løber ikke blive tegnet på kortet. \newline
 Hvis løberen ikke er tjekket fra i checkboxen, tjekkes der efter om programmet er nået enden på gps data for løberen, hvis enden er nået, bliver denne løber ikke tegnet med på kortet.
 
-INDSÆT KODE FRA - PointF[] RunnerToDraw = new PointF[tempTailLenght];
+\begin{lstlisting}
+public void Draw(Graphics g)
+{
+    SolidBrush brush;
+    Pen pen;
+    int tempTailLenght = TailLenght;
+    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+    foreach (Runner runner in mainForm.Runners)
+    {
+        if (!mainForm.RunnersCheckBox.CheckedItems.Contains(runner.RunnerName) || Second < 2
+        || Second >= runner.Coords.Count() - runner.Visited[(int)mainForm.StartpointUpDown.Value].Second)
+        {
+                    continue;
+        }
+
+        brush = new SolidBrush(runner.RouteColor);
+        pen = new Pen(brush, 3);
+
+        if (Second < TailLenght)
+        {
+            tempTailLenght = Second;
+        }
+
+        PointF[] RunnerToDraw = new PointF[tempTailLenght];
+        for (int Index = 0; Index < tempTailLenght; Index++)
+        {
+            RunnerToDraw[Index] = runner.Coords[Second - tempTailLenght + Index +
+                runner.Visited[(int)mainForm.StartpointUpDown.Value].Second].pixelPoint;
+            RunnerToDraw[Index].X *= mainForm.ZoomFactor;
+            RunnerToDraw[Index].Y *= mainForm.ZoomFactor;
+        }
+
+        g.DrawLines(pen, RunnerToDraw);
+        g.FillEllipse(brush, RunnerToDraw[RunnerToDraw.Length - 1].X - 4,
+            RunnerToDraw[RunnerToDraw.Length - 1].Y - 4, 8, 8);
+        g.DrawString(runner.RunnerName, new Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Black),
+            RunnerToDraw[RunnerToDraw.Length - 1].X + 5, RunnerToDraw[RunnerToDraw.Length - 1].Y + 5);
+    }
+}
+\end{lstlisting}
 
 Hvis programmet ikke er nået enden på data for løberen, laves der et nyt PointF array(PointF er et floating-point koordinatsæt), kaldet RunnerToDraw. Dette skyldes at metoden DrawLine fra Graphics klassen, tager et array af punkter ind og tegner en streg gennem alle disse punkter. Herefter indsættes de punkter der skal tegnes, på nuværende tidspunkt, ud fra Second propterien og startpunkt. Dette gøres i en for-lykke som iterere lige så mange gange som halen skal være lang, hvilket i dette program vil være 30. I for-lykken findes det ønskede punkt ved at indexere Runner.Coords listen, udfra følgende formlen:
  
@@ -213,7 +253,18 @@ Dernæst bliver RunnerToDraw’s X og Y koordinat multipliceret med ZoomFactor o
 
 Metoden Tick kaldes hver gang programmets timer ticker. Tick tjekker, om der er data fra Runners tilknyttet til det Second, programmet er nået til. Hvis ikke, stoppes timeren og TrackBarens indikator sættes lig det Second programmet er nået til, så den rykker sig med tiden kronologisk. Til sidst inkrementeres Second med 1.
 
-INDSÆT METODEN TICK!
+\begin{lstlisting}
+public void Tick()
+{
+    if (Second >= mainForm.Runners.Max(r => r.Coords.Count - r.Visited[(int)mainForm.StartpointUpDown.Value].Second))
+    {
+        mainForm.PlayTimer.Stop();
+    }
+    mainForm.PlayBar.Value = Second;
+    mainForm.Map1.Refresh();
+    Second++;
+}
+\end{lstlisting}
 
 Derudover findes metoder som Play/Pause, Update, StartUp og ShutDown. Play/Pause bruges til at starte og stoppe afspilningen. Update opdatere hvor stor TrackBaren er, så den ikke kan trækkes længere end der er data til. StartUp viser alle mediaplayer funktionerne, hvor ShutDown skjuler alle mediaplayer funktionerne. 
 
@@ -249,15 +300,230 @@ De første 6 ændre sig aldrig, og bliver derfor hardcoded. (Måske skulle vi sn
 
 Derefter bruges funktionen Put\_Data, der tager et Leg som parameter. Det er vigtigt at bemærke at hele strækket fra start til slut, altså hele løbet, også er gemt som et Leg. Det er derfor variablen isLeg er nødvendig for at kunne skelne dem fra hinanden. Herefter bliver informationen for hver løber gemt i Leg, skrevet i tabellen. Der bliver om løberne har nået posterne, og tilføjet til tabellen på baggrund af den information. Derudover er der, som tidligere nævnt, forskel på om det kigges på et delstræk eller den samlede rute. I tilfældet hvor det er hele strækket der vises, bliver der i de første seks søjler, udskrevet den samlede information for løberne. I de resterende søjler, bliver udskrevet løbernes (rækker) tider i forhold til de pågældende delstræk (søjler).
 
-LoadControlPoints er en funktion  tager en fil som input, og bruger den til at oprette posterne i programmet. Ved et loop, oprettes der en ny ControlPoint for hver linje i filen, og kaldes ReadControlPoint på det ControlPoint, og sender linjen fra tekstfilen med. Alle posterne ControlPoints listen.
-Når posterne er læst ind, skal de tegnes på kortet. Et loop kører gennem ControlPoints listen, og der bliver tjekket for nummeret på posten. Hvis posten er den første tegnes en trekant, hvis posten er den sidste tegnes en cirkel inde i en cirkel, og ellers tegnes en enkelt cirkel. 
-Et if, tjekker til sidst om ControlPoint er den første i listen, og hvis ikke, så tegnes der en streg til den forrige. Dette gøres ved at beregne vinkel og distancen til den forrige post, og derefter tegne en streg baseret på den information. 
+\begin{lstlisting}
+private void Put_Data(Leg leg)
+{
+    DataTitle.Text = leg.Name;
+    Setup_Table();
+    DataTable.Rows.Clear();
+    List<string> row;
+    string time = "";
+    string pos = "";
+    foreach(RunnerData rd in leg.Runners)
+    {
+        if (rd.time <= new TimeSpan(0))
+        {
+            time = "X";
+        }
+        else
+        {
+            time = rd.time.ToString();
+        }
+        if (rd.pos == -1)
+            pos = "X";
+        else
+            pos = rd.pos.ToString();
+        if (isLeg)
+        {
+            row = new List<string> { pos, rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+            foreach (RunnerData mainRd in MainLeg.Runners)
+            {
+                if (mainRd.name == rd.name)
+                {
+                    if (mainRd.pos == -1)
+                        row.Add("X");
+                    else
+                        row.Add(mainRd.pos.ToString());
+                }
+            } 
+        }
+        else
+        {
+            row = new List<string> { pos, rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+            foreach (Leg l in Legs)
+            {
+                for (int runnerIndex = 0; runnerIndex < l.Runners.Count; runnerIndex++)
+                { 
+                    if (rd.name == l.Runners[runnerIndex].name)
+                    {
+                        if (l.Runners[runnerIndex].time <= new TimeSpan(0))
+                            time = "X";
+                        else
+                            time = l.Runners[runnerIndex].time.ToString();
+                        row.Add(time);
+                    }
+                }
+            }
+                    
+        }
+        DataTable.Rows.Add(row.ToArray<string>());
+    }
+    DataTable.Sort(DataTable.Columns[0], ListSortDirection.Ascending);
+}
+\end{lstlisting}
 
 LoadRunners  er en funktion der tager en række GPX filer ind som parametre, og opretter en Runner og RunnerData instans for hver fil. RunnerData der oprettes her, hører til i MainLeg, altså hele ruten og ikke bare et delstræk. 
 Et foreach loop kører igennem hver fil i GPXFiles (inputparametren). En ny Runner oprettes, og ReadGPXData kaldes på instansen, for at fylde data i den pågældende Runner. Efter Runneren er oprettet,  kører endnu et foreach loop igennem alle ControlPoints, og opretter nye ControlPointTimes, ved at bruge funktionen ControlPointChecker . ControlPointTimes bliver tilføjet til Visited listen på Runner instansen.  En variabel, reached, holder styr på om løberen er nået igennem alle poster. 
 En ny instans af RunnerData oprettes derefter, og hvis alle posterne er nået, altså reached siger sandt, udfyldes RunnerData med løberens data for sin tur. 
 Efter dette er sket for alle GPX filer, kaldes GetPosAndDiff  metoden på Helper klassen, for at bestemme løbernes position, og differencen mellem dem. 
 
+\begin{lstlisting}
+private void LoadRunners(string[] GPXFiles)
+{
+    int ColorCount = 0;
+    Runner runner;
+    MainLeg.Name = string.Format("0 - {0}", ControlPoints.Count - 1);
+    ControlPointTime cpt = new ControlPointTime();
+    bool reached;
+
+    foreach (string file in GPXFiles)
+    {
+        runner = new Runner();
+        runner.ReadGPXData(new FileStream(file, FileMode.Open));
+        runner.reachedAll = true;
+        runner.RouteColor = Colors[ColorCount];
+        ColorCount++;
+        reached = true;
+
+
+        foreach (ControlPoint cp in ControlPoints)
+        {
+            cpt = new ControlPointTime();
+            cpt.ControlPointChecker(cp, runner);
+            runner.Visited.Add(cpt);
+            if (cpt.Cord == null)
+            {
+                reached = false;
+            }
+        }
+
+        RunnerData runnerdata = new RunnerData();
+        runnerdata.name = runner.RunnerName;
+        if (reached)
+        {
+            runnerdata.distance = Helper.CalcTotalLength(runner, runner.Visited[0].Second,
+                runner.Visited[runner.Visited.Count - 1].Second);
+            runnerdata.time = TimeSpan.FromSeconds(runner.Visited[runner.Visited.Count - 1].Second -
+                runner.Visited[0].Second);
+            runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+        }
+        else
+        {
+            runnerdata.distance = 0;
+            runnerdata.time = new TimeSpan(0);
+            runnerdata.speed = 0;
+        }
+
+        runnerdata.reached = reached;
+        MainLeg.Runners.Add(runnerdata);
+        Runners.Add(runner);
+    }
+    MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners, Runners);
+}
+\end{lstlisting}
+
+LoadControlPoints er en funktion  tager en fil som input, og bruger den til at oprette posterne i programmet. Ved et loop, oprettes der en ny ControlPoint for hver linje i filen, og kaldes ReadControlPoint på det ControlPoint, og sender linjen fra tekstfilen med. Alle posterne ControlPoints listen.
+Når posterne er læst ind, skal de tegnes på kortet. Et loop kører gennem ControlPoints listen, og der bliver tjekket for nummeret på posten. Hvis posten er den første tegnes en trekant, hvis posten er den sidste tegnes en cirkel inde i en cirkel, og ellers tegnes en enkelt cirkel. 
+Et if, tjekker til sidst om ControlPoint er den første i listen, og hvis ikke, så tegnes der en streg til den forrige. Dette gøres ved at beregne vinkel og distancen til den forrige post, og derefter tegne en streg baseret på den information. 
+
+\begin{lstlisting}
+private void LoadControlPoints(string RouteFile)
+{
+    ControlPoint newControlPoint;
+    int cpNr = 0;
+    foreach (var line in File.ReadLines(RouteFile))
+    {
+        newControlPoint = new ControlPoint();
+        newControlPoint.ReadControlPoint(line, cpNr);
+        ControlPoints.Add(newControlPoint);
+        cpNr++;
+    }
+
+    Graphics g = Graphics.FromImage(Map1.Image);
+    Pen p = new Pen(Color.Magenta);
+    p.Width = 5;
+    int i = 0;
+
+    foreach (ControlPoint cp in ControlPoints)
+    {
+        Point[] points = {new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y)), 
+                                    new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y-30)), 
+                                    new Point(Convert.ToInt32(cp.Cord.pixelPoint.X - 15), Convert.ToInt32(cp.Cord.pixelPoint.Y+30))};
+        if (ControlPoints.First() == cp)
+        {
+            g.DrawPolygon(p, points);
+        }
+        else if (ControlPoints.Last() == cp)
+        {
+            g.DrawEllipse(p, cp.Cord.pixelPoint.X - 17, cp.Cord.pixelPoint.Y - 17, 34, 34);
+            g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
+        }
+        else
+        {
+            g.DrawEllipse(p, cp.Cord.pixelPoint.X - 25, cp.Cord.pixelPoint.Y - 25, 50, 50);
+        }
+
+
+        using (Font myFont = new Font("Arial", 24, FontStyle.Bold))
+        {
+            g.DrawString(cp.Number.ToString(), myFont, Brushes.Magenta, new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30),
+                Convert.ToInt32(cp.Cord.pixelPoint.Y - 25 / 2)));
+        }
+
+        if (ControlPoints.First() != cp)
+        {
+            float xDiff = ControlPoints[i - 1].Cord.pixelPoint.X - cp.Cord.pixelPoint.X;
+            float yDiff = ControlPoints[i - 1].Cord.pixelPoint.Y - cp.Cord.pixelPoint.Y;
+
+            float angle = (float)Math.Atan2(yDiff, xDiff) - (float)(Math.PI);
+
+            float distance = (float)Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+
+            float newX = (float)(ControlPoints[i - 1].Cord.pixelPoint.X + (Math.Cos(angle) * (distance - 25)));
+            float newY = (float)(ControlPoints[i - 1].Cord.pixelPoint.Y + (Math.Sin(angle) * (distance - 25)));
+
+            g.DrawLine(p, new Point(Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.X + Math.Cos(angle) * 25),
+                Convert.ToInt32(ControlPoints[i - 1].Cord.pixelPoint.Y + Math.Sin(angle) * 25)),
+                new Point(Convert.ToInt32(newX), Convert.ToInt32(newY)));
+        }
+        i++;
+    }
+    Map1.Refresh();
+}
+\end{lstlisting}
+
 LoadLegs indsætter data i Listen Legs, der indeholder informationer om de enkelte stræk. Dette gøres ved at lave et for-loop for hvert ControlPoint, og inde i dette for-loop laves et foreach-loop for hver Runner i Runner listen. Inde i dette foreach-loop tjekkes, om den enkelte Runner har nået det specifikke ControlPoint. Hvis dette er opfyldt, bliver distance, tid og hastighed udregnet for det specifikke stræk og lægges ind i et nyt objekt af RunnerData klassen. Hvis dette ikke er opfyldt, bliver værdierne sat til 0. Herefter tilføjes RunnerData objektet til et Leg objekt, som indeholder information om alle Runners, for det enkelte stræk. Når alle Runners er blevet loadet ind, udregnes løbernes position i forhold til hinanden, og deres tids difference til den hurtigeste. Dette gøres vha. helper klassens GetPosAndDiff metode. Til sidst tilføjes dette stræk til listen Legs, som indeholder alle stræk. 
 
-INDSÆT HELE LOADLEGS.
+\begin{lstlisting}
+private void LoadLegs()
+{
+    for (int i = 1; i < ControlPoints.Count; i++)
+    {
+        Leg leg = new Leg();
+        leg.Name = string.Format("{0} - {1}", i - 1, i);
+        foreach (Runner r in Runners)
+        {
+            RunnerData runnerdata = new RunnerData();
+            if (r.Visited[i].Cord != null)
+            {
+                runnerdata.reached = true;
+                runnerdata.distance = Helper.CalcTotalLength(r, r.Visited[i - 1].Second, r.Visited[i].Second);
+                runnerdata.time = TimeSpan.FromSeconds(r.Visited[i].Second - r.Visited[i - 1].Second);
+                runnerdata.speed = Helper.CalcSpeedMinsPrKm(runnerdata.distance, (int)(runnerdata.time.TotalSeconds));
+            }
+            else
+            {
+                runnerdata.reached = false;
+                runnerdata.distance = 0;
+                runnerdata.time = new TimeSpan(0);
+                runnerdata.speed = 0;
+            }
+
+            runnerdata.name = r.RunnerName;
+            leg.Runners.Add(runnerdata);
+        }
+        leg.Runners = Helper.GetPosAndDiff(leg.Runners, Runners);
+        Legs.Add(leg);
+    }
+}
+\end{lstlisting}
