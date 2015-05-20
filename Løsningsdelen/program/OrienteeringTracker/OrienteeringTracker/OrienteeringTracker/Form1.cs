@@ -128,14 +128,29 @@ namespace OrienteeringTracker
             DialogResult dr = fbd.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                LoadControlPoints(Directory.GetFiles(fbd.SelectedPath, "*utm").FirstOrDefault());
-                LoadRunners(Directory.GetFiles(fbd.SelectedPath, "*.gpx"));
-                LoadLegs();
-            }
-            LoadButton.Hide();
-            ResetButton.Show();
-            player.StartUp();
-            Put_Data(MainLeg);
+                string[] CPPath = Directory.GetFiles(fbd.SelectedPath, "*utm");
+                string[] RunnersPath = Directory.GetFiles(fbd.SelectedPath, "*.gpx");
+                if (CPPath.Count() > 0 && RunnersPath.Count() > 0)
+                {
+                    LoadControlPoints(CPPath.First());
+                    LoadRunners(RunnersPath);
+                    LoadLegs();
+                    Put_Data(MainLeg);
+                    LoadButton.Hide();
+                    ResetButton.Show();
+                    player.StartUp();
+                }
+                else if (CPPath.Count() == 0)
+                {
+                    MessageBox.Show("Controlpoints not found in selected folder");
+
+                }
+                else if (RunnersPath.Count() == 0)
+                {
+                    MessageBox.Show("GPX Files not found in selected folder");
+                }
+                
+            }  
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
