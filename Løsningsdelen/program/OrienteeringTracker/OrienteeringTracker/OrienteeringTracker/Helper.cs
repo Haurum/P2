@@ -167,20 +167,5 @@ namespace OrienteeringTracker
             else LetterDesignator = 'Z'; //Latitude is outside the UTM limits
             return LetterDesignator;
         }
-
-        class Ellipsoid
-        {
-            //Attributes
-            public string ellipsoidName;
-            public double EquatorialRadius;
-            public double eccentricitySquared;
-
-            public Ellipsoid(string name, double radius, double ecc)
-            {
-                ellipsoidName = name;
-                EquatorialRadius = radius;
-                eccentricitySquared = ecc;
-            }
-        };
     }
 }
