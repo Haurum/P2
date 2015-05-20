@@ -67,8 +67,28 @@ TEKST HER!
 \subsection{Helper}
 Helper er en statisk klasse, der er lavet for at have nogle funktioner tilgængelige overalt i programmet, uden at skulle instantiere et nyt objekt der kunne udføre handlingerne, eller copy-paste funktionerne ind i de klasser der skal bruge dem. 
 
-Helper indeholder konverteringsfunktionerne, i henholdsvis ConvertLatLongToUTM, og ConvertUTMToPixel.ConvertLatLongToUTM funktionen, er lånt fra brugeren Hactic fra Worldwindcentral's forum\citep{UTM}.
-Derudover bliver Helper klassen også brugt til at lave beregninger på løbernes ture, altså distance og hastighedsberegning. 
+Helper indeholder konverteringsfunktionerne, i henholdsvis ConvertLatLongToUTM, og ConvertUTMToPixel. ConvertLatLongToUTM funktionen, er lånt fra brugeren Hactic fra Worldwindcentral's forum \citep{UTM}.
+Derudover bliver Helper klassen også brugt til at lave beregninger på løbernes ture, altså distance og hastighedsberegninger.
+ 
+
+
+\begin{lstlisting}
+public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
+{
+    MemoryStream ms = new MemoryStream(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1);
+    string line;
+    List<float> worldTal = new List<float>();
+    StreamReader sr = new StreamReader(ms, Encoding.UTF8);
+
+    while ((line = sr.ReadLine()) != null)
+    {
+        worldTal.Add(float.Parse(line, CultureInfo.InvariantCulture));
+    }
+
+    x = Convert.ToInt32((UTM_east - worldTal[4]) / worldTal[0]);
+    y = Convert.ToInt32((UTM_north - worldTal[5]) / worldTal[3]);
+}
+\end{lstlisting}
 
 \subsection{Coordinate}
 Coordinate klassen indeholder både UTM koordinatsættet og pixel koordinatsættet. Derudover bliver en tid også gemt i Coordinate.
