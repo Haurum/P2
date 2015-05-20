@@ -2,7 +2,7 @@
 MANGLER TEKST!
 
 \subsection{Brugergrænseflade}
-Ved programmets opstart vises det statiske kort som gruppen har valgt at benytte under udviklingen af dette program, samt en load knap. Dette er at finde i tabben “Map View”. Tabben “Data View” vil ikke indeholde noget information ved opstart af programmet. Efter tryk på load knappen, popper en dialogbox op, hvorefter brugeren skal vælge den mappe som indeholder løbernes GPX-filer, samt koordinater for posterne til den bane løberne skal løbe. Dette kan ses på figur 7.1.
+Ved programmets opstart vises det statiske kort som gruppen har valgt at benytte under udviklingen af dette program, samt en load knap. Dette er at finde i tabben “Map View”. Tabben “Data View” vil ikke indeholde noget information ved opstart af programmet. Efter tryk på load knappen, popper en dialogbox op, hvorefter brugeren skal vælge den mappe som indeholder løbernes GPX-filer, samt koordinater for posterne til den bane løberne skal løbe. Dette kan ses på figur 6.1.
 
 \begin{figure} [h]
 	\centering
@@ -10,7 +10,7 @@ Ved programmets opstart vises det statiske kort som gruppen har valgt at benytte
 	\caption{Klassediagram over projektets program}
 \end{figure}
 
-Når GPX-filer og koordinaterne for posterne er loadet ind i programmet, vil de forskellige mediaplayer funktioner komme frem, som ses på figur 7.2.
+Når GPX-filer og koordinaterne for posterne er loadet ind i programmet, vil de forskellige mediaplayer funktioner komme frem, som ses på figur 6.2.
 
 \begin{figure} [h]
 	\centering
@@ -20,14 +20,14 @@ Når GPX-filer og koordinaterne for posterne er loadet ind i programmet, vil de 
 
 I bunden af programmet ses programmets trackbar, der gør det muligt at spole frem og tilbage under afspilningen. Nede i venstre hjørne findes to forskellige mediaplayer funktioner. Den yderste til venstre bruges til at vælge tempoet for afspilningen. Den anden bruges til at vælge startpost for løberne, hvilket gør det muligt at samle løberne, for lettere at kunne sammenligne dem med hinanden. På højre side ses en play/pause og  reset knap. Play/pause bruges til at starte/pause afspilningen. Reset knappen bringer programmet tilbage til dets opstarts stadie. Lige over disse to knapper findes en check box. I denne checkbox kan alle løberne ses. Checkboxen afgør hvilke løbere der vises på kortet, hvilket gør det muligt at skjule løbere, hvis der vil fokuseres på nogle bestemte løbere. Løberne vises ude på kortet med en prik i hver deres farve, samt en hale efter denne, som viser hvordan de har løbet de sidste 30 sekunder. 
 
-Når der trykkes på tabben “Data View” vil alle løbernes data for løbet vises. I “Data View” kan der ses løbernes slut position, navn, tid, tidsdifference til førstepladsen, tilbagelagt distance, hastighed i minut pr. kilometer og tiden for hvert stræk. Der kan ses et eksempel på dette på figur 7.3 herunder. 
+Når der trykkes på tabben “Data View” vil alle løbernes data for løbet vises. I “Data View” kan der ses løbernes slut position, navn, tid, tidsdifference til førstepladsen, tilbagelagt distance, hastighed i minut pr. kilometer og tiden for hvert stræk. Der kan ses et eksempel på dette på figur 6.3 herunder. 
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=1\textwidth]{billeder/DataView1}
 	\caption{Klassediagram over projektets program}
 \end{figure}
 
-Klikkes der på et felt for et stræk, kan der ses mere detaljerede informationer om det specifikke stræk. Som det kan ses på figur 7.4, indeholder dette de samme informationer som når der ses på hele løbet, med en enkelt undtagelse, her kan løberne se hvilken position de fik på det specifikke stræk. 
+Klikkes der på et felt for et stræk, kan der ses mere detaljerede informationer om det specifikke stræk. Som det kan ses på figur 6.4, indeholder dette de samme informationer som når der ses på hele løbet, med en enkelt undtagelse, her kan løberne se hvilken position de fik på det specifikke stræk. 
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=1\textwidth]{billeder/DataView2}
@@ -70,7 +70,7 @@ Helper er en statisk klasse, der er lavet for at have nogle funktioner tilgænge
 Helper indeholder konverteringsfunktionerne, i henholdsvis ConvertLatLongToUTM, og ConvertUTMToPixel. ConvertLatLongToUTM funktionen, er lånt fra brugeren Hactic fra Worldwindcentral's forum \citep{UTM}.
 Derudover bliver Helper klassen også brugt til at lave beregninger på løbernes ture, altså distance og hastighedsberegninger.
  
-ConvertUTMToPixel metoden konvertere UTM
+ConvertUTMToPixel metoden konvertere UTM koordinatsæt, til en bestemt pixel på kortet. Metoden benytter formlerne beskrevet i teoriafsnittet, og en worldfil gemt i Resources.
 
 \begin{lstlisting}
 public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
