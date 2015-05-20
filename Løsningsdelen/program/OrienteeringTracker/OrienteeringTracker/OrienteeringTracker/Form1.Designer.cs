@@ -255,17 +255,22 @@
             this.BackButton.TabIndex = 2;
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Visible = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // DataTable
             // 
             this.DataTable.AllowUserToAddRows = false;
+            this.DataTable.AllowUserToDeleteRows = false;
+            this.DataTable.AllowUserToResizeColumns = false;
+            this.DataTable.AllowUserToResizeRows = false;
             this.DataTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DataTable.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataTable.Location = new System.Drawing.Point(3, 37);
             this.DataTable.Name = "DataTable";
+            this.DataTable.ReadOnly = true;
             this.DataTable.Size = new System.Drawing.Size(1317, 400);
             this.DataTable.TabIndex = 1;
             this.DataTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataTable_CellClick);
@@ -288,7 +293,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Orienteering Tracker";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Map1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TempoUpDown)).EndInit();

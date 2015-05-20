@@ -178,11 +178,6 @@ namespace OrienteeringTracker
             
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            BackButton.Hide();
-        }
-
         private void Setup_Table()
         {
             DataTable.Columns.Clear();

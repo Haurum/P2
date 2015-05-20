@@ -24,47 +24,39 @@ namespace OrienteeringTracker
         {
             SolidBrush brush;
             Pen pen;
-            bool draw = false;
             int tempTailLenght = TailLenght;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             foreach (Runner runner in mainForm.Runners)
             {
-                if (!mainForm.RunnersCheckBox.CheckedItems.Contains(runner.RunnerName) || Second < 2)
+                if (!mainForm.RunnersCheckBox.CheckedItems.Contains(runner.RunnerName) || Second < 2
+                    || Second >= runner.Coords.Count() - runner.Visited[(int)mainForm.StartpointUpDown.Value].Second)
                 {
                     continue;
                 }
+
                 brush = new SolidBrush(runner.RouteColor);
                 pen = new Pen(brush, 3);
+
                 if (Second < TailLenght)
                 {
                     tempTailLenght = Second;
                 }
+
                 PointF[] RunnerToDraw = new PointF[tempTailLenght];
                 for (int Index = 0; Index < tempTailLenght; Index++)
                 {
-                    if (Second >= runner.Coords.Count() - runner.Visited[(int)mainForm.StartpointUpDown.Value].Second)
-                    {
-                        draw = false;
-                    }
-                    else
-                    {
-                        RunnerToDraw[Index] = runner.Coords[Second - (tempTailLenght - Index) +
-                            runner.Visited[(int)mainForm.StartpointUpDown.Value].Second].pixelPoint;
-                        RunnerToDraw[Index].X *= mainForm.ZoomFactor;
-                        RunnerToDraw[Index].Y *= mainForm.ZoomFactor;
-                        draw = true;
-                    }
+                    RunnerToDraw[Index] = runner.Coords[Second - tempTailLenght + Index +
+                        runner.Visited[(int)mainForm.StartpointUpDown.Value].Second].pixelPoint;
+                    RunnerToDraw[Index].X *= mainForm.ZoomFactor;
+                    RunnerToDraw[Index].Y *= mainForm.ZoomFactor;
+                }
 
-                }
-                if (draw)
-                {
-                    g.DrawLines(pen, RunnerToDraw);
-                    g.FillEllipse(brush, RunnerToDraw[RunnerToDraw.Length - 1].X - 4,
-                        RunnerToDraw[RunnerToDraw.Length - 1].Y - 4, 8, 8);
-                    g.DrawString(runner.RunnerName, new Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Black),
-                        RunnerToDraw[RunnerToDraw.Length - 1].X + 5, RunnerToDraw[RunnerToDraw.Length - 1].Y + 5);
-                }
+                g.DrawLines(pen, RunnerToDraw);
+                g.FillEllipse(brush, RunnerToDraw[RunnerToDraw.Length - 1].X - 4,
+                    RunnerToDraw[RunnerToDraw.Length - 1].Y - 4, 8, 8);
+                g.DrawString(runner.RunnerName, new Font("Arial", 14, FontStyle.Bold), new SolidBrush(Color.Black),
+                    RunnerToDraw[RunnerToDraw.Length - 1].X + 5, RunnerToDraw[RunnerToDraw.Length - 1].Y + 5);
             }
         }
 
