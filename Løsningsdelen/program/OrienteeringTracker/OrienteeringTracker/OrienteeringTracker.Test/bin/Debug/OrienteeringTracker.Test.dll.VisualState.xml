@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1008]C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\OrienteeringTracker.Test.dll</TopNode>
+  <SelectedNode>[0-1009]OrienteeringTracker</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1008]C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\OrienteeringTracker.Test.dll" Expanded="true" />
+    <Node UniqueName="[0-1009]OrienteeringTracker" Expanded="true" />
+    <Node UniqueName="[0-1010]OrienteeringTracker.Test" Expanded="true" />
+    <Node UniqueName="[0-1000]OrienteeringTracker.Test.ControlPointTest" Expanded="true" />
+    <Node UniqueName="[0-1001]OrienteeringTracker.Test.ControlPointTest.ReadControlPoints_LineAndNr_PopulatedCP" Expanded="true" />
+    <Node UniqueName="[0-1003]OrienteeringTracker.Test.HelperTest" Expanded="true" />
+    <Node UniqueName="[0-1004]OrienteeringTracker.Test.HelperTest.CalcSingleLength_TwoPoints_Return5" Expanded="true" />
+    <Node UniqueName="[0-1006]OrienteeringTracker.Test.HelperTest.ConvertLatLongtoUTM_LatLong_UTM" Expanded="true" />
+  </Nodes>
+</VisualState>
