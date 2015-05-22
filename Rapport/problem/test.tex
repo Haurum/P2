@@ -32,7 +32,7 @@ Testcase 2: Indlæsning af personer, som ikke når alle poster på ruten. Her fo
 Testcase 3: Lukke dialogboksen efter tryk på Load-knappen.
 
 
-I testcase 1, hvor flere af samme person læses ind, bliver Map View vist korrekt, og alle ”personer” af samme persons rute, blev lagt ovenpå hinanden. I Data View blev data givet korrekt, men sortering af position gik galt. De øverste positioner ved sortering blev: 1, 10, 11, 12... 2, 21, 22... Dette skyldes, at sorteringen skete ved sammenligning af strenge, og ikke ved tal. (INDSÆT FIX HER).\newline
+I testcase 1, hvor flere af samme person læses ind, bliver Map View vist korrekt, og alle ”personer” af samme persons rute, blev lagt ovenpå hinanden. I Data View blev data givet korrekt, men sortering af position gik galt. De øverste positioner ved sortering blev: 1, 10, 11, 12... 2, 21, 22... Dette skyldes, at sorteringen skete ved sammenligning af strenge, og ikke ved tal. Dette er blevet rettet, således at det kommer i den rigtige rækkefølge nu.\newline
 I testcase 2 blev personen, som ikke nåede alle poster, håndteret som forventet. Tider blev udskiftet med ”X” i de tilfælde personen ikke nåede en post, og difference i tid, samt distance løbet, blev sat til 0. Løberen indgår med korrekte tider i de stræk, som løberen nåede.
 I testcase 3 crashede programmet med en ArgumentOutOfRangeException. Denne fejl blev rettet, ved at der ikke bliver loadet noget ind i programmet, før der bliver trykket "OK" i dialogboksen 
 
