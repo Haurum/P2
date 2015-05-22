@@ -10,16 +10,5 @@ namespace OrienteeringTracker
     {
         public List<RunnerData> Runners = new List<RunnerData>();
         public string Name { get; set; }
-
-        public RunnerData RunnerData
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
     }
 }

@@ -18,50 +18,7 @@ namespace OrienteeringTracker
             InitializeComponent();
             player = new Player(this);           
             OriginalMap = Map1.Image as Bitmap;
-        }
-
-        internal Player Player
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        internal OrienteeringTracker.Properties.Resources Resources
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        public RunnerData RunnerData
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        public Runner Runner
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
+            DataTable.SortCompare += TableCustomSort;
         }
 
         #region Varibles
@@ -193,6 +150,36 @@ namespace OrienteeringTracker
             
         }
 
+        private void TableCustomSort(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column == DataTable.Columns[0])
+            {
+                int a = int.Parse(e.CellValue1.ToString()), b = int.Parse(e.CellValue2.ToString());
+                e.SortResult = a.CompareTo(b);
+            }
+            else if (e.Column == DataTable.Columns[4] || e.Column == DataTable.Columns[5])
+            {
+                Double a = Double.Parse(e.CellValue1.ToString()), b = Double.Parse(e.CellValue2.ToString());
+                e.SortResult = a.CompareTo(b);
+            }
+            else if (e.Column == DataTable.Columns[6] && isLeg)
+            {
+                int a = int.Parse(e.CellValue1.ToString()), b = int.Parse(e.CellValue2.ToString());
+                e.SortResult = a.CompareTo(b);
+            }
+            else
+            {
+                e.SortResult = e.CellValue1.ToString().CompareTo(e.CellValue2.ToString());
+            }
+            
+
+            // If the cell value is already an integer, just cast it instead of parsing
+
+            
+
+            e.Handled = true;
+        }
+
         private void Setup_Table()
         {
             DataTable.Columns.Clear();
@@ -244,7 +231,7 @@ namespace OrienteeringTracker
                     pos = rd.pos.ToString();
                 if (isLeg)
                 {
-                    row = new List<string> { pos, rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    row = new List<string> { pos, rd.name, time, rd.diff.ToString(), Math.Round(rd.distance, 2).ToString(), Math.Round(rd.speed, 2).ToString() };
                     foreach (RunnerData mainRd in MainLeg.Runners)
                     {
                         if (mainRd.name == rd.name)
@@ -258,7 +245,7 @@ namespace OrienteeringTracker
                 }
                 else
                 {
-                    row = new List<string> { pos, rd.name, time, rd.diff.ToString(), rd.distance.ToString(), rd.speed.ToString() };
+                    row = new List<string> { pos, rd.name, time, rd.diff.ToString(), Math.Round(rd.distance, 2).ToString(), Math.Round(rd.speed, 2).ToString() };
                     foreach (Leg l in Legs)
                     {
                         for (int runnerIndex = 0; runnerIndex < l.Runners.Count; runnerIndex++)
@@ -324,7 +311,7 @@ namespace OrienteeringTracker
                 runner = new Runner();
                 runner.ReadGPXData(new FileStream(file, FileMode.Open));
                 runner.reachedAll = true;
-                runner.RouteColor = Colors[ColorCount];
+                runner.RouteColor = Colors[ColorCount % 6];
                 ColorCount++;
                 reached = true;
 
