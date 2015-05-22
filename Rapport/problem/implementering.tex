@@ -1,8 +1,8 @@
 \chapter{Implementering}
-MANGLER TEKST!
+Dette kapitel omhandler det fremstillede programs brugergrænseflade, et afsnit om programstruktur med tilhørende klassebeskrivelse, samt implementeringen af kildekoden.
 
-\subsection{Brugergrænseflade}
-Ved programmets opstart vises det statiske kort som gruppen har valgt at benytte under udviklingen af dette program, samt en load knap. Dette er at finde i tabben “Map View”. Tabben “Data View” vil ikke indeholde noget information ved opstart af programmet. Efter tryk på load knappen, popper en dialogbox op, hvorefter brugeren skal vælge den mappe som indeholder løbernes GPX-filer, samt koordinater for posterne til den bane løberne skal løbe. Dette kan ses på figur 6.1.
+\section{Brugergrænseflade}
+Ved programmets opstart vises det statiske kort som gruppen har valgt at benytte under udviklingen af dette program, samt en load knap. Dette er at finde i tabben “Map View”. Tabben “Data View” vil ikke indeholde noget information ved opstart af programmet. Efter tryk på load knappen,	 popper en dialogbox op, hvorefter brugeren skal vælge den mappe som indeholder løbernes GPX-filer, samt koordinater for posterne til den bane løberne skal løbe. Dette kan ses på figur 6.1.
 
 \begin{figure} [h]
 	\centering
@@ -59,10 +59,10 @@ Gruppen har vha. Visual Studio udarbejdet et klasse diagram, for at give et bedr
 \item \textbf{Resources} indeholder kortet som bruges I programmet, samt worldfilen.
 \end {itemize}
 
-MANGLER NOGET TEKST HER?
+Klasserne er kort beskrevet for at give et overblik over dem, og de vil blive beskrevet mere dybdegående i næste afsnit om ‘kildekoden’.
 
 \section{Kildekoden}
-TEKST HER!
+I dette afsnit vil kildekoden til programmet blive beskrevet. Der vil være mere fokus på de større metoder i klasserne, frem for de mindre metoder.
 
 \subsection{Helper}
 Helper er en statisk klasse, der er lavet for at have nogle funktioner tilgængelige overalt i programmet, uden at skulle instantiere et nyt objekt der kunne udføre handlingerne, eller copy-paste funktionerne ind i de klasser der skal bruge dem. 

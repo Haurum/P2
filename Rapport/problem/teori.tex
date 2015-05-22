@@ -1,4 +1,6 @@
 \chapter{Teori} %HUSK KILDER
+I dette kapitel vil de brugte teorier blive beskrevet. Herunder længde- og breddegrader, Universal Transverse Mercator systemet og konverteringen mellem dem. 
+
 \section{Længde- og breddegrader}
 I et geografisk koordinatsystem, er jorden inddelt i længde- og breddekredse. Idet jorden er rund, er disse længde- og breddekredse målt i grader, og de bliver i stedet kaldt længde- og breddegrader. \newline
 Længdegrader beskriver de vertikale linjer på verdenskortet i figur 5.1, som går fra nordpolen til sydpolen. Disse bliver også betegnet som meridianer. Meridianen der går gennem Greenwich kaldes nulmeridianen, hvorefter den første vestlige længdegrad bliver udtrykt som 1 grad vestlig længde, og det samme gælder for den første østlige længdegrad, som vil være 1 grad østlig længde. Disse længdegrader bliver herefter talt op, i hver deres retning. Idet en cirkel er 360 grader, er de sidste meridianer på hver sin side af verdenskortet kaldet 180 grader østlig/vestlig længde, da 180 er det halve af 360. Det skal desuden også nævnes, at længdekredsene ikke nødvendigvis har den samme afstand, da længdekredsene har mindre indbyrdes afstand jo tættere på polerne de er. \newline
@@ -22,7 +24,7 @@ Nordligt og sydligt er inddelt mellem 80\textdegree S bredde, og 84\textdegree N
 Alle zonerne i UTM systemet er baseret på en Transverse Mercator projektion, som ikke vil blive yderligere beskrevet i denne rapport, hvor en region kan kortlægges uden stor forvrængning af jordklodens ellers runde form. Hvis jorden blev kortlagt i én stor region, vil dette forårsage store afstandsfejlberegninger, da der ikke vil blive taget højde for jordklodens runde form. Det er her at Transverse Mercator projektionen er smart, da den sørger for en lav grad af forvrængning, da det er smalle breddegrader (6\textdegree) der typisk anvendes til zonerne. \newline
 Ved positionering gennem UTM systemet, oplyses følgende: Først en zone fra UTM, som f. eks. 17T. Dernæst en østlig og en nordlig afstand. Den østlige udregnes ud fra den centrale median. Den centrale median er en linjen vinkelret på ækvator som går igennem midten af zonen. Denne er sat som 500.000 m østlig for at undgå negative tal, dvs. et punkt vest for medianen giver et tal under 500.000 m, hvor et tal øst for vil være over 500.000 m.  Den nordlige afstand beregnes på følgende måde: Hvis punktet er på den nordlige halvkugle, beregnes den nordlige afstand som afstanden til ækvator. Hvis punktet er på den sydlige halvkugle, beregnes den nordlige afstand som 10,000,000 m minus afstanden til ækvator, for at undgå negative tal. \citep{UTMTeori}
 
-\subsection{Konvertering}
+\section{Konvertering}
 Som beskrevet i afsnittet løsningsstrategi, er en konvertering mellem længde- og breddegrads systemet til UTM systemet nødvendig. Dog er udregningen ret kompleks og gruppen har derfor valgt ikke at redegøre for formlen i dette teoriafsnit.
 
 Udover konverteringen fra længde- og breddegrads systemet til UTM, skal en konvertering fra UTM til pixels også bruges i projektet. Dette sker ved brugen af en world file. World filen bruges til at oversætte UTM koordinater til pixels på kortet, så det GPS data der loades ind, kan findes på kortet. Dette projekts world file ser således ud:
@@ -54,3 +56,4 @@ x’ = (x - x0) / mpx\newline
 y’ = (y - y0) / mpy\newline
 
 \subsection{Opsummering}
+Længde- og breddegrader og Universal Transvere Marcator systemet er blevet kort forklaret. Gruppen kunne ikke forklare den brugte formel i konverteringen fra længde- og breddegrader til UTM koordinater. Det lykkedes at opstille formlen for konverteringen fra UTM koordinater til pixels. Denne teori vil blive brugt i kapitlet ‘Implementeringen’. 
