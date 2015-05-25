@@ -47,16 +47,16 @@ Gruppen har vha. Visual Studio udarbejdet et klasse diagram, for at give et bedr
 \end{figure}
 
 \begin {itemize}
-\item \textbf{Helper} klassen indeholder de metoder der bruges til at lave udregninger i programmet, eksempelvis konverteringen fra længde- breddegrade koordinater til UTM koordinater. 
+\item \textbf{Helper} klassen indeholder de metoder der bruges til at lave udregninger i programmet, eksempelvis konverteringen fra længde- breddegrader koordinater til UTM koordinater. 
 \item \textbf{Coordinate} indeholder koordinater for at kunne se hvor løberen er og hvor posterne er placeret, som både pixel- og UTM koordinater. 
 \item \textbf{ControlPoint} repræsentere posterne i løbet. Hvor den indeholder en posts radius, dens nummer og henter dens koordinater fra Coordinates.
 \item \textbf{ControlPointTime} har nedarvet fra ControlPoint, hvor den så implementere Second og Dist som vil være tid i sekunder og distancen fra løberen til posten. 
 \item \textbf{Runner} indeholder informationer om en løber, dette er bl.a. løberens koordinater på ruten, om løberen har besøgt alle poster og løberens navn.
 \item \textbf{RunnerData} gemmer på en mængde data om hver enkelt løber, som hastighed, distance løbet og position i løbet, hvor dette vil være de informationer som kan findes under tabben som gruppen har kaldt ”Data view”. 
-\item \textbf{Leg} er det som førnævnt kaldet et ”stræk”, dog nu oversat til engelsk. Leg indeholder en list af RunnerData samt et navn på strækket.
+\item \textbf{Leg} er det som før nævnt kaldet et ”stræk”, dog nu oversat til engelsk. Leg indeholder en list af RunnerData samt et navn på strækket.
 \item \textbf{Player} sørger for at tegne løberen på kortet, samt den hale som skal være efter løberen. Derudover viser, skjuler og opdatere den forskellige funktioner i programmet når det køres, dette bruges i den tab som gruppen har kaldt ”Map view”.
 \item \textbf{MainForm} holder sammen på programmet. Det er er GUI’en bliver lavet, samt events til programmet. 
-\item \textbf{Resources} indeholder kortet som bruges I programmet, samt worldfilen.
+\item \textbf{Resources} indeholder kortet som bruges I programmet, samt world-filen.
 \end {itemize}
 
 Klasserne er kort beskrevet for at give et overblik over dem, og de vil blive beskrevet mere dybdegående i næste afsnit om ‘kildekoden’.
@@ -70,7 +70,7 @@ Helper er en statisk klasse, der er lavet for at have nogle funktioner tilgænge
 Helper indeholder konverteringsfunktionerne, i henholdsvis ConvertLatLongToUTM, og ConvertUTMToPixel. ConvertLatLongToUTM funktionen, er lånt fra brugeren Hactic fra Worldwindcentral's forum \citep{UTM}.
 Derudover bliver Helper klassen også brugt til at lave beregninger på løbernes ture, altså distance og hastighedsberegninger.
  
-ConvertUTMToPixel metoden konvertere UTM koordinatsæt, til en bestemt pixel på kortet. Metoden benytter formlerne beskrevet i teoriafsnittet, og en worldfil gemt i Resources.
+ConvertUTMToPixel metoden konvertere UTM koordinatsæt, til en bestemt pixel på kortet. Metoden benytter formlerne beskrevet i teoriafsnittet, og en world-fil gemt i Resources.
 
 \begin{lstlisting}
 public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
@@ -263,7 +263,7 @@ public void Draw(Graphics g)
 }
 \end{lstlisting}
 
-Hvis programmet ikke er nået enden på data for løberen, laves der et nyt PointF array(PointF er et floating-point koordinatsæt), kaldet RunnerToDraw. Dette skyldes at metoden DrawLine fra Graphics klassen, tager et array af punkter ind og tegner en streg gennem alle disse punkter. Herefter indsættes de punkter der skal tegnes, på nuværende tidspunkt, ud fra Second propterien og startpunkt. Dette gøres i en for-lykke som iterere lige så mange gange som halen skal være lang, hvilket i dette program vil være 30. I for-lykken findes det ønskede punkt ved at indexere Runner.Coords listen, udfra følgende formlen:
+Hvis programmet ikke er nået enden på data for løberen, laves der et nyt PointF array(PointF er et floating-point koordinatsæt), kaldet RunnerToDraw. Dette skyldes at metoden DrawLine fra Graphics klassen, tager et array af punkter ind og tegner en streg gennem alle disse punkter. Herefter indsættes de punkter der skal tegnes, på nuværende tidspunkt, ud fra Second propterien og startpunkt. Dette gøres i en for-løkke som iterere lige så mange gange som halen skal være lang, hvilket i dette program vil være 30. I for-lykken findes det ønskede punkt ved at indexere Runner.Coords listen, udfra følgende formlen:
  
 “Index i Coord listen” = “Sekunder fra startpunkt” - “halelængde” + “index fra for-lykken”  + “sekundet løberen passerede valgte startpunkt”
 
