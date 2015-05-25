@@ -1,33 +1,35 @@
 \chapter{Test}
-Gruppen har foretaget nogle tests i forbindelse med udviklingen af programmet, og disse metoder vil blive beskrevet herunder, samt hvilke software og metoder gruppen har anvendt for at teste programmet
+Gruppen har foretaget nogle tests i forbindelse med udviklingen af programmet, og disse metoder vil blive beskrevet herunder, samt hvilke software og metoder gruppen har anvendt for at teste programmet.
+
 \section{Monkey testning}
 Denne test-type kan kategoriseres på forskellige måder, da der er forskellige typer af monkey testning. Der er Smart monkey test, og Ignorant monkey test (også kaldet Dumb monkey test), hvor begge typer er automatiske tests udført af software. De kategoriseres således:
-Smart monkey test: Her gøres der brug af stokastisk unit test, da der laves test-suites, hvor ”aben” kender til input-type og ved hvilke metoder der skal testes. Denne test-type skal oftest købes, da det er mere avanceret software, som integreres med den kode som skal testes.
-Smart monkey tests er hurtig til at finde fejl i programmet, hvis det er sat ordentligt op. Fejl fundet ved denne test-type er fra store til små, og kan typisk findes i en log-fil efter testen er kørt.
+Smart monkey test: Her gøres der brug af unit test, da der laves test-suites, hvor ”aben” kender til input-type og ved hvilke metoder der skal testes. Denne test-type skal oftest købes, da det er mere avanceret software, som integreres med den kode som skal testes.\newline
+Smart monkey tests er hurtig til at finde fejl i programmet, hvis det er sat ordentligt op. Fejl fundet ved denne test-type er fra store til små, og kan typisk findes i en log-fil efter testen er kørt.\newline
 Ignorant monkey test: Denne test-type er en blackbox test, da den ikke har viden om programmets kode, og derfor tester random inputs på enhver mulig måde. Ignorant monkey tests kan findes som gratis software, bl.a. ”GUI tester”, som anvendes i dette projekt. ”Aben” kræver tæt på ingen opsætning af program for at kunne køre, og laver stress-test af programmet, og kan køre i flere dage, hvis ikke den finder fejl der får programmet til at crashe. Ved fejl i denne test, skal testeren typisk sidde og overvåge testen, da der typisk ikke er beskrivende log-filer over testen efter kørsel. Ignorant monkey test finder typisk store fejl i programmet, hvor de mindre fejl i koden ikke opdages. \citep{ExI}
 
 \subsection{GUI tester}
 GUI tester er et simpelt ignorant monkey test software, udviklet af Luigi Poderico, som er anvendt i dette projekt. Programmet køres ved at have det testede program i forgrunden, og derefter klikke på højre CTRL knap. GUI testeren vil herefter klikke på forskellige steder i programmet, og indtaste forskellige inputs hvis muligt. Problematikker ved dette software er, at det kan minimere test-programmet, åbne andre programmer, og prøve at ”teste” dem. \citep{GUItester} \newline
-Ved brug af GUI tester i dette projekt, blev OrienteeringTracker startet, og GUI testen sat i gang. Der er lavet følgende tests:
+Ved brug af GUI tester i dette projekt, blev OrienteeringTracker startet, og GUI testen sat i gang. Der blev lavet følgende tests:
 
 1: Test uden at have manipuleret programmet. Der er her ikke loadet noget ind i programmet, og programmet består derfor kun af et kort, Map View tab, Data View tab og Load-knap. \newline
 2: Test ved tryk af Load-knap, så dialogboksen åbnes, og testen derfor kan vælge hvilken som helst mappe.\newline
-3: Test efter programmet har loadet filer. Her er både løbere, kort, poster og data tilstede i programmet.
-
+3: Test efter programmet har loadet filer. Her er både løbere, kort, poster og data tilstede i programmet.\newline
 I første testcase åbnes programmet, og GUI test startes. ”Aben” trykker mange steder, og ender med at minimere programmet flere gange før den får trykket på ”Load”-knappen. Der er ikke sket nogle fejl i programmet på dette stadie.\newline
-I anden testcase har ”aben” klikket på Load, får valgt en mappe som ikke indeholder de rigtige filer, og programmet kaster en ArgumentNullException. Løsningen på denne fejl er at tjekke om filerne filtyperne er af .gpx og utm. \newline
-I tredje testcase er de rigtige filer loadet ind i programmet, og ”aben” får lov til at teste både Map View og Data View. Den skifter selv mellem tabs, og prøver, i Map View, at indsætte forskellige værdier i både Tempo og Startpoint. Disse to værdier bliver derved sat til hhv. det mindst mulige (ved for lav værdi) eller det højest mulige (hvis værdien indsat er højere end muligt for programmet). Den slår nogle af løberne fra i checkboksen, og får både prøvet at starte løbet, og pauser løbet. I Data View valgte den en celle, og skrev en værdi i cellen. Dette skulle ikke ske, da en bruger da ville kunne manipulere med det viste. Dette blev ændret ved at gøre cellerne ReadOnly. ”Aben” får både klikket sig ind på et stræk, og gjort brug af tilbage-knappen.
+I anden testcase har ”aben” klikket på Load, får valgt en mappe som ikke indeholder de rigtige filer, og programmet kaster en ArgumentNullException. Løsningen på denne fejl er at tjekke om mappen med filerne indeholder filtyper der ender på .gpx og utm. \newline
+I tredje testcase er de rigtige filer loadet ind i programmet, og ”aben” får lov til at teste både Map View og Data View. Den skifter selv mellem tabs, og prøver, i Map View, at indsætte forskellige værdier i både Tempo og Startpoint. Disse to værdier bliver derved sat til henholdsvis det mindst mulige (ved for lav værdi) eller det højest mulige (hvis værdien indsat er højere end muligt for programmet). Den slår nogle af løberne fra i checkboksen, og får både prøvet at starte løbet, og pauser løbet. I Data View valgte den en celle, og skrev en værdi i cellen. Dette skulle ikke ske, da en bruger så ville kunne manipulere med det viste. Dette blev ændret ved at gøre cellerne ReadOnly. ”Aben” får både klikket sig ind på et stræk, og gjort brug af tilbage-knappen.
 
 \section{Blackbox testning}
 Blackbox testning er en test-type, hvor testeren indtaster input til programmet, og ser på hvorvidt outputtet er korrekt. I dette projekt vil denne test-type bruges til at se, hvorvidt filer der loades ind håndteres korrekt. Her vil testcases indkludere følgende:
 
 Testcase 1: Indlæsning af flere af samme person, for at observere hvorvidt Data View tabbet giver korrekt information, og hvordan flere personers rute afbildes i Map View. Her forventes, at Data View kan sorteres per kolonne, hvor en passende sortering finder sted, og at flere versioner af samme person kan afbildes i Map View uden exceptions.\newline
-Testcase 2: Indlæsning af personer, som ikke når alle poster på ruten. Her forventes at deres data bliver sat til 0 eller ”X”.
-Testcase 3: Lukke dialogboksen efter tryk på Load-knappen.
+Testcase 2: Indlæsning af personer, som ikke når alle poster på ruten. Her forventes at deres data bliver sat til 0 eller ”X”.\newline
+Testcase 3: Lukke dialogboksen uden valg af mappe, efter tryk på Load-knappen.\newline
 
 
-I testcase 1, hvor flere af samme person læses ind, bliver Map View vist korrekt, og alle ”personer” af samme persons rute, blev lagt ovenpå hinanden. I Data View blev data givet korrekt, men sortering af position gik galt. De øverste positioner ved sortering blev: 1, 10, 11, 12... 2, 21, 22... Dette skyldes, at sorteringen skete ved sammenligning af strenge, og ikke ved tal. Dette er blevet rettet, således at det kommer i den rigtige rækkefølge nu.\newline
-I testcase 2 blev personen, som ikke nåede alle poster, håndteret som forventet. Tider blev udskiftet med ”X” i de tilfælde personen ikke nåede en post, og difference i tid, samt distance løbet, blev sat til 0. Løberen indgår med korrekte tider i de stræk, som løberen nåede.
-I testcase 3 crashede programmet med en ArgumentOutOfRangeException. Denne fejl blev rettet, ved at der ikke bliver loadet noget ind i programmet, før der bliver trykket "OK" i dialogboksen 
+I testcase 1, hvor flere af samme person læses ind, bliver Map View vist korrekt, og alle ”personer” af samme persons rute, blev lagt ovenpå hinanden. I Data View blev data vist korrekt, men sortering af position fejlede. De øverste positioner ved sortering blev: 1, 10, 11, 12... 2, 21, 22... Dette skyldes, at sorteringen skete ved sammenligning af strenge, og ikke ved tal. Dette er blevet rettet, således at det kommer i den rigtige rækkefølge.\newline
+I testcase 2 blev personen, som ikke nåede alle poster, håndteret som forventet. Tider blev udskiftet med ”X” i de tilfælde personen ikke nåede en post, og difference i tid, samt distance løbet, blev sat til 0. Løberen indgår med korrekte tider i de stræk, som løberen nåede.\newline
+I testcase 3 crashede programmet med en ArgumentOutOfRangeException. Denne fejl blev rettet, ved at der ikke bliver loadet noget ind i programmet, før der bliver valgt en mappe og trykket “OK” i dialogboksen.
+
+
 
 

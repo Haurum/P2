@@ -35,10 +35,10 @@ Klikkes der på et felt for et stræk, kan der ses mere detaljerede informatione
 \end{figure}
 
 \section{Programstruktur}
-Da ingen af medlemmerne i gruppen har tidligere erfaring med udvikling af store applikationer i C\# og Windows Forms, blev meget af udviklingen lavet ud fra “trial and error” princippet. Med det menes at gruppen forsøgte sig meget frem, for at lære at bruge Windows Forms, og der ikke blev lavet en decideret plan eller design for programmet, før udviklingen blev påbegyndt. Dette medførte at store dele af programmet blev lavet i samme klasse, hvilket forårsagede et forholdsvist lavt abstraktionsniveau. 
+Da ingen af medlemmerne i gruppen tidligere havde erfaring med udvikling af store applikationer i C\# og Windows Forms, blev meget af udviklingen lavet ud fra “trial and error” princippet. Med det menes at gruppen forsøgte sig meget frem, for at lære at bruge Windows Forms, og der ikke blev lavet en decideret plan eller design for programmet, før udviklingen blev påbegyndt. Dette medførte at store dele af programmet blev lavet i samme klasse, hvilket forårsagede et forholdsvist lavt abstraktionsniveau. 
 
 \subsection{Klassebeskrivelse}
-Gruppen har vha. Visual Studio udarbejdet et klasse diagram, for at give et bedre overblik over programmets klasser. I firkanterne i klassediagrammet ses klassens navn, dens fields, properties og metoder.
+Gruppen har vha. Visual Studio udarbejdet et klassediagram, for at give et bedre overblik over programmets klasser. I firkanterne i klassediagrammet ses klassens navn, dens fields, properties og metoder.
 
 \begin{figure} [h]
 	\centering
@@ -47,15 +47,15 @@ Gruppen har vha. Visual Studio udarbejdet et klasse diagram, for at give et bedr
 \end{figure}
 
 \begin {itemize}
-\item \textbf{Helper} klassen indeholder de metoder der bruges til at lave udregninger i programmet, eksempelvis konverteringen fra længde- breddegrader koordinater til UTM koordinater. 
+\item \textbf{Helper} klassen indeholder de metoder der bruges til at lave udregninger i programmet, eksempelvis konverteringen fra  koordinater i længde- breddegrader til UTM koordinater. 
 \item \textbf{Coordinate} indeholder koordinater for at kunne se hvor løberen er og hvor posterne er placeret, som både pixel- og UTM koordinater. 
-\item \textbf{ControlPoint} repræsentere posterne i løbet. Hvor den indeholder en posts radius, dens nummer og henter dens koordinater fra Coordinates.
-\item \textbf{ControlPointTime} har nedarvet fra ControlPoint, hvor den så implementere Second og Dist som vil være tid i sekunder og distancen fra løberen til posten. 
+\item \textbf{ControlPoint} repræsentere posterne i løbet. Den indeholder en posts radius, samt nummer og henter dens koordinater fra Coordinates.
+\item \textbf{ControlPointTime} har nedarvet fra ControlPoint, den implementerer Second og Dist som vil være tid i sekunder og distancen fra løberen til posten. 
 \item \textbf{Runner} indeholder informationer om en løber, dette er bl.a. løberens koordinater på ruten, om løberen har besøgt alle poster og løberens navn.
-\item \textbf{RunnerData} gemmer på en mængde data om hver enkelt løber, som hastighed, distance løbet og position i løbet, hvor dette vil være de informationer som kan findes under tabben som gruppen har kaldt ”Data view”. 
-\item \textbf{Leg} er det som før nævnt kaldet et ”stræk”, dog nu oversat til engelsk. Leg indeholder en list af RunnerData samt et navn på strækket.
-\item \textbf{Player} sørger for at tegne løberen på kortet, samt den hale som skal være efter løberen. Derudover viser, skjuler og opdatere den forskellige funktioner i programmet når det køres, dette bruges i den tab som gruppen har kaldt ”Map view”.
-\item \textbf{MainForm} holder sammen på programmet. Det er er GUI’en bliver lavet, samt events til programmet. 
+\item \textbf{RunnerData} gemmer på en mængde data om hver enkelt løber, som hastighed, distance løbet og position i løbet, dette vil være de informationer som kan findes under tabben som gruppen har kaldt ”Data view”. 
+\item \textbf{Leg} er det engelske ord for ”stræk”.Leg indeholder en liste af RunnerData samt et navn på strækket.
+\item \textbf{Player} sørger for at tegne løberen på kortet, samt den hale som skal være efter løberen. Derudover viser, skjuler og opdatere den forskellige funktioner i programmet når det køres. Dette bruges i den tab som gruppen har kaldt ”Map view”.
+\item \textbf{MainForm} holder sammen på programmet. Det er her GUI’en bliver lavet og events bliver håndteret.
 \item \textbf{Resources} indeholder kortet som bruges I programmet, samt world-filen.
 \end {itemize}
 
@@ -107,10 +107,10 @@ public void ReadControlPoint(string line, int nr)
 \end{lstlisting}
 
 \subsection{ControlPointTime}
-ControlPointTime er en klasse der håndtere løbernes interaktion med posterne. ControlPointTime nedarver fra ControlPoint, og indeholder derfor de samme properties og metoder som ControlPoint. Derudover er der også tilføjet et sekund og en distance, der indikere hvornår løberen er nået den givne post, og hvor tæt han var på den. 
+ControlPointTime er en klasse der håndtere løbernes interaktion med posterne. ControlPointTime nedarver fra ControlPoint, og indeholder derfor de samme properties og metoder som ControlPoint. Derudover er der også tilføjet et sekund og en distance, der indikere hvornår løberen har nået den givne post, og hvor tæt vedkommende var på den. 
 
 Metoden ControlPointChecker, tager et ControlPoint og en Runner, og tjekker om den pågældende løber rent faktisk rammer posten. Hvis den gør, så udfylder den data’en i instansen af ControlPointTime. 
-Måden den gør det på, er ved at iterere igennem alle koordinaterne i løberens rute, indtil et af koordinaterne ligger inden for den givne radius af posten. Derefter tager funktionen alle de efterfølgende koordinater og ligger i en liste, indtil den igen rammer en der ikke er tæt på posten. 
+Måden den gør det på, er ved at iterere igennem alle koordinaterne i løberens rute, indtil et af koordinaterne ligger inden for den givne radius af posten. Derefter tager funktionen alle de efterfølgende koordinater og ligger i en liste, indtil den igen rammer en der ikke er indenfor den givne radius af posten. 
 Det koordinat der ligger tættest posten på fra den liste, bliver gemt som dataen i den nuværende ControlPointTime instans. 
 
 
@@ -157,7 +157,7 @@ public void ControlPointChecker(ControlPoint cp, Runner r)
 \end{lstlisting}
 
 \subsection{Runner}
-Den første klasse, Runner, er en klasse til at repræsentere en løbers tur, der opbevare data om den rute løberen har løbet, tiden, distancen med videre. Den har følgende properties:
+Runner er en klasse til at repræsentere en løbers tur, der opbevare data om den rute løberen har løbet, tiden, distancen med videre. Den har følgende properties:
 
 \begin{lstlisting}
 public string RunnerName { get; set; }
@@ -171,10 +171,10 @@ public List<ControlPointTime> Visited { get; set; }
 
 Til at gemme ruten, er der på hver Runner lavet en liste af koordinater, kaldet Coords.
 Disse koordinater er de punkter løberen har været på i løbet af sin tur, og bliver brugt både til at vise turen på et kort, og til at se hvor tæt løberen har været på posterne, for at se om vedkommende har nået disse punkter.
-Derudover indeholder Runner klassen også en liste af ControlPointTimes, som bliver gennemgået senere. Denne liste hedder Visited, og indeholder data om hvorvidt løberen har nået en post. Hvis løberen har nået den pågældende post, ligger dataen i listen under det nummer som posten har. Hvis ikke, så indeholder ControlPointTime kun tomt data. 
+Derudover indeholder Runner klassen også en liste af ControlPointTimes. Denne liste hedder Visited, og indeholder data om hvorvidt løberen har nået en post. Hvis løberen har nået den pågældende post, ligger dataen i listen under det nummer som posten har. Hvis ikke, så indeholder ControlPointTime kun tomt data. 
  
 
-Runner klassen indeholder også funktionalitet til at læse data fra en .gpx fil, altså en fil der indeholder data fra en gps-modtager, som fx en mobil der har været med på løbetur.
+Runner klassen indeholder også funktionalitet til at læse data fra en .gpx fil, altså en fil der indeholder data fra en gps-modtager, som fx en mobil der har været med på løbeturen.
 Dette bliver gjort i følgende klassemetode, ReadGPXData:
 
 
@@ -205,15 +205,17 @@ public void ReadGPXData(FileStream GpxStream)
 }
 \end{lstlisting}
 
-Denne metode bruger en GpxReader klasse, der stammer fra KILDE MANGLER. Readeren har en funktion der hedder Read, som ud fra en FileStream, altså en fil, læser de nødvendige data, og gemmer det i sin Track property. Denne Track property indeholder alle koordinaterne i en liste, men gemmer dem i længde- og breddegrader. Derfor bruges en hjælpefunktion fra en Helper-klasse der beskrives senere, til at konvertere til UTM koordinater, og igen til pixels. Efter konverteringen gemmes koordinaterne i listen af koordinater, Coords, der blev beskrevet ovenfor. 
-Efter koordinaterner er læst ind fra filen, kaldes metoden AddMissingPoints. Problemet med de GPX-filer der er blevet brugt i projektet, er at der ikke nødvendigvis er et koordinat for hvert sekund, men at der godt kan være sprunget et sekund eller flere over, hvis GPS-modtagelsen har været dårlig. AddMissingPoints udfylder de sekunder der ikke er noget data, så det fremstår som at løberen ikke bevæger sig. På den måde er det lettere at finde ud af hvor lang tid løberen har løbet, da starttidspunktet er kendt. 
+Denne metode bruger en GpxReader klasse, der stammer fra KILDE MANGLER. Readeren har en funktion der hedder Read, som ud fra en FileStream, altså en fil, læser de nødvendige data, og gemmer det i sin Track property. Denne Track property indeholder alle koordinaterne i en liste, men gemmer dem i længde- og breddegrader. Derfor bruges en hjælpefunktion fra en Helper-klassen, til at konvertere til UTM koordinater, og igen til pixels. Efter konverteringen gemmes koordinaterne i listen af koordinater, Coords, der blev beskrevet ovenfor. 
+Efter koordinaterner er læst ind fra filen, kaldes metoden AddMissingPoints. Problemet med de GPX-filer der er blevet brugt i projektet, er at der ikke nødvendigvis er et koordinat for hvert sekund, men at der godt kan være sprunget et sekund eller flere over, hvis GPS-modtagelsen har været dårlig. AddMissingPoints udfylder de sekunder der ikke er noget data, så det fremstår som at løberen ikke bevæger sig. På den måde er det lettere at finde ud af hvor lang tid løberen har løbet, da starttidspunktet er kendt.
+ 
 \subsection{RunnerData}
 RunnerData indeholder en række informationer, som bruges i "Data View" tabben.
 
 \subsection{Leg}
 Leg klassen indeholder en liste af RunnerData, samt et navn på det specifikke Leg.
+
 \subsection{Player}
-Player klassen styrer den grafiske afspilningen af løbernes ruter.Player indeholder en reference til MainForm, så den kan bruge nogle af dens data. \newline
+Player klassen styrer den grafiske afspilningen af løbernes ruter. Player indeholder en reference til MainForm, så den kan bruge nogle af dens data. \newline
 Player klassens vigtigste property er integeren “Second”. Denne property indeholder informationer om hvilket sekund programmet er kommet til i afspilningen, i forhold til startpunktet. 
 
 Draw metoden sørger for at tegne de forskellige løberes position og hale ind på kortet.
@@ -263,7 +265,7 @@ public void Draw(Graphics g)
 }
 \end{lstlisting}
 
-Hvis programmet ikke er nået enden på data for løberen, laves der et nyt PointF array(PointF er et floating-point koordinatsæt), kaldet RunnerToDraw. Dette skyldes at metoden DrawLine fra Graphics klassen, tager et array af punkter ind og tegner en streg gennem alle disse punkter. Herefter indsættes de punkter der skal tegnes, på nuværende tidspunkt, ud fra Second propterien og startpunkt. Dette gøres i en for-løkke som iterere lige så mange gange som halen skal være lang, hvilket i dette program vil være 30. I for-lykken findes det ønskede punkt ved at indexere Runner.Coords listen, udfra følgende formlen:
+Hvis programmet ikke er nået enden på data for løberen, laves der et nyt PointF array (PointF er et floating-point koordinatsæt), kaldet RunnerToDraw. Dette skyldes at metoden DrawLine fra Graphics klassen, tager et array af punkter ind og tegner en streg gennem alle disse punkter. Herefter indsættes de punkter der skal tegnes, på nuværende tidspunkt, ud fra Second propertien og startpunkt. Dette gøres i en for-løkke som iterere lige så mange gange som halen skal være lang, hvilket i dette program vil være 30. I for-løkken findes det ønskede punkt ved at indeksere Runner.Coords listen, udfra følgende formlen:
  
 “Index i Coord listen” = “Sekunder fra startpunkt” - “halelængde” + “index fra for-lykken”  + “sekundet løberen passerede valgte startpunkt”
 
@@ -299,7 +301,7 @@ Map1\_MouseEnter sørger for at kortet har fokus, så snart musen er over kortet
 
 LoadButton\_Click kaldes når “Load” knappen klikkes på, og viser en folder-browser-dialogbox til valg af mappe som indeholder GPX-data for løberne og GPS-data for ControlPoints. Efter valg af mappe, loades ControlPoints og GPX-data ind i systemet. Herefter skjules “Load” knappen, og mediaplayeren vises ved at kalde Player.StartUp().
 
-PlayButton\_Click og PlayTimer\_Tick kalder hhv. Player.Play\_Pause() og Player.Tick().
+PlayButton\_Click og PlayTimer\_Tick kalder henholdsvis Player.Play\_Pause() og Player.Tick().
 
 Map1\_Paint sørger for, at kortets højde og bredde bliver skaleret efter ZoomFactor, så kortet tegnes i skaleret forhold, og kalder Player.Draw() og sender kortets grafik med.
 
@@ -309,16 +311,16 @@ TempoUpDown\_ValueChanged ændre på intervallet mellem ticks for timeren, i for
 
 ResetButton\_Click sætter programmet tilbage til opstarts stadiet, når der trykkes på knappen, under kørslen af programmet. 
 
-StartpointUpDown\_ValueChanged sætter Second propertien til 0 og kører Player.Update som opdatere TrackBarens størrelse.
+StartpointUpDown\_ValueChanged bestemmer startpunkt for afspilingen og sætter Second propertien til 0 og kører Player.Update som opdatere TrackBarens størrelse.
 
 For at styre tabeloversigten over løbernes tid, position, hastighed osv., er der brugt en række funktioner. 
 Den første hedder Setup\_Table, der ganske enkelt sætter overskrifterne i tabellen således:
 
 DataTable.Columns[I].HeaderText = string;
 
-De første 6 ændre sig aldrig, og bliver derfor hardcoded. (Måske skulle vi snakke om dette? At folk skal kunne slå ting fra og til i indstillinger, alt efter hvad de gider glo på??). Efter det, er resten af overskrifterne afhængige af om der bliver set på et delstræk, eller hele turen.  Til dette, er defineret en global variabel isLeg, der hele tiden holder styr på hvilket mode tabellen er i. Hvis det er et delstræk, bliver den sidste overskrift sat til ”Final position”, altså løberens endelige position. Hvis det derimod er hele løbet, sættes alle delstrækkenes navne til overskrifterne, fx ”1-2” eller ”2-3” osv. 
+De første 6 ændre sig aldrig, og bliver derfor hardcoded. Efter det, er resten af overskrifterne afhængige af om der bliver set på et delstræk, eller hele turen.  Til dette, er defineret en global variabel isLeg, der hele tiden holder styr på hvilket mode tabellen er i. Hvis det er et delstræk, bliver den sidste overskrift sat til ”Final position”, altså løberens endelige position i løbet. Hvis det derimod er hele løbet, sættes alle delstrækkenes navne til overskrifterne, fx ”1-2” eller ”2-3” osv. 
 
-Derefter bruges funktionen Put\_Data, der tager et Leg som parameter. Det er vigtigt at bemærke at hele strækket fra start til slut, altså hele løbet, også er gemt som et Leg. Det er derfor variablen isLeg er nødvendig for at kunne skelne dem fra hinanden. Herefter bliver informationen for hver løber gemt i Leg, skrevet i tabellen. Der bliver om løberne har nået posterne, og tilføjet til tabellen på baggrund af den information. Derudover er der, som tidligere nævnt, forskel på om det kigges på et delstræk eller den samlede rute. I tilfældet hvor det er hele strækket der vises, bliver der i de første seks søjler, udskrevet den samlede information for løberne. I de resterende søjler, bliver udskrevet løbernes (rækker) tider i forhold til de pågældende delstræk (søjler).
+Derefter bruges funktionen Put\_Data, der tager et Leg som parameter. Det er vigtigt at bemærke at hele strækket fra start til slut, altså hele løbet, også er gemt som et Leg. Det er derfor variablen isLeg er nødvendig for at kunne skelne dem fra hinanden. Herefter bliver informationen for hver løber gemt i Leg, skrevet i tabellen. Der bliver tjekket om løberne har nået posterne, og tilføjet til tabellen på baggrund af den information. Derudover er der, som tidligere nævnt, forskel på om det kigges på et delstræk eller den samlede rute. I tilfældet hvor det er hele strækket der vises, bliver der i de første seks søjler, udskrevet den samlede information for løberne. I de resterende søjler, bliver udskrevet løbernes (rækker) tider i forhold til de pågældende delstræk  (søjler).
 
 \begin{lstlisting}
 private void Put_Data(Leg leg)
@@ -383,7 +385,7 @@ private void Put_Data(Leg leg)
 \end{lstlisting}
 
 LoadRunners  er en funktion der tager en række GPX filer ind som parametre, og opretter en Runner og RunnerData instans for hver fil. RunnerData der oprettes her, hører til i MainLeg, altså hele ruten og ikke bare et delstræk. 
-Et foreach loop kører igennem hver fil i GPXFiles (inputparametren). En ny Runner oprettes, og ReadGPXData kaldes på instansen, for at fylde data i den pågældende Runner. Efter Runneren er oprettet,  kører endnu et foreach loop igennem alle ControlPoints, og opretter nye ControlPointTimes, ved at bruge funktionen ControlPointChecker . ControlPointTimes bliver tilføjet til Visited listen på Runner instansen.  En variabel, reached, holder styr på om løberen er nået igennem alle poster. 
+Et foreach loop kører igennem hver fil i GPXFiles (inputparametren). En ny Runner oprettes, og ReadGPXData kaldes på instansen, for at fylde data i den pågældende Runner. Efter Runneren er oprettet,  kører endnu et foreach loop igennem alle ControlPoints, og opretter nye ControlPointTimes, ved at bruge funktionen ControlPointChecker. ControlPointTimes bliver tilføjet til Visited listen på Runner instansen.  En variabel, reached, holder styr på om løberen er nået igennem alle poster. 
 En ny instans af RunnerData oprettes derefter, og hvis alle posterne er nået, altså reached siger sandt, udfyldes RunnerData med løberens data for sin tur. 
 Efter dette er sket for alle GPX filer, kaldes GetPosAndDiff  metoden på Helper klassen, for at bestemme løbernes position, og differencen mellem dem. 
 
@@ -442,9 +444,9 @@ private void LoadRunners(string[] GPXFiles)
 }
 \end{lstlisting}
 
-LoadControlPoints er en funktion  tager en fil som input, og bruger den til at oprette posterne i programmet. Ved et loop, oprettes der en ny ControlPoint for hver linje i filen, og kaldes ReadControlPoint på det ControlPoint, og sender linjen fra tekstfilen med. Alle posterne ControlPoints listen.
+LoadControlPoints er en funktion der tager en fil som input, og bruger den til at oprette posterne i programmet. Ved et loop oprettes der en ny ControlPoint for hver linje i filen, og ReadControlPoint kaldes på det ControlPoint, og sender linjen fra tekstfilen med. 
 Når posterne er læst ind, skal de tegnes på kortet. Et loop kører gennem ControlPoints listen, og der bliver tjekket for nummeret på posten. Hvis posten er den første tegnes en trekant, hvis posten er den sidste tegnes en cirkel inde i en cirkel, og ellers tegnes en enkelt cirkel. 
-Et if, tjekker til sidst om ControlPoint er den første i listen, og hvis ikke, så tegnes der en streg til den forrige. Dette gøres ved at beregne vinkel og distancen til den forrige post, og derefter tegne en streg baseret på den information. 
+Et if-statement, tjekker til sidst om ControlPoint er den første i listen, og hvis ikke, så tegnes der en streg til den forrige. Dette gøres ved at beregne vinkel og distancen til den forrige post, og derefter tegne en streg baseret på den information. 
 
 \begin{lstlisting}
 private void LoadControlPoints(string RouteFile)
@@ -512,7 +514,7 @@ private void LoadControlPoints(string RouteFile)
 }
 \end{lstlisting}
 
-LoadLegs indsætter data i Listen Legs, der indeholder informationer om de enkelte stræk. Dette gøres ved at lave et for-loop for hvert ControlPoint, og inde i dette for-loop laves et foreach-loop for hver Runner i Runner listen. Inde i dette foreach-loop tjekkes, om den enkelte Runner har nået det specifikke ControlPoint. Hvis dette er opfyldt, bliver distance, tid og hastighed udregnet for det specifikke stræk og lægges ind i et nyt objekt af RunnerData klassen. Hvis dette ikke er opfyldt, bliver værdierne sat til 0. Herefter tilføjes RunnerData objektet til et Leg objekt, som indeholder information om alle Runners, for det enkelte stræk. Når alle Runners er blevet loadet ind, udregnes løbernes position i forhold til hinanden, og deres tids difference til den hurtigeste. Dette gøres vha. helper klassens GetPosAndDiff metode. Til sidst tilføjes dette stræk til listen Legs, som indeholder alle stræk. 
+LoadLegs indsætter data i listen Legs, der indeholder informationer om de enkelte stræk. Dette gøres ved at lave et for-loop for hvert ControlPoint, og inde i dette for-loop laves et foreach-loop for hver Runner i Runner listen. Inde i dette foreach-loop tjekkes, om den enkelte Runner har nået det specifikke ControlPoint. Hvis dette er opfyldt, bliver distance, tid og hastighed udregnet for det specifikke stræk og lægges ind i et nyt objekt af RunnerData klassen. Hvis dette ikke er opfyldt, bliver værdierne sat til 0. Herefter tilføjes RunnerData objektet til et Leg objekt, som indeholder information om alle Runners, for det enkelte stræk. Når alle Runners er blevet loadet ind, udregnes løbernes position i forhold til hinanden, og deres tids difference til den hurtigeste. Dette gøres vha. helper klassens GetPosAndDiff metode. Til sidst tilføjes dette stræk til listen Legs, som indeholder alle stræk. 
 
 \begin{lstlisting}
 private void LoadLegs()
@@ -547,3 +549,9 @@ private void LoadLegs()
     }
 }
 \end{lstlisting}
+
+
+
+
+
+
