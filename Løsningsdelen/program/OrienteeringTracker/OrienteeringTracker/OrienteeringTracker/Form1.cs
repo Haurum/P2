@@ -21,6 +21,7 @@ namespace OrienteeringTracker
             DataTable.SortCompare += TableCustomSort;
         }
 
+		// Globale variabler
         #region Varibles
 
         Color[] Colors = { Color.Blue, Color.Red, Color.Black, Color.Purple, Color.Turquoise, Color.Lime };
@@ -56,6 +57,8 @@ namespace OrienteeringTracker
             }
 
         }
+
+		// Håndtere zoom gennem variablen ZoomFactor
         private void Map1_MouseWheel(object sender, MouseEventArgs e)
         {
             if (e.Delta > 0)
@@ -78,6 +81,7 @@ namespace OrienteeringTracker
             }
         }
 
+		// Åbner dialogbox til indlæsning af data
         private void LoadButton_Click(object sender, EventArgs e)
         {
             
@@ -137,6 +141,7 @@ namespace OrienteeringTracker
             PlayTimer.Interval = (int)(1000 / Math.Pow(Convert.ToDouble(TempoUpDown.Value), 2));
         }
 
+		// Reseter programmet som det var ved opstart
         private void ResetButton_Click(object sender, EventArgs e)
         {
             Runners.Clear();
@@ -150,18 +155,22 @@ namespace OrienteeringTracker
             
         }
 
+		// Funktion der håndtere sorteringen i tabellen
         private void TableCustomSort(object sender, DataGridViewSortCompareEventArgs e)
         {
+			// Pos er en int, Parser derfor til int
             if (e.Column == DataTable.Columns[0])
             {
                 int a = int.Parse(e.CellValue1.ToString()), b = int.Parse(e.CellValue2.ToString());
                 e.SortResult = a.CompareTo(b);
             }
+			// Distance er en double. Sortere derfor som double
             else if (e.Column == DataTable.Columns[4] || e.Column == DataTable.Columns[5])
             {
                 Double a = Double.Parse(e.CellValue1.ToString()), b = Double.Parse(e.CellValue2.ToString());
                 e.SortResult = a.CompareTo(b);
             }
+			// Hvis der kigges på et stræk, indholder DataTable.Columns[6] final position, der er en int. 
             else if (e.Column == DataTable.Columns[6] && isLeg)
             {
                 int a = int.Parse(e.CellValue1.ToString()), b = int.Parse(e.CellValue2.ToString());
@@ -172,14 +181,10 @@ namespace OrienteeringTracker
                 e.SortResult = e.CellValue1.ToString().CompareTo(e.CellValue2.ToString());
             }
             
-
-            // If the cell value is already an integer, just cast it instead of parsing
-
-            
-
             e.Handled = true;
         }
 
+		// Opsætter tabelen alt efter om det er et stræk eller ej
         private void Setup_Table()
         {
             DataTable.Columns.Clear();
@@ -207,6 +212,7 @@ namespace OrienteeringTracker
             }
         }
 
+		// Tager et leg som input parameter, og skriver data i tabelen
         private void Put_Data(Leg leg)
         {
             DataTitle.Text = leg.Name;
@@ -229,6 +235,8 @@ namespace OrienteeringTracker
                     pos = "X";
                 else
                     pos = rd.pos.ToString();
+
+				// Hvis det er et stræk:
                 if (isLeg)
                 {
                     row = new List<string> { pos, rd.name, time, rd.diff.ToString(), Math.Round(rd.distance, 2).ToString(), Math.Round(rd.speed, 2).ToString() };
@@ -243,6 +251,7 @@ namespace OrienteeringTracker
                         }
                     } 
                 }
+				// Ellers er det hele løbet
                 else
                 {
                     row = new List<string> { pos, rd.name, time, rd.diff.ToString(), Math.Round(rd.distance, 2).ToString(), Math.Round(rd.speed, 2).ToString() };
@@ -264,6 +273,7 @@ namespace OrienteeringTracker
                 }
                 DataTable.Rows.Add(row.ToArray<string>());
             }
+			// Sortere efter position
             DataTable.Sort(DataTable.Columns[0], ListSortDirection.Ascending);
         }
 
@@ -273,6 +283,7 @@ namespace OrienteeringTracker
             player.Update();
         }
 
+		// Håndtere klikket i tabelen der skifter til visning af stræk
         private void DataTable_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (!isLeg)
@@ -290,6 +301,7 @@ namespace OrienteeringTracker
             }
         }
 
+		// Går tilbage til visning af hele løbet i tabellen
         private void BackButton_Click(object sender, EventArgs e)
         {
             headers--;
@@ -298,6 +310,7 @@ namespace OrienteeringTracker
             BackButton.Hide();
         }
 
+		// Laver nye instanser af Runners og RunnerData, og kalder passende funktioner der læser data ind. 
         private void LoadRunners(string[] GPXFiles)
         {
             int ColorCount = 0;
@@ -315,7 +328,7 @@ namespace OrienteeringTracker
                 ColorCount++;
                 reached = true;
 
-
+				// Tester om Runner har nået posterne
                 foreach (ControlPoint cp in ControlPoints)
                 {
                     cpt = new ControlPointTime();
@@ -351,6 +364,7 @@ namespace OrienteeringTracker
             MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners);
         }
 
+		// Indlæser ControlPoints fra en fil
         private void LoadControlPoints(string RouteFile)
         {
             ControlPoint newControlPoint;
@@ -368,6 +382,7 @@ namespace OrienteeringTracker
             p.Width = 5;
             int i = 0;
 
+			// Iterere gennem posterne, og tegner dem på mappen
             foreach (ControlPoint cp in ControlPoints)
             {
                 Point[] points = {new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y)), 
@@ -415,6 +430,7 @@ namespace OrienteeringTracker
             Map1.Refresh();
         }
 
+		// Opretter de legs der håndtere stræk for løberne
         private void LoadLegs()
         {
             for (int i = 1; i < ControlPoints.Count; i++)

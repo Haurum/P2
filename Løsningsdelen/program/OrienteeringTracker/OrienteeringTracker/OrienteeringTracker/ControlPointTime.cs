@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
+	// Nedarver fra ControlPoint
     public class ControlPointTime : ControlPoint
     {
         public int Second { get; set; }
         public double Dist { get; set; }
 
+		// Tester om en runner har ramt det pågældende ControlPoint
         public void ControlPointChecker(ControlPoint cp, Runner r)
         {
             List<ControlPointTime> distList = new List<ControlPointTime>();
@@ -30,7 +32,6 @@ namespace OrienteeringTracker
                             this.Dist = thisCpt.Dist;
                             this.Number = thisCpt.Number;
                             this.Second = thisCpt.Second;
-                            this.Radius = thisCpt.Radius;
                             return;
                         }
                         cpt = new ControlPointTime();
@@ -47,7 +48,6 @@ namespace OrienteeringTracker
             this.Dist = 0;
             this.Number = 0;
             this.Second = 0;
-            this.Radius = 0;
             return;
 
         }

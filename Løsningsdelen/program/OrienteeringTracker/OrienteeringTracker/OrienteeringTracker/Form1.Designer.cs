@@ -75,7 +75,7 @@
             // LoadButton
             // 
             this.LoadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LoadButton.Location = new System.Drawing.Point(1214, 345);
+            this.LoadButton.Location = new System.Drawing.Point(844, 345);
             this.LoadButton.Margin = new System.Windows.Forms.Padding(4);
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(100, 28);
@@ -87,7 +87,7 @@
             // PlayButton
             // 
             this.PlayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayButton.Location = new System.Drawing.Point(1106, 345);
+            this.PlayButton.Location = new System.Drawing.Point(736, 345);
             this.PlayButton.Margin = new System.Windows.Forms.Padding(4);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(100, 28);
@@ -108,7 +108,7 @@
             this.PlayBar.Location = new System.Drawing.Point(3, 392);
             this.PlayBar.Margin = new System.Windows.Forms.Padding(4);
             this.PlayBar.Name = "PlayBar";
-            this.PlayBar.Size = new System.Drawing.Size(1317, 45);
+            this.PlayBar.Size = new System.Drawing.Size(947, 45);
             this.PlayBar.TabIndex = 3;
             this.PlayBar.Visible = false;
             this.PlayBar.Scroll += new System.EventHandler(this.PlayBar_Scroll);
@@ -142,7 +142,7 @@
             // ResetButton
             // 
             this.ResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResetButton.Location = new System.Drawing.Point(1214, 345);
+            this.ResetButton.Location = new System.Drawing.Point(844, 345);
             this.ResetButton.Margin = new System.Windows.Forms.Padding(4);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(100, 28);
@@ -156,7 +156,7 @@
             // 
             this.RunnersCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.RunnersCheckBox.FormattingEnabled = true;
-            this.RunnersCheckBox.Location = new System.Drawing.Point(1162, 316);
+            this.RunnersCheckBox.Location = new System.Drawing.Point(792, 316);
             this.RunnersCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.RunnersCheckBox.Name = "RunnersCheckBox";
             this.RunnersCheckBox.Size = new System.Drawing.Size(152, 19);
@@ -171,7 +171,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1331, 466);
+            this.tabControl.Size = new System.Drawing.Size(961, 466);
             this.tabControl.TabIndex = 8;
             // 
             // mapTab
@@ -189,7 +189,7 @@
             this.mapTab.Location = new System.Drawing.Point(4, 22);
             this.mapTab.Name = "mapTab";
             this.mapTab.Padding = new System.Windows.Forms.Padding(3);
-            this.mapTab.Size = new System.Drawing.Size(1323, 440);
+            this.mapTab.Size = new System.Drawing.Size(953, 440);
             this.mapTab.TabIndex = 0;
             this.mapTab.Text = "Map View";
             this.mapTab.UseVisualStyleBackColor = true;
@@ -288,7 +288,7 @@
             // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(1331, 466);
+            this.ClientSize = new System.Drawing.Size(961, 466);
             this.Controls.Add(this.tabControl);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
