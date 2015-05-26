@@ -37,9 +37,47 @@ Tests bliver på den måde også en form for dokumentation over hvilken funktion
 Af Unit-tests er blevet lavet 3 tests. 
 Den ene tester CalcSingleLength på Helper klassen. CalcSingleLength, beregne grundlæggende bare distancen mellem to punkter, så derfor er testen udført ved at tjekke om funktionen returnere 5, som er distancen mellem punkterne (-2,1) og (1,5).
 
+\begin{lstlisting}
+[TestCase]
+public void CalcSingleLength_TwoPoints_Return5()
+{
+    double dist = Helper.CalcSingleLength(-2, 1, 1, 5);
+    Assert.AreEqual(dist, 5);
+}
+\end{lstlisting}
+
 Derefter er ConvertLatLongToUTM funktionen testet, ved at sammenligne med et andet konverteringsprogram, på nettet. \citep{LatLongConvert}  
+
+\begin{lstlisting}
+[TestCase]
+public void ConvertLatLongtoUTM_LatLong_UTM()
+{
+    double easting;
+    double northing;
+    string zone;
+    Helper.ConvertLatLongtoUTM(57.121332, 9.953613, out northing, out easting, out zone);
+
+    Assert.AreEqual(Math.Round(easting, 2), Math.Round(557740.21, 2));
+    Assert.AreEqual(Math.Round(northing, 2), Math.Round(6331295.72, 2));
+    Assert.AreEqual(zone, "32V");
+}
+\end{lstlisting}
 
 ReadControlPoint er blevet testet, ved at kalde funktionen med linjen "539446.2;6249967;200;1056". Der testes derefter, om pixelkoordinatet på den pågældende instans af ControlPoint, er blevet sat til (200,1056).
 
+\begin{lstlisting}
+[TestCase]
+public void ReadControlPoints_LineAndNr_PopulatedCP()
+{
+    ControlPoint cp = new ControlPoint();
+    string line = "539446.2;6249967;200;1056";
+    int nr = 1;
+    cp.ReadControlPoint(line, nr);
+
+            
+    PointF point = new PointF(200,1056);
+    Assert.AreEqual(cp.Cord.pixelPoint, point);
+}
+\end{lstlisting}
 
 

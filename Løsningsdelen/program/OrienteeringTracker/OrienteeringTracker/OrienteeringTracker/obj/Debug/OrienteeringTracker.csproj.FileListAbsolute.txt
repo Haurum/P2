@@ -19,3 +19,6 @@ C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\Oriente
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.pdb
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.dll
 C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\nunit.framework.xml
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\bin\Debug\OrienteeringTracker.exe.config
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.exe
+C:\Users\Søren\Desktop\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker\obj\Debug\OrienteeringTracker.pdb
