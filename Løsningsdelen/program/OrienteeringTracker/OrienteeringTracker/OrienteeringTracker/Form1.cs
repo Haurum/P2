@@ -382,7 +382,7 @@ namespace OrienteeringTracker
             p.Width = 5;
             int i = 0;
 
-			// Iterere gennem posterne, og tegner dem på mappen
+			// Iterere gennem posterne, og tegner dem på kortet
             foreach (ControlPoint cp in ControlPoints)
             {
                 Point[] points = {new Point(Convert.ToInt32(cp.Cord.pixelPoint.X + 30), Convert.ToInt32(cp.Cord.pixelPoint.Y)), 
