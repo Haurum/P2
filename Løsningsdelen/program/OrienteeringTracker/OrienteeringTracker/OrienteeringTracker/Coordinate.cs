@@ -18,6 +18,7 @@ namespace OrienteeringTracker
             Time = t;
         }
 
+		// Indeholder tid, og koordinater som pixler og UTM
         private PointF _pixelPoint { get; set; }
         public PointF pixelPoint
         {

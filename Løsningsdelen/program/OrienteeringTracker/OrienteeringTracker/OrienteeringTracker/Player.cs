@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrienteeringTracker
 {
+	// Mediaplayer der tagner på kort
     class Player
     {
         public Player(MainForm mf)
@@ -20,6 +21,9 @@ namespace OrienteeringTracker
         public int Second { get; set; }
         public int TailLenght { get; set; }
 
+
+
+		// Tegner løbernes ruter på kortet
         public void Draw(Graphics g)
         {
             SolidBrush brush;
@@ -27,6 +31,7 @@ namespace OrienteeringTracker
             int tempTailLenght = TailLenght;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
+			// Iterere gennem alle løberne
             foreach (Runner runner in mainForm.Runners)
             {
                 if (!mainForm.RunnersCheckBox.CheckedItems.Contains(runner.RunnerName) || Second < 2
@@ -60,6 +65,7 @@ namespace OrienteeringTracker
             }
         }
 
+		// Tæller sekunder op hvis der er mere data. Refresher mappen
         public void Tick()
         {
             if (Second >= mainForm.Runners.Max(r => r.Coords.Count - r.Visited[(int)mainForm.StartpointUpDown.Value].Second))
@@ -71,6 +77,7 @@ namespace OrienteeringTracker
             Second++;
         }
 
+		// Starter og stopper afspilning af løbet
         public void Play_Pause()
         {
             if (mainForm.PlayTimer.Enabled)
@@ -89,6 +96,7 @@ namespace OrienteeringTracker
                 r.Visited[(int)mainForm.StartpointUpDown.Value].Second);
         }
 
+		// Initialisere formen med map
         public void StartUp()
         {
             mainForm.PlayButton.Show();

@@ -11,6 +11,7 @@ namespace OrienteeringTracker
         public int Number { get; set; }
         public Coordinate Cord { get; set; }
 
+		// Indlæser data om instansen af ControlPoint
         public void ReadControlPoint(string line, int nr)
         {
             string[] coordinatesString = line.Split(';');

@@ -11,6 +11,8 @@ namespace OrienteeringTracker
 {
     public static class Helper
     {
+
+		// Sortere en liste af RunnerData efter tid, og sætter positionen og differencen til førstepladsen
         public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData)
         {
             int pos = 1;
@@ -35,6 +37,7 @@ namespace OrienteeringTracker
             return runnerData;
         }
 
+		// Beregner en Runners samlede tilbagelagte distance via. CalcSingleLength
         public static double CalcTotalLength(Runner route, int startPoint, int endPoint)
         {
             double Res = 0;
@@ -45,17 +48,22 @@ namespace OrienteeringTracker
             return Res;
         }
         
+
+		// Beregner distance mellem to punkter
         public static double CalcSingleLength(double startPoint_X, double startPoint_Y, double endPoint_X, double endPoint_Y)
         {
             return Math.Sqrt(Math.Pow(startPoint_X - endPoint_X, 2) + Math.Pow(startPoint_Y - endPoint_Y, 2));
         }
 
+		// Beregner hastighed i minuter per kilometer. Beregner delta ticks, og bruger CalcSpeedMindsPrKm med deltaticks
         public static double CalcSpeedMinsPrKm(double length, int startTick, int endTick)
         {
             int deltaTick = endTick - startTick;
             return CalcSpeedMinsPrKm(length, deltaTick);
         }
 
+
+		// Beregner hastighed i minuter per kilometer - her med allerede oplyst deltaticks
         public static double CalcSpeedMinsPrKm(double length, int deltaTick)
         {
             double secPrMeter = deltaTick / length;
@@ -63,22 +71,28 @@ namespace OrienteeringTracker
             return result;
         }
 
+
+		// Laver omregningen fra UTM til Pixel koordinater
         public static void ConvertUTMToPixel(double UTM_north, double UTM_east, out float x, out float y)
         {
+			// Indlæser kort fra Resources
             MemoryStream ms = new MemoryStream(OrienteeringTracker.Properties.Resources.Hjermind_Egekrat_ref_ref1);
             string line;
             List<float> worldTal = new List<float>();
             StreamReader sr = new StreamReader(ms, Encoding.UTF8);
 
+			// Iterere gennem de enkelte linjer i filen, og tilføjer til listen af floats, worldTal
             while ((line = sr.ReadLine()) != null)
             {
                 worldTal.Add(float.Parse(line, CultureInfo.InvariantCulture));
             }
-
+			// Beregner outputparamtrene x og y
             x = Convert.ToInt32((UTM_east - worldTal[4]) / worldTal[0]);
             y = Convert.ToInt32((UTM_north - worldTal[5]) / worldTal[3]);
         }
 
+
+		// Konverteringsfunktion
         public static void ConvertLatLongtoUTM(double Lat, double Long, out double UTMNorthing, out double UTMEasting, out string Zone)
         {
 

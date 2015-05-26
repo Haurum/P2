@@ -28,7 +28,7 @@ namespace OrienteeringTracker
 
         public List<ControlPointTime> Visited { get; set; }
 
-
+		// Bruger input GPX data til at indsætte data i instansen af Runner.
         public void ReadGPXData(FileStream GpxStream)
         {
             GpxReader reader = new GpxReader(GpxStream);
@@ -36,7 +36,7 @@ namespace OrienteeringTracker
             this.Date = reader.Track.Segments[0].TrackPoints[0].Time;
             this.RunnerName = Path.GetFileNameWithoutExtension(GpxStream.Name);
 
-
+			// Kører gennem hvert koordinat i GPX-filen
             foreach (GpxPoint gp in reader.Track.Segments[0].TrackPoints)
             {
                 double UTMNorthing;
@@ -55,6 +55,7 @@ namespace OrienteeringTracker
             this.AddMissingPoints();
         }
 
+		// Korrigere mangelfuld gps data
         public void AddMissingPoints()
         {
             int counter = 0;
