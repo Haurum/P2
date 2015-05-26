@@ -11,7 +11,7 @@ namespace OrienteeringTracker
 {
     public static class Helper
     {
-        public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData, List<Runner> runners)
+        public static List<RunnerData> GetPosAndDiff(List<RunnerData> runnerData)
         {
             int pos = 1;
             runnerData = runnerData.OrderBy(runner => runner.time).ToList();

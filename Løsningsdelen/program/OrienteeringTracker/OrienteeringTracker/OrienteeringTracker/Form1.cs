@@ -348,7 +348,7 @@ namespace OrienteeringTracker
                 MainLeg.Runners.Add(runnerdata);
                 Runners.Add(runner);
             }
-            MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners, Runners);
+            MainLeg.Runners = Helper.GetPosAndDiff(MainLeg.Runners);
         }
 
         private void LoadControlPoints(string RouteFile)
@@ -442,7 +442,7 @@ namespace OrienteeringTracker
                     runnerdata.name = r.RunnerName;
                     leg.Runners.Add(runnerdata);
                 }
-                leg.Runners = Helper.GetPosAndDiff(leg.Runners, Runners);
+                leg.Runners = Helper.GetPosAndDiff(leg.Runners);
                 Legs.Add(leg);
             }
         }
