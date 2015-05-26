@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="OrienteeringTracker/OrienteeringTracker.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="OrienteeringTracker/Form1.cs">
+    <Files>
+      <File FileName="OrienteeringTracker/Player.cs" Line="99" Column="33" />
+      <File FileName="OrienteeringTracker/Form1.cs" Line="433" Column="53" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

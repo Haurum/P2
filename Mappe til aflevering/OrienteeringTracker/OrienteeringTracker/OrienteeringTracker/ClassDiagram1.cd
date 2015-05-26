@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OrienteeringTracker.ControlPoint">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAABAAAAEAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControlPoint.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Coordinate" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OrienteeringTracker.ControlPointTime">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>ControlPointTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrienteeringTracker.Coordinate">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAAAQE=</HashCode>
+      <FileName>Coordinate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrienteeringTracker.MainForm" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQBMAAkkJmEAAgAgAimpMABCAoKlAAABSQAMwaQgAiQ=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Player" />
+      <Property Name="Resources" />
+      <Property Name="RunnerData" />
+      <Property Name="Runner" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OrienteeringTracker.Helper">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="OrienteeringTracker.Helper.Ellipsoid" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Helper.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAACEIAAAAABAAABAAAAAIAIAAAAAAAAAAAjAA=</HashCode>
+      <FileName>Helper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrienteeringTracker.Leg">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Leg.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RunnerData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OrienteeringTracker.Player">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAgAEAAIAAAAAIAAAAAAAAQAAwAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrienteeringTracker.Program">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MainForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OrienteeringTracker.Runner">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAQAAABgAAACQAAACAAAAAAAABQAAAAAAAAAA=</HashCode>
+      <FileName>Runner.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Coordinate" />
+      <Property Name="ControlPointTime" />
+      <Property Name="ControlPoint" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OrienteeringTracker.RunnerData">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAAAAAAAAAAAAAAAYAAAEAEAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>RunnerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrienteeringTracker.Properties.Resources">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAABEAAAAQCAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="8.25" />
+</ClassDiagram>

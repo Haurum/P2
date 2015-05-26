@@ -1,0 +1,9 @@
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\OrienteeringTracker.Test.dll
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\OrienteeringTracker.Test.pdb
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\nunit.framework.dll
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\OrienteeringTracker.exe
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\OrienteeringTracker.pdb
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\bin\Debug\nunit.framework.xml
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\obj\Debug\OrienteeringTracker.Test.csprojResolveAssemblyReference.cache
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\obj\Debug\OrienteeringTracker.Test.dll
+C:\Users\Mark Haurum\Documents\UNI\2. Semester\P2\Løsningsdelen\program\OrienteeringTracker\OrienteeringTracker\OrienteeringTracker.Test\obj\Debug\OrienteeringTracker.Test.pdb
