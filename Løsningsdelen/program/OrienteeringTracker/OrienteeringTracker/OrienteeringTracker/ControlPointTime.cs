@@ -30,7 +30,6 @@ namespace OrienteeringTracker
                             this.Dist = thisCpt.Dist;
                             this.Number = thisCpt.Number;
                             this.Second = thisCpt.Second;
-                            this.Radius = thisCpt.Radius;
                             return;
                         }
                         cpt = new ControlPointTime();
@@ -47,7 +46,6 @@ namespace OrienteeringTracker
             this.Dist = 0;
             this.Number = 0;
             this.Second = 0;
-            this.Radius = 0;
             return;
 
         }
