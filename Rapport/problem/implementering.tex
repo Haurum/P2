@@ -7,7 +7,7 @@ Ved programmets opstart vises det statiske kort som gruppen har valgt at benytte
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=1\textwidth]{billeder/MapView1}
-	\caption{Klassediagram over projektets program}
+	\caption{Billede af folder-browser-dialogboxen}
 \end{figure}
 
 Når GPX-filer og koordinaterne for posterne er loadet ind i programmet, vil de forskellige mediaplayer funktioner komme frem, som ses på figur 6.2.
@@ -15,7 +15,7 @@ Når GPX-filer og koordinaterne for posterne er loadet ind i programmet, vil de 
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=1\textwidth]{billeder/MapView2}
-	\caption{Klassediagram over projektets program}
+	\caption{Billede af Map View, med løbere og punkter løbet ind}
 \end{figure}
 
 I bunden af programmet ses programmets trackbar, der gør det muligt at spole frem og tilbage under afspilningen. Nede i venstre hjørne findes to forskellige mediaplayer funktioner. Den yderste til venstre bruges til at vælge tempoet for afspilningen. Den anden bruges til at vælge startpost for løberne, hvilket gør det muligt at samle løberne, for lettere at kunne sammenligne dem med hinanden. På højre side ses en play/pause og  reset knap. Play/pause bruges til at starte/pause afspilningen. Reset knappen bringer programmet tilbage til dets opstarts stadie. Lige over disse to knapper findes en check box. I denne checkbox kan alle løberne ses. Checkboxen afgør hvilke løbere der vises på kortet, hvilket gør det muligt at skjule løbere, hvis der vil fokuseres på nogle bestemte løbere. Løberne vises ude på kortet med en prik i hver deres farve, samt en hale efter denne, som viser hvordan de har løbet de sidste 30 sekunder. 
@@ -24,18 +24,18 @@ Når der trykkes på tabben “Data View” vil alle løbernes data for løbet v
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=1\textwidth]{billeder/DataView1}
-	\caption{Klassediagram over projektets program}
+	\caption{Billede af Data View for hele løbet}
 \end{figure}
 
 Klikkes der på et felt for et stræk, kan der ses mere detaljerede informationer om det specifikke stræk. Som det kan ses på figur 6.4, indeholder dette de samme informationer som når der ses på hele løbet, med en enkelt undtagelse, her kan løberne se hvilken position de fik på det specifikke stræk. 
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=1\textwidth]{billeder/DataView2}
-	\caption{Klassediagram over projektets program}
+	\caption{Billede af Data View for et specifikt stræk}
 \end{figure}
 
 \section{Programstruktur}
-Da ingen af medlemmerne i gruppen tidligere havde erfaring med udvikling af store applikationer i C\# og Windows Forms, blev meget af udviklingen lavet ud fra “trial and error” princippet. Med det menes at gruppen forsøgte sig meget frem, for at lære at bruge Windows Forms, og der ikke blev lavet en decideret plan eller design for programmet, før udviklingen blev påbegyndt. Dette medførte at store dele af programmet blev lavet i samme klasse, hvilket forårsagede et forholdsvist lavt abstraktionsniveau. 
+Da ingen af medlemmerne i gruppen tidligere havde erfaring med udvikling af store applikationer i C\# og Windows Forms, blev meget af udviklingen lavet ud fra “trial and error” princippet. Med det menes at gruppen forsøgte sig meget frem, for at lære at bruge Windows Forms, og der ikke blev lavet en decideret plan eller design for programmet, før udviklingen blev påbegyndt. Dette medførte at store dele af programmet blev lavet i samme klasse, hvilket forårsagede et forholdsvist lavt abstraktionsniveau. Senere i projektforløbet, blev der opsat flere klasser og metoderne blev delt passende ud i disse.
 
 \subsection{Klassebeskrivelse}
 Gruppen har vha. Visual Studio udarbejdet et klassediagram, for at give et bedre overblik over programmets klasser. I firkanterne i klassediagrammet ses klassens navn, dens fields, properties og metoder.
@@ -48,8 +48,8 @@ Gruppen har vha. Visual Studio udarbejdet et klassediagram, for at give et bedre
 
 \begin {itemize}
 \item \textbf{Helper} klassen indeholder de metoder der bruges til at lave udregninger i programmet, eksempelvis konverteringen fra  koordinater i længde- breddegrader til UTM koordinater. 
-\item \textbf{Coordinate} indeholder koordinater for at kunne se hvor løberen er og hvor posterne er placeret, som både pixel- og UTM koordinater. 
-\item \textbf{ControlPoint} repræsentere posterne i løbet. Den indeholder en posts radius, samt nummer og henter dens koordinater fra Coordinates.
+\item \textbf{Coordinate} den bliver brugt til at holde koordinatsæt til Runners og ControlPoints.  
+\item \textbf{ControlPoint} repræsentere posterne i løbet. Den indeholder en posts radius, når løberen kommer indenfor denne radius af posten, vil posten blive markeret som besøgt. Derudover indeholder klassen nummer og henter dens koordinater fra Coordinatex.
 \item \textbf{ControlPointTime} har nedarvet fra ControlPoint, den implementerer Second og Dist som vil være tid i sekunder og distancen fra løberen til posten. 
 \item \textbf{Runner} indeholder informationer om en løber, dette er bl.a. løberens koordinater på ruten, om løberen har besøgt alle poster og løberens navn.
 \item \textbf{RunnerData} gemmer på en mængde data om hver enkelt løber, som hastighed, distance løbet og position i løbet, dette vil være de informationer som kan findes under tabben som gruppen har kaldt ”Data view”. 
@@ -205,7 +205,7 @@ public void ReadGPXData(FileStream GpxStream)
 }
 \end{lstlisting}
 
-Denne metode bruger en GpxReader klasse, der stammer fra KILDE MANGLER. Readeren har en funktion der hedder Read, som ud fra en FileStream, altså en fil, læser de nødvendige data, og gemmer det i sin Track property. Denne Track property indeholder alle koordinaterne i en liste, men gemmer dem i længde- og breddegrader. Derfor bruges en hjælpefunktion fra en Helper-klassen, til at konvertere til UTM koordinater, og igen til pixels. Efter konverteringen gemmes koordinaterne i listen af koordinater, Coords, der blev beskrevet ovenfor. 
+Denne metode bruger en GpxReader klasse, hentet fra nettet\citep{GPXR}. Readeren har en funktion der hedder Read, som ud fra en FileStream, altså en fil, læser de nødvendige data, og gemmer det i sin Track property. Denne Track property indeholder alle koordinaterne i en liste, men gemmer dem i længde- og breddegrader. Derfor bruges en hjælpefunktion fra en Helper-klassen, til at konvertere til UTM koordinater, og igen til pixels. Efter konverteringen gemmes koordinaterne i listen af koordinater, Coords, der blev beskrevet ovenfor. 
 Efter koordinaterner er læst ind fra filen, kaldes metoden AddMissingPoints. Problemet med de GPX-filer der er blevet brugt i projektet, er at der ikke nødvendigvis er et koordinat for hvert sekund, men at der godt kan være sprunget et sekund eller flere over, hvis GPS-modtagelsen har været dårlig. AddMissingPoints udfylder de sekunder der ikke er noget data, så det fremstår som at løberen ikke bevæger sig. På den måde er det lettere at finde ud af hvor lang tid løberen har løbet, da starttidspunktet er kendt.
  
 \subsection{RunnerData}
